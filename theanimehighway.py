@@ -13,7 +13,7 @@ import array
 #The Anime Highway - by The Highway 2013.
 #version 0.0.2d
 
-__settings__   	= xbmcaddon.Addon(id='plugin.video.theanimehighway')
+__settings__ 		= xbmcaddon.Addon(id='plugin.video.theanimehighway')
 __home__ = __settings__.getAddonInfo('path')
 
 ##__home__ = 'special://home/addons/plugin.video.theanimehighway/art'

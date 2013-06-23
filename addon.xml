@@ -4,7 +4,7 @@
        version="0.0.3"
        provider-name="TheHighway">
   <requires>
-    <import addon="xbmc.python"   							version="1.0.0"/>
+    <import addon="xbmc.python" 								version="1.0.0"/>
     <import addon="script.module.urlresolver"  	version="1.0.0"/>
     <import addon="script.module.elementtree" 	version="1.2.7"/>
     <import addon="script.module.cryptopy" 			version="1.2.6"/>

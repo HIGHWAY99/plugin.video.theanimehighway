@@ -5,7 +5,7 @@ try:
 except ImportError:
     import simplejson as json
 
-__settings__   	= xbmcaddon.Addon(id='plugin.video.theanimehighway')
+__settings__ 		= xbmcaddon.Addon(id='plugin.video.theanimehighway')
 __home__ = __settings__.getAddonInfo('path')
 addonPath=__home__
 artPath=addonPath+'/art/'
