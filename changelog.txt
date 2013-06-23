@@ -1,0 +1,131 @@
+=========
+ChangeLog:
+=========
+
+ver 0.0.3 - The Anime Highway
+  15.) 
+	14.) 
+	13.) 
+	12.) 
+	11.) GoogleVideo icon graphic added.
+	10.) Thinking of watching some more of the anime series Kono Naka ni Hitori, Imouto ga Iru! (episode 2)... to take a break.
+	09.) There aren't many Google Video links either, so I haven't hunted up one yet to try and make sure they work finally, yet. I added a simular method as to what I did for the others... so there's a slight chance they may work.
+	08.) There aren't many DailyMotion links, so I haven't hunted up one to double check hat they still work... nor rather they work most or just some of the time.
+	07.) NovaMov video source urls now seem to be working.
+	06.) VideoFun video source urls now seem to be working. <<< This is a HUGE help for those wanting to watch any of the Anime Movies.
+	05.) NovaMov icon graphic added.
+	04.) VideoFun icon graphic added.
+	03.) YourUpload icon graphic added.
+	02.) 2ndary method made for YourUpload videos, as only some wanted to work before. Now, most should work.
+	01.) Testing on other video source urls for AddLink().
+
+ver 0.0.2d - The Anime Highway (named after myself)
+	03.) Added plugin graphics for GoodDrama.
+	02.) Hopefully fixed the new path issue I was having.
+	01.) Setting up new project path became troublesome.
+
+ver 0.0.2b - The Anime Highway (named after myself)
+	15.) OK decided on The Anime Highway (Anime Highway on the list to be more to the top of the A's) as it sounds better than Animation Highway.
+	14.) Sorting extra files out for Release Time, and considering plugin's new name.
+	13.) Genres (with/without count), Show/Movie Listings, Episode Listings (with/without date stamp) seem to be working. Video-Source URL Links still seem to be troublesome for some yourupload links and I havent had the chance to get others any further positive progress for now.
+	12.) Realized I had a bug on the genre's page which turned out to be a forgoten elif(elseif) in the site-change handling area for the whole plugin. This caused wrong data to show for animeplus and gooddrama, but is now fixed.
+	11.) Added GooddDama.net to the plugin.
+	10.) Fixed some urls I forget about for AnimeGet
+	09.) Added AnimePlus.tv to the plugin.
+	08.) Fixed animeget side of plugin to again pull the date stamps on episodes, while still working without date stamps for anime44 (which does not have them).
+	07.) Fixed animeget side of plugin to do the additional menu choices.
+	06.) Added icon and fanart graphics for overall plugin project.
+	05.) Setup for additional icon and fanart graphics.
+	04.) Added modifications for more colored text.
+	03.) Added Site selection menu.
+	02.) Settup of further arrays.
+	01.) Filtering in data for both sites.
+
+ver 0.0.2a - Anime44
+	07.) I've Decided to merge my AnimeGet and Anime44 plugins to make one named Animation Highway.
+	06.) Got my first YourUpload video source link to work finally. (4th video source seems to be working.)
+	05.) Added colored Text to video source links.
+	04.) Added colored Text to keep some differance between movies (red) and series (blue).
+	03.) Added some arrays and better handling to easy shift between projects.
+	02.) Annoyed by the tab-spacing issues with Python scripting.
+	01.) Working towards cleaning up the mess of extra imports.
+
+ver 0.0.1b - Anime44 - [Released]
+	06.) My icon and fanart images for me havent wanted to update propperly, but hopefully they'll show up right for you instead of showing the old animeget graphics.
+	05.) More or less, a bunch of little fixes, tweaks and hadling the change over for Anime44 from the original plugin for AnimeGet, which i still plan to work on.
+	04.) Made Fix for lack of date stamp on episode list.
+	03.) Made Fixes for Movie Listings.
+	02.) Fix things up a bit to make it easier to change for other simular sites later on.
+	01.) Movies seem to get the royal shaft on this site. No Art, no categories, just one long list on a single page. Anime Shows seems to have a slight few less options too, but not as badly downgraded.
+
+ver 0.0.1a - AnimeGet - [Released]
+	12.) Noticed some simular sites and looking at them for possible expansion. For the time being, I'm going to copy my addon and see about fixing it up to work on one or more other simular sites as well.
+	11.) Still searching the site to notice other video sources, but it pretty much means viewing source for each and every page and looking down through it to see. It's very tedious and boring, so will wait a while on that. Currently 3 video sources work. Unfortunately 1 important one does seem to be quite secure and thus does not (videofun.me).
+	10.) Things seem to be working for top choices: movies, shows, ongoing, new, surprise-me. Have not bothered to do Latest episodes or Search feature yet. That might wait to way down the line. (feel free to edit it to add them if you wish)
+	09.) Setting up additional Top-menu choices. Still a few unavailable.
+	08.) Added Source for DailyMotion.
+	07.) Visited the #xbmchub IRC chat channel again to see how things were, thanked o9r1sh, said hello to TwistedZero.
+	06.) Setting up Genres for menu.
+	05.) Found fix for parsing of video sources (video44 and videoweed) thanks to o9r1sh of plugin.video.gogoanime.
+	04.) Setting up alphabetical index.
+	03.) Setting up main menu.
+	02.) Testing to make sure atleast some of the video sources will work with Addlink().
+	01.) Sorting out the basic foundation of the video plugin(s).
+
+
+=======
+Working:
+=======
+
+1.) Anime Listings:
+	for shows - index - alphabetical - anime - video sources
+	for movies - index - alphabetical - anime - video sources  		*(bad news is Videofun.me seems to be used for a LOT of the anime movies ive looked through so far. Like 3 videofun links all for the same movie and no other type.)
+	For shows/movies - genre - list - anime - voice sources
+	for Ongoing Anime, New Series, Surprise Me
+
+2.) video source location setup:
+	Videoweed		*(Special Thanks to o9r1sh of plugin.video.gogoanime for working stream url parse information.)
+	Video44			*(Special Thanks to o9r1sh of plugin.video.gogoanime for working stream url parse information.)
+	dailymotion.com
+
+
+=======
+Ongoing:
+=======
+
+1.) Art				*(Special Thanks to authors of 1channel[glossyblack],gogoanime, and a few other unknown/forgotten sources)
+	Unsure how long these graphics will last or when they might get replaced/updated. I currently claim no rights to any of the current graphics personally.
+
+
+
+==========
+TO-DO List:
+==========
+
+1.) Anime Listings:
+	by Genre, Popular, New, Recent, Ongoing, Completed for shows
+	by Genre, Popular, New, Recent for movies
+
+2.) Latest Episodes, Search, Stuff on Front Page
+
+#...
+
+11.) video source location setup:
+	yourupload.com
+	videofun.me	(many movies have only videofun.me links)
+	video.google.com
+
+12.) Go over images.
+
+13.) Clean up extra files.
+
+14.) Write lisense file and give credit where due.
+
+15.) Setup any settings.
+
+16.) Considering merging multiple video plugins for simular sites.
+
+last.) Clean up extra code and imports.
+
+
+
