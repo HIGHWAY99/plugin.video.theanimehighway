@@ -11,7 +11,7 @@ except ImportError:
 import array
 
 #The Anime Highway - by The Highway 2013.
-#version 0.0.2d
+#version 0.0.3b
 
 __settings__ 		= xbmcaddon.Addon(id='plugin.video.theanimehighway')
 __home__ = __settings__.getAddonInfo('path')
@@ -82,34 +82,34 @@ print "Type2: "+str(type2)
 #########################################
 
 #ICON = os.path.join(__home__, 'iconA44.png')
-ICON4 = os.path.join(__home__, 'icongd.png')
-ICON3 = os.path.join(__home__, 'iconAPlus.png')
-ICON2 = os.path.join(__home__, 'iconA44.png')
-ICON1 = os.path.join(__home__, 'iconAG.png')
+ICON4 = os.path.join(artPath, 'icongd.png')
+ICON3 = os.path.join(artPath, 'iconAPlus.png')
+ICON2 = os.path.join(artPath, 'iconA44.png')
+ICON1 = os.path.join(artPath, 'iconAG.png')
 ICON0 = os.path.join(__home__, 'icon.png')
 #fanart = os.path.join(__home__, 'fanartA44.jpg')
-fanart4 = os.path.join(__home__, 'fanartgd.jpg')
-fanart3 = os.path.join(__home__, 'fanartAPlus.jpg')
-fanart2 = os.path.join(__home__, 'fanartA44.jpg')
-fanart1 = os.path.join(__home__, 'fanartAG.jpg')
+fanart4 = os.path.join(artPath, 'fanartgd.jpg')
+fanart3 = os.path.join(artPath, 'fanartAPlus.jpg')
+fanart2 = os.path.join(artPath, 'fanartA44.jpg')
+fanart1 = os.path.join(artPath, 'fanartAG.jpg')
 fanart0 = os.path.join(__home__, 'fanart.jpg')
 
 
 if type2==4:		#site 4
-	fanart = os.path.join(__home__, 'fanart.jpg')#have not grabbed a graphic for this yet.
-	ICON = os.path.join(__home__, 'icon.png')#have not grabbed a graphic for this yet.
+	fanart = os.path.join(artPath, 'fanartgd.jpg')#have not grabbed a graphic for this yet.
+	ICON = os.path.join(artPath, 'icongd.png')#have not grabbed a graphic for this yet.
 	mainSite='http://www.gooddrama.net/'
 elif type2==3:		#site 3
-	fanart = os.path.join(__home__, 'fanartplus.jpg')
-	ICON = os.path.join(__home__, 'iconplus.png')
+	fanart = os.path.join(artPath, 'fanartplus.jpg')
+	ICON = os.path.join(artPath, 'iconplus.png')
 	mainSite='http://www.animeplus.tv/'
 elif type2==2:		#site 2
-	fanart = os.path.join(__home__, 'fanartA44.jpg')
-	ICON = os.path.join(__home__, 'iconA44.png')
+	fanart = os.path.join(artPath, 'fanartA44.jpg')
+	ICON = os.path.join(artPath, 'iconA44.png')
 	mainSite='http://www.anime44.com/'
 else:						#site 1
-	fanart = os.path.join(__home__, 'fanartAG.jpg')
-	ICON = os.path.join(__home__, 'iconAG.png')
+	fanart = os.path.join(artPath, 'fanartAG.jpg')
+	ICON = os.path.join(artPath, 'iconAG.png')
 	mainSite='http://www.animeget.com/'
 
 Sites=['animeget.com','anime44.com','animeplus.tv','gooddrama.net']
