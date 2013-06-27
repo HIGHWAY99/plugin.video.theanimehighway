@@ -1,12 +1,103 @@
-=========
-ChangeLog:
-=========
+========= Video Sources: =========
+List sites:												animeget.com, anime44.com, animeplus.tv, gooddrama.net
+Video Source FYI/Rundown:
+				>>	VideoFun							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
+				>>	Video44								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
+				>>	Vidzur								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
+				>>	YourUpload						>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
+				>>	VideoWeed							>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
+				>>	DailyMotion						>>	Playable: 3xYes	>>	Screenshot: Yes	>>	Downloadable: No *sad face*
+				>>	NovaMov								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: No
+				>>	GoogleVideo						>>	Playable: ???		>>	Screenshot: ???	>>	Downloadable: ???
+
+
+========= ChangeLog: =========
+
+ver 0.0.4 - The Anime Highway
+	49.) Time to upload to github. I guess it's been pleanty long working on it since updating github last.
+	48.) Got both VideoWeed and NovaMov to be playable again.
+	47.) Fixed little problem with the download option for video44
+	46.) Added Video Source Runday list to the ChangeLog file, to better keep people uptodate on whats working.
+	45.) DailyMotion Videos >> Play: working , Downloads: no
+	44.) Working on resorting out my main method for Video Link fetching.
+	43.) It's After 5am... Zzz... (Time to sleep.)
+	42.) Added File not found to another of the sources.
+	41.) Added Part # labeling for VideoFun and Video44.
+	40.) Stuck on dailymotion and NovaMov.
+	39.) Sorted out most of the common Video Sources. NovaMov for sure is messed up atm, but VideoFun, Video44, YourUpload, VideoWeed, & VidZur seem to be working now.
+	38.) Doing a MAJOR overhaul to fix the messup that led to sloppy coding in process of filtering the Video Source types.
+	37.) Noticed a problem of using 'match[0]' instead of 'url' in some place(s).
+	36.) Done some fixes for YourUpload source. Hoping it will work for downloading a lot more often now. Screenshot should also work more often now.
+	35.) VidZur(noticed on anime44 and animeget) source seems to work finally. Download for VidZur also seems to work fine.
+	34.) Added graphic for VidZur.
+	33.) Working on adding VidZur as a source location.
+	32.) Added [COLOR tan] [/COLOR] to Favorites and Highway in many places thru-out the plugin.
+	31.) Left the ability to block download feature in Function() but setup an if-statement to block them by string-in-URL statements for the known bad sources.
+	30.) I have dissabled video downloads for 2ndary Links of VideoFun sources. You can still use getURL feature on these.
+	29.) More Download Notes:
+					# Let me take this moment to point out that there's not currently a Cancel feature for the downloads. Hmm, then again, it may or may not cancel but take a short bit before canceling and then not meantoin that its been canceled for the time being.
+					# Progress bar does not work atm, or at least on the videos.
+					# Filesize is currently in bytes.
+					# Some Video Sources like to download in real-time, causing for a very slow agronising wait... while unable to do anything else.
+					# Disclaimer: WARNING! If you choose a very laggy download that takes forever, you may very well to forcibly close XBMC and start it again. << You were warned here! This is why it helps to read a change log. >> hehehe.
+					# Some video sources end up basically routing to the same bad source types at times while not at other times. This made a lot of my testing somewhat meaningless... but I still made some use of the information.
+					# More testing needs done on this feature.
+					# 
+	28.) Testing of Download on the differant Video Sources:																																							#									# [##] = random data for the most part.
+					# VideoFun:  			# (failure)		# Does not seem possible at this time.																												#Screenshot: yes	# urls: http://[##].videofun.me/videos/[showname]/[filename].flv?st=[##]-[##]&e=[##]
+					# Video44:  			# (pass)			# Fast Speed. Complete Video. Good Video Output. Around 37-38mb for 23min videos. 						#Screenshot: no 	# urls: http://[##.##.##.## ip address]/dl/[##]/[##]/[filename].flv
+					# NovaMov:  			# (maybe)			# Slow Speed. Seems like real time. May not output a full video.															#Screenshot: no 	# urls: http://[##.##.##.## ip address]/dl/[##]/[##]/[filename].flv
+					# YourUpload:  		# (pass)			# Fast Speed. Complete Video. Good Video Output. Around 37-38mb for 23min videos. 						#Screenshot: yes	# urls: http://stream.vidcache.net/[##]?client_file_id=[##]
+					# VideoWeed:			#	(failure)		#	Slow Speed.	Seems like real time. Taken longer than real-time to finish downloading.				#Screenshot: no 	# urls: http://[##].videoweed.es/dl/[##]/[##]/[##].flv
+					# DailyMotion:		#	(untested)	# 
+					# GoogleVideo:		#	(untested)	# 
+					# 
+	27.) Added Filesize prompt at download completion, to help confirm a good download.
+	26.) Problems with the ContextMenuItem display options have led to skipping the easy function for the time being, or atleast for True/False options. Those options seem to work now.
+	25.) Added Clear-Favorites option to the Plugin category in settings window.
+	24.) ContextMenuItem > Downloading, Show URL >> settings should now work.
+	23.) Have noticed that some video sources dont want to work for downlaods and will DL a second or two basically and stop. << For now, try a differant source when possible.
+	22.) Yes/No-Dialog > Figured out how to set text in place of Yes and No, so I setup a Movie / Shows folder prompt. This means Movies folder now works too. So, you now have the option of saving to your settable movie or show folder.
+	21.) Folder settings now gotten for Shows Folder.
+	20.) Progress-Dialog for file download doesn't seem to show any progress increasing, but atleast this way you better know when the file download has started and ends besides the little notice prompts that doesnt last long.  Wish I could get something going in the upper right hand corner as I've seen with another addon before, but I simply dont know how yet.
+	19.) Working on Dialogs again today.
+	18.) Researched addon settings getting.
+	17.) Got bored of WoW super-fast.
+	16.) Is a Taco Tuesday at one of our town's local gas station, so I caught a bite to eat and played some WoW on Astralwow.info to take a bit of a break from working on the plugin non-stop.
+	15.) Settigns > Account				>> Username, Password, Use Account? << I should meantion that this may never be integrated, but wanted it setup just in case.
+	14.) Settings > Plugin 				>> Download master branch file (downloads the .zip as a .avi, so will need to change that manually for now)
+	13.) Settings > Downloads 		>> ContextMenuItem >>> File Downloading, Show URL
+	13.) Settings > Downloads 		>> Show Folder, Movie Folder
+	12.) Added Language file (/language/english/strings.xml)
+	11.) Working on the plugin's Settings window. Mainly Prep work for now. None of the Settings are currently used at this point.
+	10.) --File Downloading-- (preset local path)
+	09.) Yes/No-Dialogs
+	08.) OK-Dialogs
+	07.) Testing File Downloading.
+	06.) Had ShowPage URLs setup for keyboard method, Now got it setup for Video URLs too. Still no copy/paste yet.
+	05.) Setup Keyboard method to display -some- URLs, but not sure how to setup copy/paste yet.
+	04.) Trying to put together a method to display URLs for easier copy/paste.
+	03.) I saw one DailyMotion link earlier I beleive that showed as error (non-playable). Can't seem to remember which show/episode it was on now to work on fixing that just yet.
+	02.) Fixed up Show-Poster graphic, current Fanart, and Show name (without date-stamp) to carry through from show listings to link listings and even display while video is playing. This way if there's no screenshot for a given video-source, it'll default to the Show-Poster graphic. I've been trying to away from annoying huge images showing as the icon on the play-bar during watching videos... but this seems to look better than seeing the video source site's name.
+	01.) liz.addContextMenuItems(contextMenuItems, replaceItems=True)##replaceItems is now set to False, so that shows can still be set to XBMC Overall-Favorites List and such things.
+
+ver 0.0.3c - The Anime Highway
+	14.) Fixed Favorites to work when clicked to view the show's episodes  propperly.
+	13.) Show/Add/Remove/Clear-Favorites seem to all be functioning now.
+	12.) Added Clear-Favorites ContextMenuItem to empty list of Favorites.
+	11.) Adding more data to be recorded for Add/Remove-Favorites... I should really see about fixing this method later.
+	10.) Show-Favorites seem to be working but now more probs with Add/Remove-Favorites.
+	09.) Add/Remove-Favorite seem to work but Favorites not showing up in Favorites Menu.
+	08.) Add-Favorite...somewhat functional.
+	07.) Sorted out issues I hadn't noticed with my notification method.
+	06.) Decided to use what seems to be a more common method for ContextMenuItem execusion of commands.
+	05.) Getting more used to using "%s - %s" % (item1,item2) type method of doing things.
+	04.) Hours spent figuring out issues wit hsetting up functions and such to run from the ContextMenuItems.
+	03.) Researched ContextMenuItems Methods.
+	02.) Started work on researching methods used by others for Saving Favorites within the plugin.
+	01.) ...hours sorting out stuff to setup things on github.
 
 ver 0.0.3 - The Anime Highway
-	15.) 
-	14.) 
-	13.) 
-	12.) 
 	11.) GoogleVideo icon graphic added.
 	10.) Thinking of watching some more of the anime series Kono Naka ni Hitori, Imouto ga Iru! (episode 2)... to take a break.
 	09.) There aren't many Google Video links either, so I haven't hunted up one yet to try and make sure they work finally, yet. I added a simular method as to what I did for the others... so there's a slight chance they may work.
@@ -73,59 +164,18 @@ ver 0.0.1a - AnimeGet - [Released]
 	01.) Sorting out the basic foundation of the video plugin(s).
 
 
-=======
-Working:
-=======
-
-1.) Anime Listings:
-	for shows - index - alphabetical - anime - video sources
-	for movies - index - alphabetical - anime - video sources  		*(bad news is Videofun.me seems to be used for a LOT of the anime movies ive looked through so far. Like 3 videofun links all for the same movie and no other type.)
-	For shows/movies - genre - list - anime - voice sources
-	for Ongoing Anime, New Series, Surprise Me
-
-2.) video source location setup:
-	Videoweed		*(Special Thanks to o9r1sh of plugin.video.gogoanime for working stream url parse information.)
-	Video44			*(Special Thanks to o9r1sh of plugin.video.gogoanime for working stream url parse information.)
-	dailymotion.com
-
-
-=======
-Ongoing:
-=======
-
-1.) Art				*(Special Thanks to authors of 1channel[glossyblack],gogoanime, and a few other unknown/forgotten sources)
-	Unsure how long these graphics will last or when they might get replaced/updated. I currently claim no rights to any of the current graphics personally.
-
-
-
 ==========
 TO-DO List:
 ==========
 
-1.) Anime Listings:
-	by Genre, Popular, New, Recent, Ongoing, Completed for shows
-	by Genre, Popular, New, Recent for movies
+Search Feature
+More Sites
+Code Cleanup
+Graphics
+Figure out video linkage for Google and others.
+Setting option to view "Error" Links
 
-2.) Latest Episodes, Search, Stuff on Front Page
 
-#...
-
-11.) video source location setup:
-	yourupload.com
-	videofun.me	(many movies have only videofun.me links)
-	video.google.com
-
-12.) Go over images.
-
-13.) Clean up extra files.
-
-14.) Write lisense file and give credit where due.
-
-15.) Setup any settings.
-
-16.) Considering merging multiple video plugins for simular sites.
-
-last.) Clean up extra code and imports.
 
 
 

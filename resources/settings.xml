@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
+   <category label="30800">
+   	<setting label="30803" type="folder" 	id="folder-show" 				default="special://home/media/TV Shows" />
+   	<setting label="30804" type="folder" 	id="folder-movie"  			default="special://home/media/Movies" />
+   	<setting label="30805" type="bool" 		id="enable-downloading" 	default="true"/>
+   	<setting label="30806" type="bool" 		id="enable-showurl" 			default="true"/>
+   </category>
+   <category label="30700">
+   	<setting label="30701" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=0&fav=download&name=TheAnimeHighway&url=https://github.com/HIGHWAY99/plugin.video.theanimehighway/archive/master.zip)"/>
+   	<setting label="30702" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=887&name=none&nm=none&tp=0&fav=clr&url=none&scr=none&fan=none)"/>
+   	<setting label="30703" type="bool"		id="enable-clearfavorites" 	default="true"/>
+   </category>
     <category label="32001">
         <setting label="32011" type="text"   id="username" default=""/>
-        <setting label="32012" type="text"   id="password" option="hidden"  enable="!eq(-1,)" default=""/>
-        <setting label="32053" type="slider" id="limit" subsetting="true" default="20" range="5,5,100" option="int" />
-        <setting type="sep"/>
-        <setting id="debug" type="bool" label="32013" default="false"/>
-    </category>
-    <category label="32010">
-        <setting label="32032" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
+        <setting label="32012" type="text"   id="password" option="hidden" default=""/>
+        <setting label="32013" type="bool" 	 id="enable-accountinfo" default="false"/>
     </category>
 </settings>

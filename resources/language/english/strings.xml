@@ -1,0 +1,25 @@
+<strings>
+  #Downloads
+	<string id="30800">Downloads</string>
+	<string id="30803">[COLOR blue]Show[/COLOR] Folder:</string>
+	<string id="30804">[COLOR red]Movie[/COLOR] Folder:</string>
+	<string id="30805">Enable ContextMenuItem: Downloading?</string>
+	<string id="30806">Enable ContextMenuItem: Show URL?</string>
+
+	#Plugin
+	<string id="30700">Plugin</string>
+	<string id="30701">Download current Master branch ZIP of this plugin.</string>
+	<string id="30702">Clear [COLOR tan]Favorites[/COLOR].</string>
+	<string id="30703">Enable ContextMenuItem: Clear [COLOR tan]Favorites[/COLOR]?</string>
+
+	#Account
+	<string id="32001">Account</string>
+	<string id="32011">Username: </string>
+	<string id="32012">Password: </string>
+	<string id="32013">Use Account info? (Not Available) </string>
+	
+
+
+
+
+</strings>
