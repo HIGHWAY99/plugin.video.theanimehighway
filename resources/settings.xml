@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-   <category label="30800">
-   	<setting label="30803" type="folder" 	id="folder-show" 				default="special://home/media/TV Shows" />
-   	<setting label="30804" type="folder" 	id="folder-movie"  			default="special://home/media/Movies" />
-   	<setting label="30805" type="bool" 		id="enable-downloading" 	default="true"/>
-   	<setting label="30806" type="bool" 		id="enable-showurl" 			default="true"/>
+   <category label="30800">#Downloads
+   	<setting label="30803" type="folder" 	id="folder-show" 									default="special://home/media/TV Shows" />
+   	<setting label="30804" type="folder" 	id="folder-movie"  								default="special://home/media/Movies" />
+   	<setting label="30805" type="bool" 		id="enable-downloading" 					default="true"/>
+   	<setting label="30806" type="bool" 		id="enable-showurl" 							default="true"/>
    </category>
-   <category label="30700">
+   <category label="30700">#Plugin
+   	<setting label="30704" type="bool"		id="enable-debug" 								default="false"/>
+   	<setting label="30705" type="bool"		id="show-debug" 									default="false"/>
    	<setting label="30701" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=0&fav=download&name=TheAnimeHighway&url=https://github.com/HIGHWAY99/plugin.video.theanimehighway/archive/master.zip)"/>
    	<setting label="30702" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=887&name=none&nm=none&tp=0&fav=clr&url=none&scr=none&fan=none)"/>
-   	<setting label="30703" type="bool"		id="enable-clearfavorites" 	default="true"/>
+   	<setting label="30703" type="bool"		id="enable-clearfavorites" 				default="true"/>
    </category>
-    <category label="32001">
-        <setting label="32011" type="text"   id="username" default=""/>
-        <setting label="32012" type="text"   id="password" option="hidden" default=""/>
-        <setting label="32013" type="bool" 	 id="enable-accountinfo" default="false"/>
+   <category label="30600">#View Modes
+   	<setting label="30601" type="number" 	id="viewmode-default"							default="50"	/>
+   	<setting label="30602" type="number" 	id="viewmode-movies"							default="515"	/>
+   	<setting label="30603" type="number" 	id="viewmode-shows"								default="515"	/>
+   	<setting label="30604" type="number" 	id="viewmode-episodes"						default="503"	/>
+   	<setting label="30605" type="number"	id="viewmode-sources"							default="50"	/>
+   	<setting label="30606" type="number"	id="viewmode-favs" 								default="504"	/>
+   </category>
+   <category label="30500">#MetaArt
+   	<setting label="30706" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=887&name=none&nm=none&tp=0&fav=metaclear&url=none&scr=none&fan=none)"/>
+   </category>
+    <category label="32001">#Account
+     <setting label="32011" type="text"   id="username" 										default=""/>
+     <setting label="32012" type="text"   id="password" option="hidden" 		default=""/>
+     <setting label="32013" type="bool" 	id="enable-accountinfo" 					default="false"/>
     </category>
 </settings>

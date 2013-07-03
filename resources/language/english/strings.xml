@@ -6,11 +6,26 @@
 	<string id="30805">Enable ContextMenuItem: Downloading?</string>
 	<string id="30806">Enable ContextMenuItem: Show URL?</string>
 
+  #MetaArt
+	<string id="30600">View Modes</string>
+	<string id="30601">View-Mode: - Default -</string>
+	<string id="30602">View-Mode: List of Movies</string>
+	<string id="30603">View-Mode: List of Shows</string>
+	<string id="30604">View-Mode: Episodes</string>
+	<string id="30605">View-Mode: Sources</string>
+	<string id="30606">View-Mode: Favorites</string>
+
 	#Plugin
 	<string id="30700">Plugin</string>
+	<string id="30704">Enable Debugging? (where available)</string>
+	<string id="30705">Show Information for Debugging (where available)</string>
 	<string id="30701">Download current Master branch ZIP of this plugin.</string>
 	<string id="30702">Clear [COLOR tan]Favorites[/COLOR].</string>
 	<string id="30703">Enable ContextMenuItem: Clear [COLOR tan]Favorites[/COLOR]?</string>
+
+  #MetaArt
+	<string id="30500">Metadata</string>
+	<string id="30706">Clear [COLOR tan]Metadata[/COLOR].</string>
 
 	#Account
 	<string id="32001">Account</string>

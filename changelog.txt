@@ -1,5 +1,10 @@
+========= Contact: =========
+I can often be found " i-d-l-i-n-g " on irc chat in the channel #XBMCHUB on irc.freenode.net:6667. Please feel free to come hang out, "IDLE", and help one another. I'd like to see this channel more active. :)
+
+Am also on the xbmchub forums, though I don't frequent the forum near as much.
+
 ========= Video Sources: =========
-List sites:												animeget.com, anime44.com, animeplus.tv, gooddrama.net
+List sites:												animeget.com, anime44.com, animeplus.tv, gooddrama.net, anime44.co.uk (AnimeZone - has many mirror domains)
 Video Source FYI/Rundown:
 				>>	VideoFun							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
 				>>	Video44								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
@@ -9,9 +14,51 @@ Video Source FYI/Rundown:
 				>>	DailyMotion						>>	Playable: 3xYes	>>	Screenshot: Yes	>>	Downloadable: No *sad face*
 				>>	NovaMov								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: No
 				>>	GoogleVideo						>>	Playable: ???		>>	Screenshot: ???	>>	Downloadable: ???
-
+				>>	Putlocker							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
+				>>	Upload2								>>	Playable: ???		>>	Screenshot:	???	>>	Downloadable:	???
+				>>	VideoSlasher					>>	Playable: No		>>	Screenshot: No	>>	Downloadable:	???
+				>>	VidBull								>>	?? (only files seen so far were of deleted videos.)
+				>>	UploadC								>>	Playable: Maybe		>>	Screenshot: No	>>	Downloadable: ???
+				>>	Veevr									>>	Playable: No		>>	Screenshot: Yes	>>	Downloadable: ???
+				>>	MP4Upload							>>	(Maybe in Future)
+				>>	AUEngine							>>	(Maybe in Future)
+				>>	RuTube.ru							>>	(Not yet)
+				>>	
+				>>	
 
 ========= ChangeLog: =========
+
+ver 0.0.5 - The Anime Highway
+	30.) Fixed the passing of Plot Description in MetaArt and thetvdb functions, so that if thetvdb's description is blank, it'll use the description passed to it by the site (such as animeget.com).
+	29.) Added ContentMenuItem: Show Information. I'm very happy to have added this feature.
+	28.) Fixed ' and " 's showing up as &#____; 's on Descriptions for dubbed anime (AnimeZone).
+	27.) Bug Fix: Many shows showing up in dubbed anime (AnimeZone). Fixed!
+	26.) I seem to still be sorting out little tiny errors here and there from the moving of stuff to teh_tools.py
+	25.) teh_tools.py added to '/plugin.vidoe.theanimehighway/'. Many functions and such from both theanimehighway.py and videolinks.py have been moved over to the_tools.py This was in hopes of cleaning up videolinks.py some and making both fore-mentioned .py files a bit cleaner
+	24.) The 'enable-debugging' setting has been setup to work with much of the 'print' commands. Still need to setup 'show-debugging' setting for many of the extra notice commands.
+	23.) OK, all the sites for the most part seem to be doing well-ish enough on the extra data (such as plot description). They also seem to be well-ish with the thetvdb.com Metadata handling.
+	22.) All these new features handling the extra parsing data, as well as, handling the metadata has seriously slowed down the load time for each page. Sorry for the effect that has, but I hope some find it handier to have it this way.
+	21.) Metadata is still a work in progress, but should be working slightly on AnimeGet, Anime44, GoodDrama, and AnimeZone(including dubbed-anime). This is currently only for show data, part of which is also now parsed from the individual sites as well.
+	20.) Added more to the Plugin's Settings window. Still gotta connect the settings.
+	19.) Working on adding some cached meta data for quicker fetching later.
+	18.) Doing some testing on AnimeGet and Anime44 sections to see about adding thetvdb meta data where missing.
+	17.) I can finally set things as movies and tvshows view types. This allows me to make more views a vailable to you, as well as setting some default views. I need to setup some things in the settings window for this later.
+	16.) Sorting where available... a bit picky at times.
+	15.) more data-labeling, for AnimeGet.com only at the moment.
+	14.) Lots of Research on how-to add some new features.
+	13.) Removed Videos for NovaMov, want to show as Error.
+	12.) AnimeZone's dubbed anime section is going to need a ton of work done yet. Many of its video's go down pretty fast'ish.
+	11.) Added Handling for only-some video sources for when Video has been Removed/Deleted.
+	10.) Veevr screenshot of video works, but video doesnt seem to play yet. I'm currently @ a deadend with Veevr sources atm. I can get screenshot of video but not the video itself.
+	09.) Fixed a complication with Dailymotion sources for AnimeZone's english-dubbed section.
+	08.) NovaMov seems to still be a problem. Some work done on NovaMove, but still not working.
+	07.) Putlocker and UploadC sources seem to be working now.
+	06.) Adding Dubbed-Anime Listings from AnimeZone to the plugin.
+	05.) Adding Upload2 video source capabilities, for future use. Is still untested.
+	04.) Seems to be no Search ability on AnimeZone at this time.
+	03.) Search ability seems to be working for: AnimeGet (post), Anime44 (get), AnimePlus (get), GoodDrama (get).
+	02.) Added ability to fetch URLs with post-type form-data. This was needed for AnimeGet's search method.
+	01.) Added AnimeZone to the Handled-Sites. This seems to have 3 domains and links on header bar changes between them a LOT. I've only added 1 of the 3 domains for now... surely that should be enough.
 
 ver 0.0.4 - The Anime Highway
 	49.) Time to upload to github. I guess it's been pleanty long working on it since updating github last.
@@ -168,14 +215,75 @@ ver 0.0.1a - AnimeGet - [Released]
 TO-DO List:
 ==========
 
-Search Feature
-More Sites
-Code Cleanup
+Search Feature *(Done)
+More Sites *(Keeps happening)
+Code Cleanup *(A Endless Task)
 Graphics
 Figure out video linkage for Google and others.
-Setting option to view "Error" Links
+Setting option to view "Error" Links.
+Handling for .strm files.
+
+
+================
+Current Features:
+================
+
+# Handles Sites: animeget.com, anime44.com, animeplus.tv, gooddrama.net (JDrama), anime44.co.uk (AnimeZone - has many mirror domains)
+
+# Video-Url Parsing: Internally Handles parsing to get usable links for a very Huge list of video hosting sites. *(Still working on handling more of them.)
+
+# Playing Online-Videos: Handles Playing many, but not all, of the videos linked from the fore-mentioned 'Handled Sites'.
+
+# Downloads: Grants a ContentMenuItem option to download-to-harddrive (to one of two user-settable folders) option for many, but not all, of the fore-mentioned 'Handled Sites'. A feature which I surely hope many will love who use XBMC @ a PC. This feature might not be as useful at this time for those using XBMC from a mediaplayer of sorts or such a device. I'm sure many will want to complain or hate me for including this feature, but those types need to remember to keep their personal opinions to themselves.
+
+# Show URL: A little feature that came from wanting to setup a copy/paste feature (currently on the shelf for later). copy/pasting from a x64 Windows OS wasn't very viable atm (or I couldn't find a way atm), so I setup this method. This feature displays the url for you to see and type elsewhere, or at least to double-check while debugging stuff. Still many issues with this feature due to how xbmc seems to be setup.
+
+# Plugin Update: This feature still needs worked on a lot. In the Settings window, there is a button to click to download the plugin's master branch from github.com. This will download the plugin's .zip file to a folder, which u'll have to browse to and manually grab and add/update yourself, for the time being. I'm sorry for lack of work on this feature.
+
+# Favorites: \\  //
+######### Favorites within the Plugin: A feature thats very useful. You can now save favorites for within this plugin to more easily browse to faster.
+######### XBMC Favorites: Still handled on many pages, where default ContentMenuItem(s) are not dissabled. With this feature, you can get at shows from the Favorites menu @ xbmc's main screen.
+
+# Settings Window: Many user-options here, much of which are setup and working currently.
+
+# View Modes: Options in the Plugin's Settings-Window. This allows you to set all of a given type of list such as Favorites, Show-listings, or Episodes to a given View-type. 
+######### Many of the pages within this plugin are now setup as a TVShow / Movie view type. This allows for more view type choices.
+######### Sorting: Some sorting was also added in places. I simply got tired of seeing stuff alphabetically an utter mess.
+
+# Metadata:  \\  //
+######### Much more information, such as: Posters / Fanart, Plot Descriptions, Ratings, Genres. This is currently handled for the Shows as a whole. I hope to put in some handling for episodes later.
+######### Rather than figure out how to make things work with another plugin that exists for thetvdb.com, I simply put together coding of my own to fetch the extra data, where available.
+######### Also added more data, such as Plot Description, parsed from the 'Handled Sites'.
+
+# Other Stuff: Anything else that happened to slip my mind after writing all this other stuff.
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+========= ========= ========= ========= ========= ========= ========= ========= ========= ========= 
