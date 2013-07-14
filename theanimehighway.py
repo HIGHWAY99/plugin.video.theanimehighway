@@ -1,7 +1,7 @@
 ### ##########################################
 ###
 ### # The Anime Highway - by The Highway 2013.
-### # version 0.0.5x
+### # version 0.0.6i
 ###
 ### ##########################################
 ### ##########################################
@@ -79,9 +79,15 @@ except: pass
 try: mode=int(params["mode"])
 except: pass
 
-ICON5 = os.path.join(artPath, 'iconA44couk.png');ICON4 = os.path.join(artPath, 'icongd.png');ICON3 = os.path.join(artPath, 'iconAPlus.png');ICON2 = os.path.join(artPath, 'iconA44.png');ICON1 = os.path.join(artPath, 'iconAG.png');ICON0 = os.path.join(__home__, 'icon.png')
-fanart5 = os.path.join(artPath, 'fanartA44couk.jpg');fanart4 = os.path.join(artPath, 'fanartgd.jpg');fanart3 = os.path.join(artPath, 'fanartAPlus.jpg');fanart2 = os.path.join(artPath, 'fanartA44.jpg');fanart1 = os.path.join(artPath, 'fanartAG.jpg');fanart0 = os.path.join(__home__, 'fanart.jpg')
-if type2==5:			#site 5
+ICON8 = os.path.join(artPath, 'icon_watchdub.png');ICON7 = os.path.join(artPath, 'icon_dubhappy.png');ICON6 = os.path.join(artPath, 'iconDAOn2.png');ICON5 = os.path.join(artPath, 'iconA44couk.png');ICON4 = os.path.join(artPath, 'icongd.png');ICON3 = os.path.join(artPath, 'iconAPlus.png');ICON2 = os.path.join(artPath, 'iconA44.png');ICON1 = os.path.join(artPath, 'iconAG.png');ICON0 = os.path.join(__home__, 'icon.png')
+fanart8 = os.path.join(artPath, 'fanart_watchdub.jpg');fanart7 = os.path.join(artPath, 'fanart_dubhappy.jpg');fanart6 = os.path.join(artPath, 'fanartDAOn2.jpg');fanart5 = os.path.join(artPath, 'fanartA44couk.jpg');fanart4 = os.path.join(artPath, 'fanartgd.jpg');fanart3 = os.path.join(artPath, 'fanartAPlus.jpg');fanart2 = os.path.join(artPath, 'fanartA44.jpg');fanart1 = os.path.join(artPath, 'fanartAG.jpg');fanart0 = os.path.join(__home__, 'fanart.jpg')
+if type2==8:			#site 8
+	fanart = os.path.join(artPath, 'fanart_watchdub.jpg');ICON = os.path.join(artPath, 'icon_watchdub.png');mainSite='http://www.watchdub.com/'
+elif type2==7:			#site 7
+	fanart = os.path.join(artPath, 'fanart_dubhappy.jpg');ICON = os.path.join(artPath, 'icon_dubhappy.png');mainSite='http://www.dubhappy.eu/'
+elif type2==6:			#site 6
+	fanart = os.path.join(artPath, 'fanartDAOn2.jpg');ICON = os.path.join(artPath, 'iconDAOn2.png');mainSite='http://dubbedanimeon.com/'
+elif type2==5:			#site 5
 	fanart = os.path.join(artPath, 'fanartA44couk.jpg');ICON = os.path.join(artPath, 'iconA44couk.png');mainSite='http://www.anime44.co.uk/'
 	if ('-anime' in url) and ('http://' not in url): url = mainSite + 'subanime/' + url
 	if ('-anime' in url) and ('http://' not in scr) and (artPath not in scr): scr = mainSite + 'subanime/' + scr
@@ -102,16 +108,15 @@ elif type2==2:		#site 2
 else:							#site 1
 	fanart = os.path.join(artPath, 'fanartAG.jpg');ICON = os.path.join(artPath, 'iconAG.png');mainSite='http://www.animeget.com/'
 
-SiteBits=['nosite','animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk']
-SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','','','']
-SitePrefixes=['nosite','','','','','subanime/','','','']
-SiteSufixes= ['nosite','','','','','.html','','','']
-SiteSearchUrls= ['nosite','http://www.animeget.com/search','http://www.anime44.com/anime/search?search_submit=Go&key=','http://www.animeplus.tv/anime/search?search_submit=Go&key=','http://www.gooddrama.net/drama/search?stype=drama&search_submit=Go&key=','No Search Engine for VideoZone','','','','']
-SiteSearchMethod= ['nosite','post','get','get','get','VideoZone','','','','']
-
-Sites=['animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk']
+SiteBits=['nosite','animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk','dubbedanimeon.com','dubhappy.eu','watchdub.com']
+SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','[COLOR teal]Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]','[COLOR cornflowerblue][COLOR white]dub[/COLOR]happy[/COLOR]','[COLOR cornflowerblue]Watch[/COLOR][COLOR white]Dub[/COLOR]','','']
+SitePrefixes=['nosite','','','','','subanime/','','','','','','','','','','','','']
+SiteSufixes= ['nosite','','','','','.html','','','','','','','','','','','','','']
+SiteSearchUrls= ['nosite','http://www.animeget.com/search','http://www.anime44.com/anime/search?search_submit=Go&key=','http://www.animeplus.tv/anime/search?search_submit=Go&key=','http://www.gooddrama.net/drama/search?stype=drama&search_submit=Go&key=','No Search Engine for VideoZone','http://dubbedanimeon.com/?s=','','','','','','','']
+SiteSearchMethod= ['nosite','post','get','get','get','VideoZone','get','','','','','','','']
+Sites=['animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk','dubbedanimeon.com','dubhappy.eu','watchdub.com']
 MyAlphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-MyColors=['red','blue','darkblue','grey','maroon']
+MyColors=['red','blue','darkblue','grey','maroon','teal','cornflowerblue','cornflowerblue','','','']
 MyBrowser=['User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3']
 #############################
 if debugging==True:
@@ -129,13 +134,17 @@ if debugging==True:
 #########################################
 #############################
 def menu0():#Main Menu
-				VaddDir('                          [B][COLOR purple]--  The  Anime  Highway  --[/COLOR][/B]', '', 1, ICON0, fanart0, False)
+				VaddDir('                          [B][COLOR purple]--  The  [COLOR white]Anime[/COLOR]  [COLOR tan]Highway[/COLOR]  --[/COLOR][/B]', '', 1, ICON0, fanart0, False)
 				VaddDir('[COLOR grey] Please select a site:[/COLOR]', '', 1, ICON0, fanart0, False)
-				addDir('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]','Site 1 - AnimeGet','ag',1,1,ICON1,fanart1,SiteBits[1])
-				addDir('[COLOR ' + MyColors[0] + '][COLOR white]Anime[/COLOR]44 [/COLOR]','Site 2 - Anime44.com','a44',2,1,ICON2,fanart2,SiteBits[2])
-				addDir('[COLOR ' + MyColors[2] + '][COLOR white]Anime[/COLOR]Plus [/COLOR]','Site 3 - AnimePlus','aplus',3,1,ICON3,fanart3,SiteBits[3])
-				addDir('[COLOR ' + MyColors[4] + '][COLOR white]Anime[/COLOR]Zone [/COLOR]','Site 5 - Anime44.co.uk','aplus',5,1,ICON5,fanart5,SiteBits[5])#animezone = anime44.co.uk and appreantly animeinfo.co.uk and animehere.co.uk
-				addDir('[COLOR ' + MyColors[3] + ']Good[COLOR white]Drama[/COLOR] [/COLOR]','Site 4 - GoodDrama','gd',4,1,ICON4,fanart4,SiteBits[4])
+				if (getsetbool('esite-1')=='true'): addDir('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]','Site 1 - AnimeGet','ag',1,1,ICON1,fanart1,SiteBits[1])
+				if (getsetbool_('esite-1')==True): addDir('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]','Site 1 - AnimeGet','ag',1,1,ICON1,fanart1,SiteBits[1])
+				if (getsetbool_('esite-2')==True): addDir('[COLOR ' + MyColors[0] + '][COLOR white]Anime[/COLOR]44 [/COLOR]','Site 2 - Anime44.com','a44',2,1,ICON2,fanart2,SiteBits[2])
+				if (getsetbool_('esite-3')==True): addDir('[COLOR ' + MyColors[2] + '][COLOR white]Anime[/COLOR]Plus [/COLOR]','Site 3 - AnimePlus','aplus',3,1,ICON3,fanart3,SiteBits[3])
+				if (getsetbool_('esite-5')==True): addDir('[COLOR ' + MyColors[4] + '][COLOR white]Anime[/COLOR]Zone [/COLOR][COLOR grey][/COLOR]','Site 5 - Anime44.co.uk','azone',5,1,ICON5,fanart5,SiteBits[5])#animezone = anime44.co.uk and appreantly animeinfo.co.uk and animehere.co.uk
+				if (getsetbool_('esite-6')==True): addDir('[COLOR ' + MyColors[5] + ']Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]' + '[COLOR grey] - * Note: video host is problem-matic.[/COLOR]','Site 6 - DubbedAnimeOn','dao',6,1,ICON6,fanart6,SiteBits[6])
+				if (getsetbool_('esite-7')==True): addDir('[COLOR ' + MyColors[6] + '][COLOR white]Dub[/COLOR]Happy [/COLOR]','Site 7 - DubHappy.eu/','dh',7,1,ICON7,fanart7,SiteBits[7])
+				if (getsetbool_('esite-8')==True): addDir('[COLOR ' + MyColors[7] + ']Watch[COLOR white]Dub[/COLOR] [/COLOR]','Site 8 - watchdub.com/','wd',8,1,ICON8,fanart8,SiteBits[8])
+				if (getsetbool_('esite-4')==True): addDir('[COLOR ' + MyColors[3] + ']Good[COLOR white]Drama[/COLOR] [/COLOR]','Site 4 - GoodDrama','gd',4,1,ICON4,fanart4,SiteBits[4])
 				addDir('[COLOR tan]Favorites[/COLOR]','Favorites','favs',1,888,ICON0,fanart0,'Favorites')
 				VaddDir('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]', '', 1, ICON0, fanart0, False)
 				set_view('none',int(getset('viewmode-default')))
@@ -146,6 +155,19 @@ def menu1():#Main Menu
         elif (type2==1) or (type2==3) or (type2==5):#animeget & animeplus & animezone
         	addFolder('[COLOR ' + MyColors[0] + ']Anime Movies[/COLOR]','Movies','anime-movies',type2,3,'movies.png','Anime Movies')
         	addFolder('[COLOR ' + MyColors[1] + ']Anime Series[/COLOR]','List','anime-shows',type2,2,'full.png','Anime Series')
+        elif (type2==6):
+        	addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List',mainSite+'genres/',type2,252,'Glossy_Black\\genres.png','Genre')
+        	#
+        	#
+        	# Random Show, Top Anime, Anime Series
+        	addDir('[COLOR tan]Search[/COLOR]','',mainSite + 'Search',type2,400,artPath + 'search-icon.png',fanart,'Search')
+        elif (type2==7):#dubhappy
+        	addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List','?SearchByGenre=True',type2,211,'Glossy_Black\\genres.png','Genre')
+        	#
+        elif (type2==8):#watchdub
+        	addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List','multiple-anime-genres-search/',type2,252,'Glossy_Black\\genres.png','Genre')
+        	#addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List','anime-genres'+SiteSufixes[type2],type2,211,'Glossy_Black\\genres.png','Genre')
+        	#
         else:
         	addFolder('[COLOR ' + MyColors[0] + ']Anime Movies[/COLOR]','Movies','category/anime-movies',type2,601,'movies.png','Anime Movies')
         	addFolder('[COLOR ' + MyColors[1] + ']Anime Series[/COLOR]','List','anime-list',type2,2,'full.png','Anime Series')
@@ -213,7 +235,35 @@ def menu250():#dubbed-anime
 		#addFolder('New','List',SitePrefixes[type2]+'new-movies'+SiteSufixes[type2],type2,6,'BLANK.png')
 		#addFolder('Recent','List',SitePrefixes[type2]+'recent-movies'+SiteSufixes[type2],type2,6,'BLANK.png')
 	set_view('none',int(getset('viewmode-default')))
-def menu252():#dubbed-anime#genres
+def menu252_genre_list():#dubbed-anime#genres
+	if (type2==8):#watchdub
+		#http://www.watchdub.com/?max-results=100&cat-id=11
+		nextNo=256 #253
+		pgSort='&sort=2' ## 1=scores, 2=rating, 3=comments ## ?? &animesort= ??   0=Date, 4=Alphabetical
+		pgMaxResults='50' ## Site allows this to be adjustable.
+		## &animetype=2 &animetype=1 ## 1=List, 2=Details with description and image.
+		### http://www.watchdub.com/anime-genres-search-results/?CHECKBOX[]=9&CHECKBOX[]=6&CHECKBOX[]=11&animesort=4&animetype=2&Submit=Submit
+		addDirD('- All Anime List -',	name,mainSite+'?max-results='+pgMaxResults+'&cat-id=5' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Action',							name,mainSite+'?max-results='+pgMaxResults+'&cat-id=9' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Adventure',					name,mainSite+'?max-results='+pgMaxResults+'&cat-id=12'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Comedy',							name,mainSite+'?max-results='+pgMaxResults+'&cat-id=13'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Drama',							name,mainSite+'?max-results='+pgMaxResults+'&cat-id=6' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Fantasy',						name,mainSite+'?max-results='+pgMaxResults+'&cat-id=11'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Horror',							name,mainSite+'?max-results='+pgMaxResults+'&cat-id=8' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Magic',							name,mainSite+'?max-results='+pgMaxResults+'&cat-id=17'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Mystery',						name,mainSite+'?max-results='+pgMaxResults+'&cat-id=14'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Psychological',			name,mainSite+'?max-results='+pgMaxResults+'&cat-id=3' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Romance',						name,mainSite+'?max-results='+pgMaxResults+'&cat-id=4' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Science Fiction',		name,mainSite+'?max-results='+pgMaxResults+'&cat-id=7' +pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Slice of Life',			name,mainSite+'?max-results='+pgMaxResults+'&cat-id=15'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Supernatural',				name,mainSite+'?max-results='+pgMaxResults+'&cat-id=10'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Thriller',						name,mainSite+'?max-results='+pgMaxResults+'&cat-id=16'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Tournament',					name,mainSite+'?max-results='+pgMaxResults+'&cat-id=18'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Yaoi',								name,mainSite+'?max-results='+pgMaxResults+'&cat-id=19'+pgSort,type2,nextNo,ICON,fanart,True)
+		addDirD('Yuri',								name,mainSite+'?max-results='+pgMaxResults+'&cat-id=20'+pgSort,type2,nextNo,ICON,fanart,True)
+		#addDirD('',	name,mainSite+'?max-results='+pgMaxResults+'&cat-id='+pgSort,type2,nextNo,ICON,fanart,True)
+		set_view('none',int(getset('viewmode-default')))
+	#
 	if (type2==5):
 		addDirD('- All Anime List -',	name,mainSite+'indexef22.html?max-results=15&sort=1&cat-id=5',type2,253,ICON,fanart,True)
 		addDirD('action',							name,mainSite+'index2373.html?max-results=15&sort=1&cat-id=9',type2,253,ICON,fanart,True)
@@ -233,7 +283,219 @@ def menu252():#dubbed-anime#genres
 		addDirD('tournament',					name,mainSite+'index09d2.html?max-results=15&sort=1&cat-id=18',type2,253,ICON,fanart,True)
 		addDirD('yaoi',								name,mainSite+'indexe2f0.html?max-results=15&sort=1&cat-id=19',type2,253,ICON,fanart,True)
 		addDirD('yuri',								name,mainSite+'index16d2.html?max-results=15&sort=1&cat-id=20',type2,253,ICON,fanart,True)
+	if (type2==6):
+		#http://dubbedanimeon.com/genres/?genre=School
+		nextMode=256
+		genreUrl=mainSite+'genres/?genre='
+		addDirD('Action',							name,genreUrl+'Action',type2,nextMode,ICON,fanart,True)
+		addDirD('Adventure',					name,genreUrl+'Adventure',type2,nextMode,ICON,fanart,True)
+		addDirD('Bishounen',					name,genreUrl+'Bishounen',type2,nextMode,ICON,fanart,True)
+		addDirD('Comedy',							name,genreUrl+'Comedy',type2,nextMode,ICON,fanart,True)
+		addDirD('Demons',							name,genreUrl+'Demons',type2,nextMode,ICON,fanart,True)
+		addDirD('Drama',							name,genreUrl+'Drama',type2,nextMode,ICON,fanart,True)
+		addDirD('Ecchi',							name,genreUrl+'Ecchi',type2,nextMode,ICON,fanart,True)
+		addDirD('Fantasy',						name,genreUrl+'Fantasy',type2,nextMode,ICON,fanart,True)
+		addDirD('Harem',							name,genreUrl+'Harem',type2,nextMode,ICON,fanart,True)
+		addDirD('Horror',							name,genreUrl+'Horror',type2,nextMode,ICON,fanart,True)
+		addDirD('Josei',							name,genreUrl+'Josei',type2,nextMode,ICON,fanart,True)
+		addDirD('Magic',							name,genreUrl+'Magic',type2,nextMode,ICON,fanart,True)
+		addDirD('Martial Arts',				name,genreUrl+'Martial Arts',type2,nextMode,ICON,fanart,True)
+		addDirD('Mecha',							name,genreUrl+'Mecha',type2,nextMode,ICON,fanart,True)
+		addDirD('Music',							name,genreUrl+'Music',type2,nextMode,ICON,fanart,True)
+		addDirD('Mystery',						name,genreUrl+'Mystery',type2,nextMode,ICON,fanart,True)
+		addDirD('Ninja',							name,genreUrl+'Ninja',type2,nextMode,ICON,fanart,True)
+		addDirD('Parody',							name,genreUrl+'Parody',type2,nextMode,ICON,fanart,True)
+		addDirD('Psychological',			name,genreUrl+'Psychological',type2,nextMode,ICON,fanart,True)
+		addDirD('Reverse Harem',			name,genreUrl+'Reverse Harem',type2,nextMode,ICON,fanart,True)
+		addDirD('Romance',						name,genreUrl+'Romance',type2,nextMode,ICON,fanart,True)
+		addDirD('Samurai',						name,genreUrl+'Samurai',type2,nextMode,ICON,fanart,True)
+		addDirD('School',							name,genreUrl+'School',type2,nextMode,ICON,fanart,True)
+		addDirD('Sci-Fi',							name,genreUrl+'Sci-Fi',type2,nextMode,ICON,fanart,True)
+		addDirD('Seinen',							name,genreUrl+'Seinen',type2,nextMode,ICON,fanart,True)
+		addDirD('Shoujo',							name,genreUrl+'Shoujo',type2,nextMode,ICON,fanart,True)
+		addDirD('Shoujo Ai',					name,genreUrl+'Shoujo Ai',type2,nextMode,ICON,fanart,True)
+		addDirD('Shounen',						name,genreUrl+'Shounen',type2,nextMode,ICON,fanart,True)
+		addDirD('Shounen Ai',					name,genreUrl+'Shounen Ai',type2,nextMode,ICON,fanart,True)
+		addDirD('Slapstick',					name,genreUrl+'Slapstick',type2,nextMode,ICON,fanart,True)
+		addDirD('Slice of Life',			name,genreUrl+'Slice of Life',type2,nextMode,ICON,fanart,True)
+		addDirD('Sports',							name,genreUrl+'Sports',type2,nextMode,ICON,fanart,True)
+		addDirD('Supernatural',				name,genreUrl+'Supernatural',type2,nextMode,ICON,fanart,True)
+		addDirD('Thriller',						name,genreUrl+'Thriller',type2,nextMode,ICON,fanart,True)
+		addDirD('Tragedy',						name,genreUrl+'Tragedy',type2,nextMode,ICON,fanart,True)
+		addDirD('Vampire',						name,genreUrl+'Vampire',type2,nextMode,ICON,fanart,True)
+		#
+		#
+		#
 	set_view('none',int(getset('viewmode-default')))
+
+def menu256_show_list(url):#dubbed-anime#show-listings
+	viewtyp='tvshows'
+	link=getURL(url)
+	matchbb=re.compile('<li><a href="(.+?)">&gt;</a></li>').findall(link)
+	for url33 in matchbb:
+		Labels={ 'Title':' Next' }
+		addDirD(' Next','list',url33,type2,mode,artPath + 'next-icon.png',fanart,True,' Next',Labels)#gogoanime\\next.png
+	matchb=re.compile('<li><a href="(.+?)">Next</a></li>').findall(link)
+	for url3 in matchb:
+		Labels={ 'Title':' Next' }
+		addDirD(' Next','list',url3,type2,mode,artPath + 'next-icon.png',fanart,True,' Next',Labels)#gogoanime\\next.png
+	if (type2==8):
+		dat_aa=link.split('<p><b>Filter by Genres:</b>')[1]
+		dat_a=dat_aa.split('<div class="post-')
+		for dat_show in dat_a:
+			#if (debugging==True): print dat_show
+			dat_show=dat_show.split('</div><!--/post-')[0]
+			if ('<h2 class="title"><a href="' in dat_show):
+				#if (debugging==True): print dat_show
+				show_url=(re.compile('<h2 class="title"><a href="(.+?)"').findall(dat_show)[0]).strip()
+				if (debugging==True): print 'show url: '+show_url
+				# rel="bookmark" title="Permanent Link to Maburaho">Maburaho
+				try: show_title=(re.compile('rel="bookmark" title="Permanent Link to .+?">(.+?)</a></h2>').findall(dat_show)[0]).strip()
+				except: show_title='Unknown'
+				if (debugging==True): print 'show title: '+show_title
+				## site does have Votes, Rating(# out of 5), Rated, stars, genres, themes
+				try: show_img=(re.compile('<img src="(.+?)" width="165" height="200" style="float: left;margin:0px 5px 0px 5px;" />').findall(dat_show)[0]).strip()
+				except: show_img=ICON
+				if (debugging==True): print 'show img: '+show_img
+				try: show_plot=(((dat_show.split('<br />Plot Summary: ')[1])).split('</p>')[0]).strip()
+				except: show_plot='(Not Available)'
+				if (debugging==True): print 'show plot: '+show_plot
+				#
+				#
+				##
+				if (metaArt_DoCheck(show_title)==True):
+					if (debugging==True): print show_title + ' found in cached metaArt Data.'
+					thetvdb_data=metaArt_getCache(show_title)
+				else:
+					thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				##
+				#thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				if (debugging==True): print thetvdb_data
+				vid_descr=show_plot #thetvdb_data[6]
+				if (vid_descr=='(Not Available)'): vid_descr=thetvdb_data[6]
+				vid_descr=ParseDescription(vid_descr)
+				#
+				vid_status=thetvdb_data[8]
+				vid_fanart=thetvdb_data[3]
+				if vid_fanart=='none': vid_fanart=fanart
+				vid_poster=thetvdb_data[4]
+				if vid_poster=='none': vid_poster=show_img
+				vid_banner=thetvdb_data[5]
+				vid_language=thetvdb_data[9]
+				vid_network=thetvdb_data[10]
+				vid_id=thetvdb_data[1]
+				vid_genres=thetvdb_data[7]
+				#if vid_genres=='none': vid_genres=show_genres
+				vid_rating=thetvdb_data[11]
+				vid_votes='Unknown'#thetvdb_data[6]##not handled atm
+				vid_released='Unknown'#thetvdb_data[]
+				vid_type='Dubbed Anime'#'Unknown'#thetvdb_data[6]
+				Labels={ 'Title':show_title,'Plot':vid_descr,'Year':vid_released,'Status':vid_status,'Rating':vid_rating, 'ShowID':vid_id,'Votes':vid_votes,'Type':vid_type, 'Fanart':vid_fanart, 'Poster':vid_poster, 'Banner':vid_banner, 'Language':vid_language, 'Network':vid_network, 'Genre':vid_genres } 
+				addDirD(show_title,show_title,show_url,type2,257,vid_poster,vid_fanart,True,'',Labels)
+				
+		#
+		#
+	if (type2==7):
+		dat_a=link.split('<div class="genre-flasher"><h4 class="post-title" style="border-radius:0;-moz-border-radius: 0;-webkit-border-radius: 0;border-right: none;border-left: none;margin: 7px auto;">')
+		#if (debugging==True): print dat_a
+		for dat_show in dat_a:
+			#if (debugging==True): print dat_show
+			if ('<div><b>Title:</b> <span style="color:black;">' in dat_show):
+				#if (debugging==True): print dat_show
+				show_url=(re.compile('<a href="(.+?)"').findall(dat_show)[0]).strip()
+				if (debugging==True): print 'show url: '+show_url
+				try: show_title=(re.compile('<div><b>Title:</b> <span style="color:black;">(.+?)</span></div>').findall(dat_show)[0]).strip()
+				except: show_title='Unknown'
+				if (debugging==True): print 'show title: '+show_title
+				#<img width="215" height="300" src="http://www.dubhappy.eu/images/blue-gender.jpg" />
+				try: show_img=(re.compile('<img width=".+?" height=".+?" src="(.+?)" />').findall(dat_show)[0]).strip()
+				except: show_img=ICON
+				if (debugging==True): print 'show img: '+show_img
+				try: show_plot=(((dat_show.split('>Sypnosis</h2>')[1]).split('<p>')[1]).split('</p>')[0]).strip()
+				except: show_plot='(Not Available)'
+				if (debugging==True): print 'show plot: '+show_plot
+				#
+				#
+				##
+				if (metaArt_DoCheck(show_title)==True):
+					if (debugging==True): print show_title + ' found in cached metaArt Data.'
+					thetvdb_data=metaArt_getCache(show_title)
+				else:
+					thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				##
+				#thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				if (debugging==True): print thetvdb_data
+				vid_descr=show_plot #thetvdb_data[6]
+				if (vid_descr=='(Not Available)'): vid_descr=thetvdb_data[6]
+				vid_descr=ParseDescription(vid_descr)
+				#
+				vid_status=thetvdb_data[8]
+				vid_fanart=thetvdb_data[3]
+				if vid_fanart=='none': vid_fanart=fanart
+				vid_poster=thetvdb_data[4]
+				if vid_poster=='none': vid_poster=show_img
+				vid_banner=thetvdb_data[5]
+				vid_language=thetvdb_data[9]
+				vid_network=thetvdb_data[10]
+				vid_id=thetvdb_data[1]
+				vid_genres=thetvdb_data[7]
+				#if vid_genres=='none': vid_genres=show_genres
+				vid_rating=thetvdb_data[11]
+				vid_votes='Unknown'#thetvdb_data[6]##not handled atm
+				vid_released='Unknown'#thetvdb_data[]
+				vid_type='Dubbed Anime'#'Unknown'#thetvdb_data[6]
+				Labels={ 'Title':show_title,'Plot':vid_descr,'Year':vid_released,'Status':vid_status,'Rating':vid_rating, 'ShowID':vid_id,'Votes':vid_votes,'Type':vid_type, 'Fanart':vid_fanart, 'Poster':vid_poster, 'Banner':vid_banner, 'Language':vid_language, 'Network':vid_network, 'Genre':vid_genres } 
+				addDirD(show_title,show_title,show_url,type2,257,vid_poster,vid_fanart,True,'',Labels)
+				#
+		set_view(viewtyp,int(getset('viewmode-shows')))#set_view('none',508)
+	if (type2==6):
+		dat_a=link.split('<div style="width:570px; width:100%; padding:7px; float:left;">')
+		for dat_show in dat_a:
+			if 'href="' in dat_show: 
+				show_url=(re.compile(' href="(.+?)"').findall(dat_show)[0]).strip()
+				try: show_title=(re.compile(' title="(.+?)"').findall(dat_show)[0]).strip()
+				except: show_title='Unknown'
+				try: show_img=(re.compile('<img src="(.+?)"').findall(dat_show)[0]).strip()
+				except: show_img=ICON
+				try: show_plot=(((dat_show.split('<span style="')[1]).split('">')[1]).split('<a style="')[0]).strip()
+				except: show_plot='(Not Available)'
+				#
+				##
+				if (metaArt_DoCheck(show_title)==True):
+					if (debugging==True): print show_title + ' found in cached metaArt Data.'
+					thetvdb_data=metaArt_getCache(show_title)
+				else:
+					thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				##
+				#thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				if (debugging==True): print thetvdb_data
+				vid_descr=show_plot #thetvdb_data[6]
+				if (vid_descr=='(Not Available)'): vid_descr=thetvdb_data[6]
+				vid_descr=ParseDescription(vid_descr)
+				#
+				vid_status=thetvdb_data[8]
+				vid_fanart=thetvdb_data[3]
+				if vid_fanart=='none': vid_fanart=fanart
+				vid_poster=thetvdb_data[4]
+				if vid_poster=='none': vid_poster=show_img
+				vid_banner=thetvdb_data[5]
+				vid_language=thetvdb_data[9]
+				vid_network=thetvdb_data[10]
+				vid_id=thetvdb_data[1]
+				vid_genres=thetvdb_data[7]
+				#if vid_genres=='none': vid_genres=show_genres
+				vid_rating=thetvdb_data[11]
+				vid_votes='Unknown'#thetvdb_data[6]##not handled atm
+				vid_released='Unknown'#thetvdb_data[]
+				vid_type='Dubbed Anime'#'Unknown'#thetvdb_data[6]
+				Labels={ 'Title':show_title,'Plot':vid_descr,'Year':vid_released,'Status':vid_status,'Rating':vid_rating, 'ShowID':vid_id,'Votes':vid_votes,'Type':vid_type, 'Fanart':vid_fanart, 'Poster':vid_poster, 'Banner':vid_banner, 'Language':vid_language, 'Network':vid_network, 'Genre':vid_genres } 
+				addDirD(show_title,show_title,show_url,type2,257,vid_poster,vid_fanart,True,'',Labels)
+				#ParseDescription()
+			#
+		#
+	#elif (type2==0):
+	set_view(viewtyp,int(getset('viewmode-shows')))#set_view('none',508)
+
 
 def menu253(url):#dubbed-anime#show-listings
 	viewtyp='tvshows'
@@ -269,7 +531,15 @@ def menu253(url):#dubbed-anime#show-listings
 				try: show_rating=((dat_show.split('average: ')[1]).split(' out of 5"')[0]).strip()
 				except: show_rating='0'
 				#
-				thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				##
+				if (metaArt_DoCheck(show_title)==True):
+					if (debugging==True): print show_title + ' found in cached metaArt Data.'
+					thetvdb_data=metaArt_getCache(show_title)
+				else:
+					thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				##
+				##thetvdb_data=metaArt_get(show_title,0,'none',fanart,show_img,'none',show_plot)###( Getting Metadata from thetvdb for show_name )###
+				#
 				if (debugging==True): print thetvdb_data
 				vid_descr=show_plot #thetvdb_data[6]
 				#if vid_descr=='none': vid_descr=show_plot
@@ -362,12 +632,16 @@ def menu311(url):#List Available Genres for movies
 	set_view('none',int(getset('viewmode-default')))#set_view('none',50)
 def genrelist(url,modeA):#Get list of Available Genres from Site
 	link=getURL(url)
-	match=re.compile('<tr>\s+<td>\s+<a href="(.+?)">(.+?)</a>\s+</td>\s+<td>(.+?)</td>\s+</tr>').findall(link)
-	for url2,name,shocount in match:
-		#if type2==5:
-		#	addDirD(name + ' - (' + shocount + ')',name,mainSite + 'subanime/' + url2,type2,6,ICON,fanart)#testing: change addDirD back to addDir later
-		#else:
-		addDirD(name + ' - (' + shocount + ')',name,url2,type2,6,ICON,fanart,True)#testing: change addDirD back to addDir later
+	if (shoDebugging==True): notification('Genre List',url)
+	if (type2==7):
+		match=re.compile("<a class='ctag' href='(.+?)'>(.+?)</a>").findall(link)
+		for url2,name in match:
+			if (' ' in url2): url2=url2.replace(' ','+')
+			addDirD(name,name,url2,type2,256,ICON,fanart,True)#testing: change addDirD back to addDir later
+	else:
+		match=re.compile('<tr>\s+<td>\s+<a href="(.+?)">(.+?)</a>\s+</td>\s+<td>(.+?)</td>\s+</tr>').findall(link)
+		for url2,name,shocount in match:
+			addDirD(name + ' - (' + shocount + ')',name,url2,type2,6,ICON,fanart,True)#testing: change addDirD back to addDir later
 	##set_view('none',50)
 def showlistnames(url,modeA):
 	if ('movie' in url): viewtyp='movies'
@@ -380,7 +654,7 @@ def showlistnames(url,modeA):
 	for url3 in matchb:
 		addDir('Next','list',url3,type2,modeA,artPath + 'next-icon.png',fanart)#gogoanime\\next.png
 	set_view(viewtyp,int(getset('viewmode-shows')),True)#set_view('none',50)
-def showlist(url,modeA=0,postBool=False,postData={'search':''}):
+def showlist(url,modeA=0,postBool=False,postData={'search':''}):#mode=6
 	if ('movie' in url): viewtyp='movies'
 	else: viewtyp='tvshows'
 	if postBool==True:
@@ -389,6 +663,13 @@ def showlist(url,modeA=0,postBool=False,postData={'search':''}):
 	else:
 		link=getURL(url)
 	#set_view(viewtyp,515,True)
+	matchbb=re.compile('<li><a href="(.+?)">&gt;</a></li>').findall(link)
+	for url33 in matchbb:
+		Labels={ 'Title':' Next' }
+		#if (type2==5):
+		#	addDirD(' Next','list',mainSite + 'subanime/' + url3,type2,modeA,artPath + 'next-icon.png',fanart,True,' Next',Labels)#gogoanime\\next.png
+		#else:
+		addDirD(' Next','list',url33,type2,modeA,artPath + 'next-icon.png',fanart,True,' Next',Labels)#gogoanime\\next.png
 	matchb=re.compile('<li><a href="(.+?)">Next</a></li>').findall(link)
 	for url3 in matchb:
 		Labels={ 'Title':' Next' }
@@ -401,15 +682,22 @@ def showlist(url,modeA=0,postBool=False,postData={'search':''}):
 	for url2,img2,name in match: #,dat_
 		Labels={ 'Title':name }
 		#
-		thetvdb_data=metaArt_get(name)###( Getting Metadata from thetvdb for show_name )###
-		#if (debugging==True): print thetvdb_data
-		###0show_name,1show_id,2url_thetvdb,3show_fanart,4show_poster,5show_banner,6show_desc
-		######,7match_genres,8match_status,9match_language,10match_network,11match_rating
+		##
+		if (metaArt_DoCheck(name)==True):
+			if (debugging==True): print name + ' found in cached metaArt Data.'
+			thetvdb_data=metaArt_getCache(name)
+		else:
+			thetvdb_data=metaArt_get(name)###( Getting Metadata from thetvdb for show_name )###
+		##
+		#thetvdb_data=metaArt_get(name)###( Getting Metadata from thetvdb for show_name )###
+		##if (debugging==True): print thetvdb_data
+		####0show_name,1show_id,2url_thetvdb,3show_fanart,4show_poster,5show_banner,6show_desc
+		#######,7match_genres,8match_status,9match_language,10match_network,11match_rating
 		if thetvdb_data[3]=='none': thetvdb_fanart=fanart
 		else: thetvdb_fanart=thetvdb_data[3]
-		#if thetvdb_data[6]=='none': show_desc=''
-		#else: show_desc=thetvdb_data[6]
-		#
+		##if thetvdb_data[6]=='none': show_desc=''
+		##else: show_desc=thetvdb_data[6]
+		##
 		vid_descr=thetvdb_data[6]
 		vid_released='Unknown'#thetvdb_data[]
 		vid_status=thetvdb_data[8]
@@ -473,10 +761,25 @@ def showlist(url,modeA=0,postBool=False,postData={'search':''}):
 	set_view(viewtyp,int(getset('viewmode-shows')),True)
 def EPISODESlist(url,mediaType='Subbed'):
         #
+        if (shoDebugging==True): 
+        	try: VaddDir('  [COLOR cornsilk][COLOR purple]Show: [/COLOR]'+show+'[/COLOR]' + '[COLOR grey][/COLOR]', '', 1, ICON, fanart)
+        	except: t=''
+        #
         if ('movie' in url): viewtyp='movies'
         else: viewtyp='tvshows'
         #if (debugging==True): print 'testing for animeget thetvdb'
-        thetvdb_data=metaArt_get(show)
+        ##
+        if (metaArt_DoCheck(show)==True):
+        	if (debugging==True): print show + ' found in cached metaArt Data.'
+        	thetvdb_data=metaArt_getCache(show)
+        else:
+        	thetvdb_data=metaArt_get(show)
+        ##
+        ##
+        ##
+        #thetvdb_data=metaArt_get(show)
+        ##
+        ##
         ###show_name,show_id,url_thetvdb,show_fanart,show_poster,show_banner,show_desc,match_genres,match_status,match_language,match_network,match_rating
         if thetvdb_data[3]=='none': thetvdb_fanart=fanart
         else: thetvdb_fanart=thetvdb_data[3]
@@ -524,9 +827,130 @@ def EPISODESlist(url,mediaType='Subbed'):
         #set_view('none',50)
         xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
         set_view(viewtyp,int(getset('viewmode-episodes')),True)
+
+def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
+	if ('movie' in url): viewtyp='movies'
+	else: viewtyp='tvshows'
+	if (shoDebugging==True): 
+		try: VaddDir('  [COLOR cornsilk][COLOR purple]Show: [/COLOR]'+show+'[/COLOR]' + '[COLOR grey][/COLOR]', '', 1, ICON, fanart)
+		except: t=''
+	link=getURL(url)
+	link_=link
+	#
+	##
+	##dat_a=(link.split('<p><b>Filter by Genres:</b>')[1]).split('<div class="navigation">')[0]
+	##try: show_img=(re.compile('<img src="(.+?)"').findall(dat_show)[0]).strip()
+	##except: show_img=ICON0
+	##try: show_plot=(((dat_show.split('<span style="')[1]).split('">')[1]).split('<a style="')[0]).strip()
+	##match=re.compile('<li>\s+<a href="(.+?)"\>(.+?)</a>').findall(link)
+	#
+	if (type2==6): ## Getting text area down to just around the episode listings.
+		link=(link.split('<ul class="ul-ep-list">')[1]).split('</ul>')[0]
+	elif (type2==7): ## Getting text area down to just around the episode listings.
+		link=(link.split('<tr style="border-bottom: 2px solid #90C0D9;" class="table_heading">')[1]).split('</tbody>')[0]
+	elif (type2==8): ## Getting text area down to just around the episode listings.
+		link=(link.split('</span> Episodes Links:</b></span>')[1]).split('class="post-ratings">Rate this anime :')[0]
+	#
+	#
+	if (type2==6): ## Parsing episode listings
+		#
+		dat_a=link.split('<li><strong>')
+		#<img style="float:left; margin-right:5px;margin-bottom:5px;" src="http://dubbedanimeon.com/wp-content/uploads/31.jpg" width="225" height="350" title="arc-the-lad" />
+		#try: show_img=(re.compile('<img src="(.+?)"').findall(dat_show)[0]).strip()
+		#try: show_img=(re.compile('<img style=".+?" src="(.+?)" width="225" height="350" title="').findall(dat_show)[0]).strip()
+		try: show_img=(re.compile('<img style=".+?" src="(.+?)" width="225" height="350" title="').findall(link_)[0]).strip()
+		except: show_img=ICON
+		#try: show_plot=(((dat_show.split('<span style="')[1]).split('">')[1]).split('<a style="')[0]).strip()
+		#except: show_plot='(Not Available)'
+		#if (show_plot=='(Not Available)'): t=''
+		#else: ParseDescription(show_plot)
+		for dat_show in dat_a:
+			if 'href="' in dat_show: 
+				episode_url=(re.compile(' href="(.+?)"').findall(dat_show)[0]).strip()
+				#try: episode_title=(re.compile(' title="(.+?)"').findall(dat_show)[0])
+				try: episode_title=(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
+				except: episode_title='Unknown'
+				try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
+				except: episode_dateposted='Unknown'
+				episode_title=ParseDescription(episode_title)
+				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
+				addDirD(episode_title+'   ('+episode_dateposted+')',episode_title,episode_url,type2,5,show_img,fanart,True,episode_title,Labels)
+				#addDirD(episode_title,episode_title,url2,type2,5,thetvdb_poster,thetvdb_fanart,True,episode_title,Labels)
+				#addDirD(name,name,url2,type2,5,img3,thetvdb_fanart)
+	if (type2==7): ## Parsing episode listings
+		dat_a=link.split('<tr style="border: 1px solid #90C0D9;">')
+		try: show_img=(re.compile('<img width="215" height="300" src="(.+?)" />').findall(link_)[0]).strip()
+		except: show_img=ICON
+		for dat_show in dat_a:
+			if 'href="' in dat_show: 
+				episode_url=(re.compile('<a style="color:#333; text-decoration:none;" href="(.+?)">').findall(dat_show)[0]).strip()
+				try: episode_title=(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
+				except: episode_title='Unknown'
+				#try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
+				#except: episode_dateposted='Unknown'
+				episode_dateposted='Unknown'
+				if ('' in episode_title): episode_title=episode_title.replace('English Dubbed','[COLOR lime](English Dubbed)[/COLOR]')
+				episode_title=ParseDescription(episode_title)
+				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
+				addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
+	if (type2==8): ## Parsing episode listings
+		dat_a=link.split('<br />')
+		try: show_img=(re.compile('<img class="photo" alt=".+?" style=".+?" src="(.+?)" border="0" alt=""id="BLOGGER_PHOTO_ID_').findall(link_)[0]).strip()
+		except: show_img=ICON
+		for dat_show in dat_a:
+			#<br /><a href="http://www.watchdub.com/2009/10/maburaho-episode-1.html">Maburaho Episode 1</a>
+			if '<a href="' in dat_show: 
+				episode_url=(re.compile('<a href="(.+?)">.+?</a>').findall(dat_show)[0]).strip()
+				try: episode_title=(re.compile('<a href=".+?">(.+?)</a>').findall(dat_show)[0]).strip() #(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
+				except: episode_title='Unknown'
+				#try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
+				#except: episode_dateposted='Unknown'
+				episode_dateposted='Unknown'
+				if ('' in episode_title): episode_title=episode_title.replace('English Dubbed','[COLOR lime](English Dubbed)[/COLOR]')
+				episode_title=ParseDescription(episode_title)
+				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
+				addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
+		#
+		#
+		#
+		#
+		#
+	#
+	xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
+	set_view(viewtyp,int(getset('viewmode-episodes')),True)
+
+def CheckFor_PreviousNext_Episodes(page_dat,type2):
+	if (type2==7):
+		if ("<link rel='prev' title='" in page_dat):
+			page_prev_title , page_prev_url = re.compile("<link rel='prev' title='(.+?)' href='(.+?)' />").findall(page_dat)[0]
+			page_prev_title=ParseDescription(page_prev_title)
+			Labels={ 'Title': page_prev_title }
+			addDirD(' <<Previous Episode<<: '+page_prev_title,page_prev_title,page_prev_url,type2,501,ICON,fanart,True,page_prev_title,Labels)
+		if ("<link rel='next' title='" in page_dat):
+			page_next_title , page_next_url = re.compile("<link rel='next' title='(.+?)' href='(.+?)' />").findall(page_dat)[0]
+			page_next_title=ParseDescription(page_next_title)
+			Labels={ 'Title': page_next_title }
+			addDirD(' >>Next Episode>>: '+page_next_title,page_next_title,page_next_url,type2,501,ICON,fanart,True,page_next_title,Labels)
+	if (type2==6):
+		if ("<link rel='prev' title='" in page_dat):
+			page_prev_title , page_prev_url = re.compile("<link rel='prev' title='(.+?)' href='(.+?)'/>").findall(page_dat)[0]
+			page_prev_title=ParseDescription(page_prev_title)
+			Labels={ 'Title': page_prev_title }
+			addDirD(' <<Previous Episode<<: '+page_prev_title,page_prev_title,page_prev_url,type2,5,ICON,fanart,True,page_prev_title,Labels)
+			#<link rel='prev' title='Xamd Lost Memories Episode 13' href='http://dubbedanimeon.com/episode/xamd-lost-memories-episode-13-english-dubbed/'/>
+		if ("<link rel='next' title='" in page_dat):
+			page_next_title , page_next_url = re.compile("<link rel='next' title='(.+?)' href='(.+?)'/>").findall(page_dat)[0]
+			page_next_title=ParseDescription(page_next_title)
+			Labels={ 'Title': page_next_title }
+			addDirD(' >>Next Episode>>: '+page_next_title,page_next_title,page_next_url,type2,5,ICON,fanart,True,page_next_title,Labels)
+			#<link rel='next' title='Xamd Lost Memories Episode 15' href='http://dubbedanimeon.com/episode/xamd-lost-memories-episode-15-english-dubbed/'/>
+		###
+	#####
+
 def VIDEOsource(url,name):
 				vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
 				linkO=getURL(url)
+				CheckFor_PreviousNext_Episodes(linkO,type2)
 				if '/2">Playlist 2</a></li>' in linkO: 
 					vvVIDEOLINKS(url + '/2',name,name2,scr,imgfan,show,type2,mode)
 				if '/3">Playlist 3</a></li>' in linkO: 
@@ -534,6 +958,64 @@ def VIDEOsource(url,name):
 				xbmcplugin.endOfDirectory(int(sys.argv[1]))
 				#url=None	urlbac=None	name=None	name2=None	type2=None	favcmd=None	mode=None	scr=None	imgfan=None	show=None
 				#set_view('none',50)
+def VIDEOsource_501(url,name):
+	###
+	vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
+	linkO=getURL(url)
+	###
+	if (type2==7):
+		if (debugging==True): print '501 url: '+url
+		matches=re.compile("file: '(.+?)'").findall(linkO)
+		for match in matches:
+			if (debugging==True): print '501 match: '+match
+			link1=getURL(match)
+			if ('<location>' in link1) and ('<image>' in link1):
+				video_url=(re.compile('<location>(.+?)</location>').findall(link1)[0]).strip()
+				video_img=(re.compile('<image>(.+?)</image>').findall(link1)[0]).strip()
+				if (debugging==True): print '501 v url: '+video_url
+				if (debugging==True): print '501 v img: '+video_img
+				#vvVIDEOLINKS_doChecks(video_url,url,name,name2,video_img,fanart,show,type2,mode)
+				try: addLink('[COLOR white]VerilScriptz[/COLOR]' + ' [COLOR grey][/COLOR]',video_url,video_img,imgfan,show)
+				except: VaddDir('[COLOR white]VerilScriptz[/COLOR]' + ' - [COLOR grey]Error: Needs Testing.[/COLOR]', '', 1, ICON, fanart)
+				#vvVIDEOLINKS(match,name,name2,scr,imgfan,show,type2,mode)
+				#vvVIDEOLINKS_doChecks(match,url,name,name2,scr,imgfan,show,type2,mode)
+				#
+				#file: 'http://www.dubhappy.eu/wp-content/plugins/proplayer/playlist-controller.php?pp_playlist_id=11053pp-single-51df94bc83823&sid=1373607100'
+				#http://www.dubhappy.eu/wp-content/plugins/proplayer/playlist-controller.php?pp_playlist_id=11053pp-single-51df94bc83823&sid=1373607100
+				#http://www.dubhappy.eu/wp-content/plugins/proplayer/playlist-controller.php?pp_playlist_id=11053pp-single-51df92f643877&sid=1373606646
+				#http://verilscriptz.com/scripts/sapo.php?id=GwDCJzbc9z8cEFITYGD2
+				#http://cache02.stormap.sapo.pt/dld/e73d329509863b3b5bfabbdc688520d5/51df9722/vidstore08/videos/11/72/b9/3979960_MyI4G.mp4
+				###
+				##vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
+				##linkO=getURL(url)
+				##CheckFor_PreviousNext_Episodes(linkO,type2)
+				##if '/2">Playlist 2</a></li>' in linkO: 
+				##	vvVIDEOLINKS(url + '/2',name,name2,scr,imgfan,show,type2,mode)
+				##if '/3">Playlist 3</a></li>' in linkO: 
+				##	vvVIDEOLINKS(url + '/3',name,name2,scr,imgfan,show,type2,mode)
+	##linkO=getURL(url)
+	#CheckFor_PreviousNext_Episodes(linkO,type2)
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	##url=None	urlbac=None	name=None	name2=None	type2=None	favcmd=None	mode=None	scr=None	imgfan=None	show=None
+	##set_view('none',50)
+
+def searchwindow(sitName,sitSearchmethod,sitSearchUrl,aMode,aUrl='',aName='',aType2=0):
+	##searchwindow(SiteNames[type2],SiteSearchMethod[type2],SiteSearchUrls[type2],type2,name,url)
+	#notification('Testing:','Search Engine.')
+	aName=''
+	kmsg=showkeyboard(aName, '[COLOR orange]Search: [/COLOR]'+str(sitName))
+	if (kmsg == 'False'): 
+		notification('Search Engine:','No message was found.')
+	else:
+		if sitSearchmethod=='post':
+			postData = { 'search' : kmsg }
+			showlist(sitSearchUrl,aMode,True,postData)
+		elif sitSearchmethod=='get':
+			if (type2==6): #DubbedAnimeOn
+				menu257_episode_list(sitSearchUrl+urllib.quote_plus(kmsg),'Dubbed')
+			else:
+				showlist(sitSearchUrl+urllib.quote_plus(kmsg),aMode)
+				#addDirD(name,name,url2,type2,4,img2,fanart)
 
 #########################################
 def primewire_links(url,name):
@@ -633,8 +1115,23 @@ def primewire_links(url,name):
 	else: set_view(viewtyp,int(getset('viewmode-shows')),False)
 	#
 
+def u_get(u=''):
+	u= sys.argv[0]
+	u += "?url="+qp_get(url)
+	u += "&mode="+st_get(mode)
+	u += "&name="+qp_get(name)
+	u += "&nm="+qp_get(name2)
+	u += "&tp="+st_get(type2)
+	u += "&scr="+qp_get(scr)
+	u += "&fan="+qp_get(imgfan)
+	u += "&show="+qp_get(name2)
+	u += "&cat="+qp_get(category)
+	#return sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&nm="+urllib.quote_plus(name2)+"&tp="+str(type2)+"&scr="+urllib.quote_plus(scr)+"&fan="+urllib.quote_plus(imgfan)+"&show="+urllib.quote_plus(name2)+"&cat="+urllib.quote_plus(category)
+	return u
 
-
+##print sys.argv[0]
+##print sys.argv[1]
+##print sys.argv[2]
 
 
 #########################################
@@ -649,7 +1146,7 @@ def FAVS():
     favs = sorted(eval(saved_favs), key=lambda fav: fav[0])#favs = eval(saved_favs)
     for fav in favs:
         try:
-        	addDirD("%s" % fav[0].upper(),fav[0],fav[1],fav[4],fav[5],fav[2],fav[3])
+        	addDirD("%s" % fav[0],fav[0],fav[1],fav[4],fav[5],fav[2],fav[3])
         except:
         	#addDirD("%s" % fav[0].upper(),fav[0],fav[1],1,6,artPath + ICON0,fanart0)
         	continue
@@ -657,9 +1154,15 @@ def FAVS():
 #############################
 if favcmd=='add':
         if (debugging==True): print ""+url
+        ##s='[B][COLOR yellowgreen]@[/COLOR][/B] '
+        ##e='[COLOR black]@[/COLOR] '
+        if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
+        if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
         addfavorite(name,url,scr,imgfan,type2,mode)
 elif favcmd=='rem':
         if (debugging==True): print ""+url
+        if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
+        if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
         removefavorite(name,url,scr,imgfan,type2,mode)
 elif favcmd=='clr':
         if (debugging==True): print ""+url
@@ -674,6 +1177,12 @@ elif favcmd=='download':
 elif favcmd=='metaclear':
         if (debugging==True): print ""+url
         metaArt_empty()
+elif favcmd=='visitedclear':
+        if (debugging==True): print ""+url
+        visited_empty()
+#############################
+if (debugging==True): print u_get()
+visited_add(u_get())
 #############################
 if mode==None or url==None or len(url)<1:
         if (debugging==True): print ""
@@ -701,13 +1210,19 @@ elif mode==251:#dubbed anime
         menu251()
 elif mode==252:#dubbed anime
         if (debugging==True): print ""+url
-        menu252()
+        menu252_genre_list()
 elif mode==253:#dubbed anime
         if (debugging==True): print ""+url
         menu253(url)
 elif mode==254:#dubbed anime
         if (debugging==True): print ""+url
         EPISODESlist(url,'Dubbed')
+elif mode==256:#dubbed anime#DAOn
+        if (debugging==True): print ""+url
+        menu256_show_list(url)
+elif mode==257:#dubbed anime
+        if (debugging==True): print ""+url
+        menu257_episode_list(url,'Dubbed') #EPISODESlist(url,'Dubbed')
 elif mode==3:
         if (debugging==True): print ""+url
         menu3()
@@ -726,6 +1241,9 @@ elif mode==4:
 elif mode==5:
         if (debugging==True): print ""+url
         VIDEOsource(url,name)
+elif mode==501:
+        if (debugging==True): print ""+url
+        VIDEOsource_501(url,name)
 elif mode==6:
         if (debugging==True): print ""+url
         showlist(url,mode)
@@ -751,5 +1269,7 @@ elif mode==1902:## Mode for use when wanting to download a file. This can be dir
         if (debugging==True): print ""+url
         download_it_now(url,name2)
 
-
-xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	
+#notification('Current Site',mainSite)
+page_last_update()
+if (favcmd==None) or (favcmd==''): xbmcplugin.endOfDirectory(int(sys.argv[1]))

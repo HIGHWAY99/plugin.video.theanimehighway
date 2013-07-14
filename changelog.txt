@@ -5,28 +5,72 @@ Am also on the xbmchub forums, though I don't frequent the forum near as much.
 
 ========= Video Sources: =========
 List sites:												animeget.com, anime44.com, animeplus.tv, gooddrama.net, anime44.co.uk (AnimeZone - has many mirror domains)
+																	dubbedanimeon.com, dubhappy.eu, watchdub.com
 Video Source FYI/Rundown:
-				>>	VideoFun							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
+				>>	AUEngine							>>	(Maybe in Future)
+				>>	DailyMotion						>>	Playable: 3xYes	>>	Screenshot: Yes	>>	Downloadable: No *sad face*
+				>>	GoogleVideo						>>	Playable: ???		>>	Screenshot: ???	>>	Downloadable: ???
+				>>	MegaVideo.com					>>	[No Longer Exists.]
+				>>	MP4Upload							>>	(Maybe in Future)
+				>>	NovaMov								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: No
+				>>	TrollVid							>>	Playable: Some	>>	ScreenShot: ???	>>	Downloadable: ???
+				>>	Putlocker							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
+				>>	RuTube.ru							>>	(Not yet)
+				>>	Upload2								>>	Playable: ???		>>	Screenshot:	???	>>	Downloadable:	???
+				>>	UploadC								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: ???
+				>>	Veevr									>>	Playable: No		>>	Screenshot: Yes	>>	Downloadable: ???
+				>>	Veoh									>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
+				>>	VerilScriptz					>>	Playable: Maybe	>>	Screenshot: ???	>>	Downloadable: ???
+				>>	VidBull								>>	?? (only files seen so far were of deleted videos.)
 				>>	Video44								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
+				>>	VideoFun							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
+				>>	VideoSlasher					>>	Playable: No		>>	Screenshot: No	>>	Downloadable:	???
+				>>	VideoWeed							>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
+				>>	VideoUp								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: ??
 				>>	Vidzur								>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
 				>>	YourUpload						>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: Maybe
-				>>	VideoWeed							>>	Playable: Yes		>>	Screenshot: No	>>	Downloadable: Maybe
-				>>	DailyMotion						>>	Playable: 3xYes	>>	Screenshot: Yes	>>	Downloadable: No *sad face*
-				>>	NovaMov								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: No
-				>>	GoogleVideo						>>	Playable: ???		>>	Screenshot: ???	>>	Downloadable: ???
-				>>	Putlocker							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
-				>>	Upload2								>>	Playable: ???		>>	Screenshot:	???	>>	Downloadable:	???
-				>>	VideoSlasher					>>	Playable: No		>>	Screenshot: No	>>	Downloadable:	???
-				>>	VidBull								>>	?? (only files seen so far were of deleted videos.)
-				>>	UploadC								>>	Playable: Maybe		>>	Screenshot: No	>>	Downloadable: ???
-				>>	Veevr									>>	Playable: No		>>	Screenshot: Yes	>>	Downloadable: ???
-				>>	MP4Upload							>>	(Maybe in Future)
-				>>	AUEngine							>>	(Maybe in Future)
-				>>	RuTube.ru							>>	(Not yet)
+				>>	
+				>>	
 				>>	
 				>>	
 
 ========= ChangeLog: =========
+
+ver 0.0.6 - The Anime Highway
+	30.) About time for another public release.
+	29.) Filesize / Speed / ETA now seem to work on frodo dialog method for downloads. Both [B] and [CR] added to filtering as well.
+	28.) Added import time for time handling.
+	27.) Added color code parsing for text used for filenames / downloads.
+	26.) Added a _Frodo set of download functions for release builds of this project, since many probably dont use nightly builds.
+	25.) Settings >> Menu >> ( Default == True ) You can now disable handled sites in the settings window under "Menu" for each site. This basically just changes rather the sites are hidden/shown on the main menu.
+	24.) Veoh fixed to play videos and show screenshots. Downloads from Veoh have not been tested yet.
+	23.) Reminder to self: noticed episodes page needs tweaked for watchdub.com shows that have season referal links... potention to cause first an episode to not show up too.
+	22.) Addition of <EMBED src="(.+?)" for stuff like rutube.
+	21.) Some work on Veoh, PutLocker, RuTube.
+	20.) Useless work done on megavideo, which a host for no longer exists.
+	19.) DubHappy.eu >> Fixed issue with spaces in genre names causing shows to not show up.
+	18.) Setup Studio display on video player.
+	17.) Fixed Title display on video-player.
+	16.) Handling for vidoes hosted by vidup.org.
+	15.) Slight bit of handling for hosted videos linked by verilscriptz.com for dubhappy.eu.
+	14.) Dubbed Anime from dubhappy.eu added to the plugin. So far just Genre's listing. Still got Movie and Series lists to consider doing.
+	13.) Improvements on ParseDescription() function. Good function for Names and Plot Descriptions.
+	12.) Tried but failed at fixing the view-change problem on Favorites Add/Remove.
+	11.) Tracking for Last-Page added.
+	10.) Better Handling for NONE-type handling on plugin url varibles.
+	09.) Re-worked the Meta-Art method just a bit to do a better job checking rather it exists in cache first.  Still need to re-work over the fetching when it doesn't exist.  This is in attempt to speed up screen-load times a bit.
+	08.) Added a Clear Visited Data button in the Add-on's Settings window.
+	07.) "@ " Added before stuff like Shows and Episodes (( those using the AddDirD() function )).
+						## When it shows black it hasn't been visited yet.
+						## When it shows green it's arleady been visited.
+	06.) Added Title Line for Episode on Link Page and Show on Episode Page.
+	05.) Added additional coloring to more of the Video Source sites.
+	04.) Did a little fix for YourUpload videos. This should allow a lot more of them to play, a specially for dubbed anime on AnimeZone.
+	03.) Working on a fix for VeeVr videos, but no success yet. If anyone can come up with a method for that please let me know on #xbmchub @ irc.freenode.net and I'll see about adding it.
+	02.) Added partial handling for Video Source: TrollVid
+	01.) Added Handled Site: DubbedAnimeOn.com (Dubbed Anime)
+						## DubbedAnimeOn.com seems to use just one video source, TrollVid, which on many shows for DubbedAnimeOn need to Refering from their site which means clicking the links somewhat fast.
+						## Listings By: Genre, Search
 
 ver 0.0.5 - The Anime Highway
 	30.) Fixed the passing of Plot Description in MetaArt and thetvdb functions, so that if thetvdb's description is blank, it'll use the description passed to it by the site (such as animeget.com).
