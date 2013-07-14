@@ -1,12 +1,19 @@
 [  ---  N  E  W  S  ---  ]
-
-[Date: 2013.07.14]
-Testing news feature.
+[  ---  _  _  _  _  ---  ]
 
 
+[Date: 2013.07.14][Post: 2]
+[B]News:[/B]  Testing news feature.
+
+[Date: 2013.07.14][Post: 1]
+[B]Release:[/B]  v0.0.6i
+
+[Date: 2013.07.13][Post: 1]
+[B]News:[/B]  After being down/messed-up a couple days or so, the website for anime44.co.uk (AnimeZone) seems to be back up and working again.
 
 
 
 
 
-[------------------------]
+
+[  ---  _  _  _  _  ---  ]
