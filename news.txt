@@ -2,14 +2,14 @@
 [  ---  _  _  _  _  ---  ]
 
 
-[Date: 2013.07.14][Post: 2]
-[B]News:[/B]  Testing news feature.
+[COLOR grey][Date: 2013.07.14][/COLOR][COLOR black][Post: 2][/COLOR]
+[COLOR red][B]News:[/B][/COLOR]  Testing news feature.
 
-[Date: 2013.07.14][Post: 1]
-[B]Release:[/B]  v0.0.6i
+[COLOR grey][Date: 2013.07.14][/COLOR][COLOR black][Post: 1][/COLOR]
+[COLOR cornflowerblue][B]Release:[/B][/COLOR]  v0.0.6i
 
-[Date: 2013.07.13][Post: 1]
-[B]News:[/B]  After being down/messed-up a couple days or so, the website for anime44.co.uk (AnimeZone) seems to be back up and working again.
+[COLOR grey][Date: 2013.07.13][/COLOR][COLOR black][Post: 1][/COLOR]
+[COLOR red][B]News:[/B][/COLOR]  After being down/messed-up a couple days or so, the website for anime44.co.uk (AnimeZone) seems to be back up and working again.
 
 
 
