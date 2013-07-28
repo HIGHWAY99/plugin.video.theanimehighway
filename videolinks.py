@@ -1,29 +1,44 @@
-import urllib,urllib2,re,os,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,sys,socket
-import string,StringIO,logging,urlresolver,random,array
+### ############################################################################################################
+###	#	
+### # Project: 			#		videolinks - by The Highway 2013.
+### # Author: 			#		The Highway
+### # Version:			#		1.x (ever changing)
+### # Description: 	#		My collection of tools for metadata and video url parsing.
+###	#	              #		Meant for direct AddLink'ing.
+###	#	
+### ############################################################################################################
+### ############################################################################################################
+__plugin__	=	"The Anime Highway"
+__authors__	=	"The Highway"
+plugin_id		=	"plugin.video.theanimehighway"
+### ############################################################################################################
+### ############################################################################################################
+import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,urlresolver,urllib,urllib2,re,os,sys,socket,string,StringIO,logging,random,array
 import teh_tools
 from teh_tools import *
 try: import json
 except ImportError: import simplejson as json
 try: import StorageServer
 except: import storageserverdummy as StorageServer
-plugin_id='plugin.video.theanimehighway'
-cache = StorageServer.StorageServer(plugin_id)
 #import SimpleDownloader as downloader
-__settings__ 		= xbmcaddon.Addon(id=plugin_id)
-__home__ = __settings__.getAddonInfo('path')
-addonPath=__home__
-artPath=addonPath+'/art/'
+### ############################################################################################################
+### ############################################################################################################
+cache						=	StorageServer.StorageServer(plugin_id)
+addon						=	Addon(plugin_id, sys.argv)
+local						=	xbmcaddon.Addon(id=plugin_id)
+__settings__		=	xbmcaddon.Addon(id=plugin_id)
+__home__				=	__settings__.getAddonInfo('path')
+addonPath				=	__settings__.getAddonInfo('path')
+artPath					=	addonPath+'/art/'	#special://home/addons/plugin.video.theanimehighway/art
+if __settings__.getSetting("enable-debug") == "true":debugging=True				#if (debugging==True): 
+else: debugging=False
+if __settings__.getSetting("show-debug") == "true": shoDebugging=True			#if (showDebugging==True): 
+else: shoDebugging=False
+params=get_params()
 ICON = os.path.join(__home__, 'icon.jpg')
 fanart = os.path.join(__home__, 'fanart.jpg')
-if __settings__.getSetting("enable-debug") == "true":debugging=True
-else: debugging=False
-#if (debugging==True): 
-if __settings__.getSetting("show-debug") == "true": shoDebugging=True
-else: shoDebugging=False
-#if (showDebugging==True): 
-
-#############################
-
+### ############################################################################################################
+### ############################################################################################################
 SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','[COLOR teal]Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]','[COLOR cornflowerblue][COLOR white]dub[/COLOR]happy[/COLOR]','[COLOR cornflowerblue]Watch[/COLOR][COLOR white]Dub[/COLOR]','','']
 SiteBits=['nosite','animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk','dubbedanimeon.com','dubhappy.eu','watchdub.com']
 MyVideoLinkSrcMatches=['src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"'			,'src="(.+?)"'		,'src="(.+?)"',		'src="(.+?)"']
@@ -31,18 +46,16 @@ MyVideoLinkSrcMatchesB=['src="(.+?)"',			'<embed.+?src="(.+?)"',			'<iframe.+?sr
 MyVideoLinkBrackets=['<iframe.+?src="(.+?)"', '<embed.+?src="(.+?)"', '<object.+?data="(.+?)"','<EMBED src="(.+?)"']
 MyAlphabet=	['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 MyBrowser=	['User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3']
-MySourcesV=		['videoweed.es',	'video44.net',	'novamov.com',	'dailymotion.com',	'videofun.me',	'yourupload.com',	'video.google.com',	'vidzur.com',	'upload2.com','putlocker.com','videoslasher.com','vidbull.com',		'uploadc.com',	'veevr.com',	'rutube.ru',	'trollvid.net',	'verilscriptz.com',	'vidup.org','veoh.com',	'megavideo.com']
-MyIconsV=		[artPath + 'videoweed.jpg',	artPath + 'video44a.png',	artPath + 'novamov.jpg',	artPath + 'dailymotion.jpg',	artPath + 'videofun.png',	artPath + 'yourupload.jpg',	artPath + 'googlevideo.gif', artPath + 'vidzur.png', artPath + 'upload2.png', artPath + 'putlocker.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'trollvid_net.png',artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png']#BLANK.png
-MyNamesV=		['VideoWeed',			'Video44',			'NovaMov',			'DailyMotion',			'VideoFun',			'YourUpload',				'Google Video',			'VidZur',			'Upload2',		'PutLocker',		'VideoSlasher',		'VidBull',				'UploadC',			'Veevr',			'RuTube',			'TrollVid',			'VerilScriptz',			'VidUp',		'Veoh',			'MegaVideo',		'MP4Upload'		,'AUEngine']
-MyColorsV=	['lime',					'red',					'silver',				'green',						'cyan',					'deepskyblue',			'blue',							'orange',			'lightsalmon','lightsteelblue',	'linen',				'magenta',				'limegreen',		'khaki',			'lemonchiffon','lawngreen', 	'white', 					'white', 					'white', 			'white', 			'white', 			'white', 			'white', 			'white']
-
-
-#############################
+MySourcesV=		['videoweed.es',	'video44.net',	'novamov.com',	'dailymotion.com',	'videofun.me',	'yourupload.com',	'video.google.com',	'vidzur.com',	'upload2.com','putlocker.com','videoslasher.com','vidbull.com',		'uploadc.com',	'veevr.com',	'rutube.ru',	'trollvid.net',	'verilscriptz.com',	'vidup.org','veoh.com',	'megavideo.com',	'vbox7.com']
+MyIconsV=		[artPath + 'videoweed.jpg',	artPath + 'video44a.png',	artPath + 'novamov.jpg',	artPath + 'dailymotion.jpg',	artPath + 'videofun.png',	artPath + 'yourupload.jpg',	artPath + 'googlevideo.gif', artPath + 'vidzur.png', artPath + 'upload2.png', artPath + 'putlocker.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'trollvid_net.png',artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png', artPath + 'preview.png']#BLANK.png
+MyNamesV=		['VideoWeed',			'Video44',			'NovaMov',			'DailyMotion',			'VideoFun',			'YourUpload',				'Google Video',			'VidZur',			'Upload2',		'PutLocker',		'VideoSlasher',		'VidBull',				'UploadC',			'Veevr',			'RuTube',			'TrollVid',			'VerilScriptz',			'VidUp',		'Veoh',			'MegaVideo',			'VBox7',		'MP4Upload'		,'AUEngine']
+MyColorsV=	['lime',					'red',					'silver',				'green',						'cyan',					'deepskyblue',			'blue',							'orange',			'lightsalmon','lightsteelblue',	'linen',				'magenta',				'limegreen',		'khaki',			'lemonchiffon','lawngreen', 	'white', 					'white', 					'white', 			'white', 			'white', 			'white', 			'white', 			'white', 			'white']
+### ############################################################################################################
+### ############################################################################################################
 def metaArt_DoCheck(nameToCheck,s=True,e=False):
 	mc=metaArt_check(nameToCheck)
 	if (mc==True): return s
 	else: return e
-
 def metaArt_check(nameToCheck):
   try: saved_metaArts = cache.get('MetaArt_')
   except: return False
@@ -55,7 +68,6 @@ def metaArt_check(nameToCheck):
   	for metaArt in metaArts:
   		if (nameToCheck==metaArt[0]) or (nameToCheck==metaArt[1]): return True
   return False
-
 def metaArt_getCache(nameToCheck):
   tn = ('none','none','none','none','none','none','none','none','none','none','none','none')
   try: saved_metaArts = cache.get('MetaArt_')
@@ -73,7 +85,6 @@ def metaArt_getCache(nameToCheck):
   			#	return (metaArt[0],metaArt[2],metaArt[3],metaArt[4],metaArt[5],metaArt[6],metaArt[7],metaArt[8],metaArt[9],metaArt[10],metaArt[11],metaArt[12])
   			#except: continue
   return tn
-
 def metaArt_get(show_name,show_id='none',url_thetvdb='none',show_fanart='none',show_poster='none',show_banner='none',show_desc='none'): #,get_which=3): #0=name,1=id,2=url_for_showhpage(thetvdb.com),3=fanart_url,4=poster_url,5=banner_url
   if ' - Movie' in show_name: show_name=show_name.replace(' - Movie','')
   if ': Movie' in show_name: show_name=show_name.replace(': Movie','')
@@ -110,8 +121,6 @@ def metaArt_get(show_name,show_id='none',url_thetvdb='none',show_fanart='none',s
   #	fanart_item
   return fanart_item
   set_view('none',504)
-
-
 def thetvdb_com(show_name,show_id='none',graphic_type='fanart'):
 	if (debugging==True): print 'testing thetvdb_com'
 	if (debugging==True): print 'showname: '+show_name
@@ -161,7 +170,6 @@ def thetvdb_com(show_name,show_id='none',graphic_type='fanart'):
 		return match_results
 	else:
 		return ('none','none','none','none','none','none','none','none','none','none','none','none') #'none'
-
 def thetvdb_com_search(show_name,show_id='none'):
 	if (debugging==True): print 'thetvdb.com show: '+show_name
 	#getURL('http://thetvdb.com/?searchseriesid=&tab=listseries&function=Search&string='+urllib.quote_plus(show_name))
@@ -189,11 +197,14 @@ def thetvdb_com_search(show_name,show_id='none'):
 	#match_showurl,match_name,match_language,match_id=match.group()
 	#return (match_showurl,match_name,match_language,match_id)
 	##
+### ############################################################################################################
+### ############################################################################################################
 
 #def addfav(header="", message="", sleep=5000 ):
 #	notify(msg=message, title=header, delay=sleep, image=ICON0)
 
-###########################################
+### ############################################################################################################
+### ############################################################################################################
 def vvVIDEOLINKS(mainurl,name,name2='none',scr='none',imgfan='none',show='none',type2=0,mode=0):#vvVIDEOLINKS(mainurl,name,name2,scr,imgfan,show,type2,mode)
 	urlA=mainurl
 	link=getURL(mainurl)
@@ -232,8 +243,10 @@ def vvVIDEOLINKS_doChecks(url,mainurl,name,name2='none',scr='none',imgfan='none'
 	vvVIDEOLINKS_doChecks_vidup(17,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
 	vvVIDEOLINKS_doChecks_veoh(18,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
 	vvVIDEOLINKS_doChecks_megavideo(19,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	vvVIDEOLINKS_doChecks_vbox7(20,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
 	#
-
+### ############################################################################################################
+### ############################################################################################################
 def vvVIDEOLINKS_doChecks_video44(tt,url,mainurl,name,name2='none',scr='none',imgfan='none',show='none',type2=0,mode=0):
 	if MySourcesV[tt] in url:#video44#no-screenshot
 		try:
@@ -602,8 +615,45 @@ def vvVIDEOLINKS_doChecks_veoh(tt,url,mainurl,name,name2='none',scr=ICON,imgfan=
 				if (shoDebugging==True): VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: No Video Found.[/COLOR]', url, 1, MyIconsV[tt], fanart)
 				return
 
+def vvVIDEOLINKS_doChecks_vbox7(tt,url,mainurl,name,name2='none',scr=ICON,imgfan=fanart,show='none',type2=0,mode=0):
+	if MySourcesV[tt] in url:#vbox7.com ## 20
+		if (debugging==True): print 'doChecks vbox7 url: '+url
+		## Note: some thanks to https://github.com/olamedia/medialink/blob/master/mediaDrivers/vbox7MediaLinkDriver.php
+		## http://i48.vbox7.com/player/ext.swf?vid=04d4d01c09
+		if ('i48.vbox7.com' in (url)): pre1='i48.'
+		if ('i47.vbox7.com' in (url)): pre1='i47.'
+		else: pre1='i48.'
+		if ('vid=' in (url+'&')):
+			vid_id=(re.compile('vid=(.+?)&').findall((url+'&'))[0]).strip()
+			## http://i48.vbox7.com/p/291300b10d5.jpg
+			vid_thumbnail='http://'+pre1+'vbox7.com/p/'+vid_id+'5.jpg'
+			vid_player='http://'+pre1+'vbox7.com/player/ext_v7.swf?vid='+vid_id
+			#vid_player
+			#open(path, 'r')
+			vid_url=url
+			ifound=False
+			if (debugging==True): print 'vid thumbnail: '+vid_thumbnail
+			for ii in range(60):
+				if (ifound==False):
+					iia=str(ii)
+					if (ii==0): iia=''
+					elif (ii<10) and (ii>0): iia='0'+str(ii)
+					pre2=vid_id[:2]
+					#if (debugging==True): print 'pre2: '+pre2
+					ipath='http://media'+iia+'.vbox7.com/s/'+pre2+'/'+vid_id+'.flv'
+					if (debugging==True): print 'testing path: '+ipath
+					cc=check_url_v(ipath)
+					if (cc==True):
+						vid_url=ipath
+						if (debugging==True): print 'found: '+ipath
+						try: 		addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]* Error: Undergoing Testing.[/COLOR]',vid_url,vid_thumbnail,fanart,show)
+						except: 	VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Needs Testing.[/COLOR]', vid_url, 1, MyIconsV[tt], fanart)
+						return
+
+
 def vvVIDEOLINKS_doChecks_megavideo(tt,url,mainurl,name,name2='none',scr=ICON,imgfan=fanart,show='none',type2=0,mode=0):
-	if MySourcesV[tt] in url:#veoh.com
+	return
+	if MySourcesV[tt] in url:#megavideo ## site shut down.
 		if (debugging==True): print 'doChecks megavideo url: '+url
 		vid_url=url
 		#try: 		addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]* Error: Undergoing Testing.[/COLOR]',vid_url,scr,fanart,show)
@@ -738,26 +788,66 @@ def vvVIDEOLINKS_doChecks_trollvid(tt,url,mainurl,name,name2='none',scr='none',i
 
 
 def vvVIDEOLINKS_doChecks_rutube(tt,url,mainurl,name,name2='none',scr='none',imgfan='none',show='none',type2=0,mode=0):
-	if MySourcesV[tt] in url:#rutube.ru
+	if MySourcesV[tt] in url:#rutube.ru ## screenshot: working , video: no luck
 		linka=getURL(url)
 		if 'This file was Deleted' in linka:
 			VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: File was Deleted.[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 		else:
+			if ('http://video.rutube.ru/' in url):
+				vid_source=''; vid_embed=''; vid_thumbnail=''; vid_url=''
+				vid_id=url.split('.rutube.ru/')[1]
+				vid_thumbnail='http://img-1.rutube.ru/thumbs/'+vid_id[0:2]+'/'+vid_id[2:4]+'/'+vid_id+'-1.jpg'
+				if (debugging==True):  print 'thumbnail: '+vid_thumbnail
+				vid_xml='http://rutube.ru/api/video/'+vid_id+'/?format=xml'
+				if (debugging==True): print 'xml: '+vid_xml
+				linkb=getURL(vid_xml)
+				if ('<div class="error-code">404</div>' in linkb) or (linkb==None) or (linkb=='none'):
+					vid_xml='http://rutube.ru/cgi-bin/xmlapi.cgi?rt_mode=movie&rt_movie_id='+vid_id+'&utf=1'
+					if (debugging==True): print 'xml: '+vid_xml
+					linkb=getURL(vid_xml)
+				##if (debugging==True): print linkb
+				if ('<div class="error-code">404</div>' in linkb) or (linkb==None) or (linkb=='none'):
+					VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Bad XML Url.[/COLOR]', vid_xml, 1, vid_thumbnail, imgfan)
+					return
+				if ('<thumbnail_url>http://' in linkb): vid_thumbnail=(re.compile("<thumbnail_url>(.+?)</thumbnail_url>").findall(linkb)[0]).strip()
+				if ('<video_url>http://' in linkb): vid_url=(re.compile("<video_url>(.+?)</video_url>").findall(linkb)[0]).strip()
+				if ('<embed_url>http://' in linkb): vid_embed=(re.compile("<embed_url>(.+?)</embed_url>").findall(linkb)[0]).strip()
+				if ('<source_url>http://' in linkb): vid_source=(re.compile("<source_url>(.+?)</source_url>").findall(linkb)[0]).strip()
+				if (debugging==True): 
+					print 'thumbnail: '+vid_thumbnail
+					print 'url: '+vid_url
+					print 'embed: '+vid_embed
+					print 'vid: '+vid_source
+				#
+				#vid_url='http://rutube.ru/player.swf?hash='+vid_id+'&&referer=' ## plays animation of a button from some flash player.
+				#vid_url=url ## plays animation of a button from some flash player.
+				#vid_url='http://rutube.ru/trackinfo/'+vid_id+'.xml' ## Playback failed.
+				#vid_url='http://rutube.ru/video/'+vid_id+'/'
+				try: addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Needs Testing.[/COLOR]',vid_url,vid_thumbnail,imgfan,show)
+				except: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', matcha, 1, vid_thumbnail, imgfan)
 			#matcha=re.compile("addVariable\('file','(.+?)'\)").findall(linka)[0]
 			##if (debugging==True): print 'match: ',matcha
-			### 
+			### vid_id
 			### http://video.rutube.ru/64a7da0f3b1158b4830401f3ddfea34c
+			### 'http://img-'.rand(1, 4).'.rutube.ru/thumbs/'.substr($videoId, 0, 2).'/'.substr($videoId, 2, 2).'/'.$videoId.'-1.jpg'
+			### http://video.rutube.ru/43398d4a0260c6fa0634de666e6d670e
+			### http://img-1.rutube.ru/thumbs/43/39/43398d4a0260c6fa0634de666e6d670e-1.jpg
+			### 'http://img-1.rutube.ru/thumbs/'+vid_id[0:2]+'/'+vid_id[2:2]+'/'+vid_id+'-1.jpg'
+			### http://video-12-7.rutube.ru/hdsv2/0GSkNrgI-Ur-hHv9nMTrHw/1374435821/n2vol1/43398d4a0260c6fa0634de666e6d670e.mp4Seg1-Frag1
+			### http://video.rutube.ru/9137763f009758d936911a936bed9d28
+			### http://video-1-28.rutube.ru/hdsv2/6ZlOmWZaDryFeZzdLL43-Q/1374435996/n2vol1/9137763f009758d936911a936bed9d28.mp4Seg1-Frag1
+			### http://rutube.ru/player.swf?hash=9137763f009758d936911a936bed9d28&&referer=
 			### 
 			### 
 			### 
 			### 
 			### 
-			matcha=url
-			try:
-				#addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' [COLOR grey][/COLOR]',matcha,scr,imgfan,show)
-				addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Needs Testing.[/COLOR]',matcha,MyIconsV[tt],imgfan,show)
-			except:
-				VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', matcha, 1, MyIconsV[tt], imgfan)
+			### 
+			### 
+			else:
+				vid_url=url
+				try: addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Needs Testing.[/COLOR]',vid_url,MyIconsV[tt],imgfan,show)
+				except: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', matcha, 1, MyIconsV[tt], imgfan)
 
 def vvVIDEOLINKS_doChecks_putlocker(tt,url,mainurl,name,name2='none',scr=ICON,imgfan=fanart,show='none',type2=0,mode=0):
 	if MySourcesV[tt] in url:#putlocker
@@ -795,8 +885,8 @@ def vvVIDEOLINKS_doChecks_putlocker(tt,url,mainurl,name,name2='none',scr=ICON,im
 						except:#failed @ logo.link
 							VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 				else: notification('Fetching Link: '+MyNamesV[tt],'Failed to find playlist.')
-
-
+### ############################################################################################################
+### ############################################################################################################
 def vvVIDEOLINKS_doChecks_others(ListOfUrls,tt,url,mainurl,name,name2='none',scr='none',imgfan='none',show='none',type2=0,mode=0):
 	######## I need to learn how to merge multiple Lists better before enabling this feature I guess. :(
 	#ListOfUrls
@@ -822,7 +912,15 @@ def vvVIDEOLINKS_doChecks_others(ListOfUrls,tt,url,mainurl,name,name2='none',scr
 	#			print 'Unknown Link Found For: # '+str(icnt)+'.) '+show,urllib.unquote_plus(url)
 	#			#addLink('[COLOR white]Unknown[/COLOR] - [COLOR grey]Please report the Show and Episode to me[/COLOR]',urllib.unquote_plus(url),ICON, fanart,show)#MyIconsV[tt])
 	#			VaddDir('[COLOR white]Unknown[/COLOR] - [COLOR grey]Please report the Show and Episode to me[/COLOR]', urllib.unquote_plus(url), 1, ICON, fanart)
+### ############################################################################################################
+### ############################################################################################################
 
 
 
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
 #xbmcplugin.endOfDirectory(int(sys.argv[1]))
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
