@@ -1,19 +1,24 @@
-### ##########################################
-###
-### # The Anime Highway - by The Highway 2013.
-### # version 0.0.6i
-###
-### ##########################################
-### ##########################################
-__plugin__ = "The Anime Highway"
-__authors__ = "The Highway"
-__credits__ = "o9r1sh of plugin.video.gogoanime for Videoweed and Video44 source parsing. TheHighway(Myself) for AnimeGet plugin (simular site)"
-### ##########################################
-import urllib,urllib2,re,os,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,sys
-import string,StringIO,logging,urlresolver,random,array
+### ############################################################################################################
+###	#	
+### # Project: 			#		The Anime Highway - by The Highway 2013.
+### # Author: 			#		The Highway
+### # Version:			#		v0.0.7
+### # Description: 	#		Default .py file for the project.
+###	#	
+### ############################################################################################################
+### ############################################################################################################
+__plugin__	=	"The Anime Highway"
+__authors__	=	"The Highway"
+__credits__	=	"o9r1sh of plugin.video.gogoanime for Videoweed and Video44 source parsing. TheHighway(Myself) for AnimeGet plugin (simular site)"
+plugin_id		=	"plugin.video.theanimehighway"
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,urlresolver,urllib,urllib2,re,os,sys,string,StringIO,logging,random,array,time
 import videolinks
 from videolinks import vvVIDEOLINKS
 from videolinks import *
+#from videolinks2 import *
 from teh_tools import *
 try: import json
 except ImportError: import simplejson as json
@@ -21,40 +26,28 @@ from t0mm0.common.net import Net as net
 from t0mm0.common.addon import Addon
 try: import StorageServer
 except: import storageserverdummy as StorageServer
-plugin_id='plugin.video.theanimehighway'
-cache = StorageServer.StorageServer(plugin_id)
-local=xbmcaddon.Addon(id=plugin_id)
-addon = Addon(plugin_id, sys.argv)
-__settings__ 		= xbmcaddon.Addon(id=plugin_id)
-__home__ = __settings__.getAddonInfo('path')
-##__home__ = 'special://home/addons/plugin.video.theanimehighway/art'
-#special://home/addons/plugin.video.theanimehighway/art
-#addonPath=os.getcwd()
-addonPath=__home__
-artPath=addonPath+'/art/'
-#icon = xbmc.translatePath( os.path.join( __home__, 'icon.png' ) )
-#home = xbmc.translatePath(addon.getAddonInfo('path'))
-if __settings__.getSetting("enable-debug") == "true":debugging=True
-else: debugging=False
-#if (debugging==True): 
-if __settings__.getSetting("show-debug") == "true": shoDebugging=True
-else: shoDebugging=False
-#if (showDebugging==True): 
-#########################################
-#########################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+cache						=	StorageServer.StorageServer(plugin_id)
+addon						=	Addon(plugin_id, sys.argv)
+local						=	xbmcaddon.Addon(id=plugin_id)
+__settings__		=	xbmcaddon.Addon(id=plugin_id)
+__home__				=	__settings__.getAddonInfo('path')
+addonPath				=	__settings__.getAddonInfo('path')
+artPath					=	addonPath+'/art/'	#special://home/addons/plugin.video.theanimehighway/art
+###	icon = xbmc.translatePath( os.path.join( __home__, 'icon.png' ) )
+###	home = xbmc.translatePath(addon.getAddonInfo('path'))
+if __settings__.getSetting("enable-debug") == "true":	debugging=True			#if (debugging==True): 
+else: 																								debugging=False
+if __settings__.getSetting("show-debug") == "true":		shoDebugging=True		#if (showDebugging==True): 
+else: 																								shoDebugging=False
 params=get_params()
-url=None
-urlbac=None
-name=None
-name2=None
-type2=None
-favcmd=None
-mode=None
-scr=None
-imgfan=None
-show=None
-category=None
-
+MyMenu=class_MyMenu()
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+url=None; urlbac=None; name=None; name2=None; type2=None; favcmd=None; mode=None; scr=None; imgfan=None; show=None; category=None
 try: category=urllib.unquote_plus(params["cat"])
 except: pass
 if category==None: category='Base'
@@ -78,7 +71,9 @@ try: type2=int(params["tp"])
 except: pass
 try: mode=int(params["mode"])
 except: pass
-
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
 ICON8 = os.path.join(artPath, 'icon_watchdub.png');ICON7 = os.path.join(artPath, 'icon_dubhappy.png');ICON6 = os.path.join(artPath, 'iconDAOn2.png');ICON5 = os.path.join(artPath, 'iconA44couk.png');ICON4 = os.path.join(artPath, 'icongd.png');ICON3 = os.path.join(artPath, 'iconAPlus.png');ICON2 = os.path.join(artPath, 'iconA44.png');ICON1 = os.path.join(artPath, 'iconAG.png');ICON0 = os.path.join(__home__, 'icon.png')
 fanart8 = os.path.join(artPath, 'fanart_watchdub.jpg');fanart7 = os.path.join(artPath, 'fanart_dubhappy.jpg');fanart6 = os.path.join(artPath, 'fanartDAOn2.jpg');fanart5 = os.path.join(artPath, 'fanartA44couk.jpg');fanart4 = os.path.join(artPath, 'fanartgd.jpg');fanart3 = os.path.join(artPath, 'fanartAPlus.jpg');fanart2 = os.path.join(artPath, 'fanartA44.jpg');fanart1 = os.path.join(artPath, 'fanartAG.jpg');fanart0 = os.path.join(__home__, 'fanart.jpg')
 if type2==8:			#site 8
@@ -107,7 +102,9 @@ elif type2==2:		#site 2
 	fanart = os.path.join(artPath, 'fanartA44.jpg');ICON = os.path.join(artPath, 'iconA44.png');mainSite='http://www.anime44.com/'
 else:							#site 1
 	fanart = os.path.join(artPath, 'fanartAG.jpg');ICON = os.path.join(artPath, 'iconAG.png');mainSite='http://www.animeget.com/'
-
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
 SiteBits=['nosite','animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk','dubbedanimeon.com','dubhappy.eu','watchdub.com']
 SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','[COLOR teal]Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]','[COLOR cornflowerblue][COLOR white]dub[/COLOR]happy[/COLOR]','[COLOR cornflowerblue]Watch[/COLOR][COLOR white]Dub[/COLOR]','','']
 SitePrefixes=['nosite','','','','','subanime/','','','','','','','','','','','','']
@@ -118,7 +115,7 @@ Sites=['animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.u
 MyAlphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 MyColors=['red','blue','darkblue','grey','maroon','teal','cornflowerblue','cornflowerblue','','','']
 MyBrowser=['User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3']
-#############################
+### ############################################################################################################
 if debugging==True:
 	print 'Category from URL: ',category
 	print "Mode: "+str(mode)
@@ -131,24 +128,51 @@ if debugging==True:
 	print "uFanart: "+str(imgfan)
 	print "show: "+str(show)
 	print "Category: "+str(category)
-#########################################
-#############################
-def menu0():#Main Menu
-				VaddDir('                          [B][COLOR purple]--  The  [COLOR white]Anime[/COLOR]  [COLOR tan]Highway[/COLOR]  --[/COLOR][/B]', '', 1, ICON0, fanart0, False)
-				VaddDir('[COLOR grey] Please select a site:[/COLOR]', '', 1, ICON0, fanart0, False)
-				if (getsetbool('esite-1')=='true'): addDir('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]','Site 1 - AnimeGet','ag',1,1,ICON1,fanart1,SiteBits[1])
-				if (getsetbool_('esite-1')==True): addDir('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]','Site 1 - AnimeGet','ag',1,1,ICON1,fanart1,SiteBits[1])
-				if (getsetbool_('esite-2')==True): addDir('[COLOR ' + MyColors[0] + '][COLOR white]Anime[/COLOR]44 [/COLOR]','Site 2 - Anime44.com','a44',2,1,ICON2,fanart2,SiteBits[2])
-				if (getsetbool_('esite-3')==True): addDir('[COLOR ' + MyColors[2] + '][COLOR white]Anime[/COLOR]Plus [/COLOR]','Site 3 - AnimePlus','aplus',3,1,ICON3,fanart3,SiteBits[3])
-				if (getsetbool_('esite-5')==True): addDir('[COLOR ' + MyColors[4] + '][COLOR white]Anime[/COLOR]Zone [/COLOR][COLOR grey][/COLOR]','Site 5 - Anime44.co.uk','azone',5,1,ICON5,fanart5,SiteBits[5])#animezone = anime44.co.uk and appreantly animeinfo.co.uk and animehere.co.uk
-				if (getsetbool_('esite-6')==True): addDir('[COLOR ' + MyColors[5] + ']Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]' + '[COLOR grey] - * Note: video host is problem-matic.[/COLOR]','Site 6 - DubbedAnimeOn','dao',6,1,ICON6,fanart6,SiteBits[6])
-				if (getsetbool_('esite-7')==True): addDir('[COLOR ' + MyColors[6] + '][COLOR white]Dub[/COLOR]Happy [/COLOR]','Site 7 - DubHappy.eu/','dh',7,1,ICON7,fanart7,SiteBits[7])
-				if (getsetbool_('esite-8')==True): addDir('[COLOR ' + MyColors[7] + ']Watch[COLOR white]Dub[/COLOR] [/COLOR]','Site 8 - watchdub.com/','wd',8,1,ICON8,fanart8,SiteBits[8])
-				if (getsetbool_('esite-4')==True): addDir('[COLOR ' + MyColors[3] + ']Good[COLOR white]Drama[/COLOR] [/COLOR]','Site 4 - GoodDrama','gd',4,1,ICON4,fanart4,SiteBits[4])
-				addDir('[COLOR tan]Favorites[/COLOR]','Favorites','favs',1,888,ICON0,fanart0,'Favorites')
-				VaddDir('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]', '', 1, ICON0, fanart0, False)
-				set_view('none',int(getset('viewmode-default')))
-def menu1():#Main Menu
+### ############################################################################################################
+### ############################################################################################################
+def menu0_MainMenu():#Site Selection Menu
+	mm=[] ## Note:  Provides a list of menu items for later use.
+	if (getsetbool_('esite-extras')==True): mm.append(make_item('                          [B][COLOR purple]--  The  [COLOR white]Anime[/COLOR]  [COLOR tan]Highway[/COLOR]  --[/COLOR][/B]'))
+	if (getsetbool_('esite-extras')==True): mm.append(make_item('[COLOR grey] Please select a site:[/COLOR]'))
+	if (getsetbool_('esite-1')==True): mm.append(make_item('[COLOR ' + MyColors[1] + '][COLOR white]Anime[/COLOR]Get[/COLOR]',True,1,1,SiteBits[1],ICON1,fanart1,'ag'))
+	if (getsetbool_('esite-2')==True): mm.append(make_item('[COLOR ' + MyColors[0] + '][COLOR white]Anime[/COLOR]44[/COLOR]',True,1,2,SiteBits[2],ICON2,fanart2,'a44.com'))
+	if (getsetbool_('esite-3')==True): mm.append(make_item('[COLOR ' + MyColors[2] + '][COLOR white]Anime[/COLOR]Plus[/COLOR]',True,1,3,SiteBits[3],ICON3,fanart3,'aplus'))
+	if (getsetbool_('esite-5')==True): mm.append(make_item('[COLOR ' + MyColors[4] + '][COLOR white]Anime[/COLOR]Zone[/COLOR]',True,1,5,SiteBits[5],ICON5,fanart5,'az'))
+	if (getsetbool_('esite-6')==True): mm.append(make_item('[COLOR ' + MyColors[5] + ']Dubbed[COLOR white]Anime[/COLOR]On[/COLOR]',True,1,6,SiteBits[6],ICON6,fanart6,'dao'))
+	if (getsetbool_('esite-7')==True): mm.append(make_item('[COLOR ' + MyColors[6] + '][COLOR white]Dub[/COLOR]Happy[/COLOR]',True,1,7,SiteBits[7],ICON7,fanart7,'dh'))
+	if (getsetbool_('esite-8')==True): mm.append(make_item('[COLOR ' + MyColors[7] + ']Watch[COLOR white]Dub[/COLOR][/COLOR]',True,1,8,SiteBits[8],ICON8,fanart8,'wd'))
+	if (getsetbool_('esite-4')==True): mm.append(make_item('[COLOR ' + MyColors[3] + ']Good[COLOR white]Drama[/COLOR][/COLOR]',True,1,4,SiteBits[4],ICON4,fanart4,'gd'))
+	#
+	#
+	#
+	#
+	mm.append(make_item('[COLOR tan]F[COLOR maroon]a[/COLOR]vorites[/COLOR]',True,888,1,'Favorites',ICON0,fanart0,'favs'))
+	if (getsetbool_('esite-extras2')==False):
+		mm.append(make_item('[COLOR tan]E[COLOR maroon]x[/COLOR]tras[/COLOR]',True,101,0,'Extras',ICON0,fanart0,''))
+	if (getsetbool_('esite-extras2')==True):
+		mm.append(make_item_cmd('showsettingwindow','[COLOR tan]Settings[/COLOR]',False,0,0,'Show Setting Window',ICON0,fanart0))
+		mm.append(make_item_cmd('showtextwindow','[COLOR white]Latest Online[/COLOR] [COLOR tan]News[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Latest Online News',ICON0,fanart0,'https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/news.txt',"[COLOR cornflowerblue]Latest News:[/COLOR]  %s" % (__plugin__)))
+		mm.append(make_item_cmd('showtextwindow','[COLOR white]Latest Online[/COLOR] [COLOR tan]Change Log[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Latest Change Log',ICON0,fanart0,'https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/changelog.txt',"[COLOR cornflowerblue]Latest Change Log:[/COLOR]  %s" % (__plugin__)))
+		mm.append(make_item_cmd('showtextwindow2','[COLOR white]Local[/COLOR] [COLOR tan]Change Log[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Local Change Log',ICON0,fanart0,'changelog.txt',"[COLOR cornflowerblue]Local Change Log:[/COLOR]  %s" % (__plugin__)))
+		mm.append(make_item('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]'))
+		mm.append(make_item('[COLOR tan]Search[/COLOR] [COLOR white]AirDates[/COLOR]',False,1800,0,'Search', os.path.join(artPath,'tvdb_logo2.png'),'http://www.thetvdb.com/images/header.jpg','search'))
+	set_view('none',int(getset('viewmode-sites')))
+### ############################################################################################################
+def menu101_Extras():#Extras Menu
+	mm=[] ## Note:  Provides a list of menu items for later use.
+	if (getsetbool_('esite-extras')==True): mm.append(make_item('                          [B][COLOR purple]--  The  [COLOR white]Anime[/COLOR]  [COLOR tan]Highway[/COLOR]  --[/COLOR][/B]'))
+	if (getsetbool_('esite-extras')==True): mm.append(make_item('[COLOR grey] List of Extras:[/COLOR]'))
+	mm.append(make_item('[COLOR tan]Search[/COLOR] [COLOR white]AirDates[/COLOR]',False,1800,0,'Search', os.path.join(artPath,'tvdb_logo2.png'),'http://www.thetvdb.com/images/header.jpg','search'))
+	mm.append(make_item('[COLOR tan]F[COLOR maroon]a[/COLOR]vorites[/COLOR]',True,888,1,'Favorites',ICON0,fanart0,'favs'))
+	mm.append(make_item_cmd('showtextwindow','[COLOR white]Latest Online[/COLOR] [COLOR tan]News[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Latest Online News',ICON0,fanart0,'https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/news.txt',"[COLOR cornflowerblue]Latest News:[/COLOR]  %s" % (__plugin__)))
+	mm.append(make_item_cmd('showtextwindow','[COLOR white]Latest Online[/COLOR] [COLOR tan]Change Log[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Latest Change Log',ICON0,fanart0,'https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/changelog.txt',"[COLOR cornflowerblue]Latest Change Log:[/COLOR]  %s" % (__plugin__)))
+	mm.append(make_item_cmd('showtextwindow2','[COLOR white]Local[/COLOR] [COLOR tan]Change Log[/COLOR]  [COLOR grey][/COLOR]',False,0,0,'Local Change Log',ICON0,fanart0,'changelog.txt',"[COLOR cornflowerblue]Local Change Log:[/COLOR]  %s" % (__plugin__)))
+	mm.append(make_item_cmd('showsettingwindow','[COLOR tan]Settings[/COLOR]',False,0,0,'Show Setting Window',ICON0,fanart0))
+	mm.append(make_item('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]'))
+	#
+	set_view('none',int(getset('viewmode-sites')))
+### ############################################################################################################
+def menu1_BrowseMethod():#Main Menu (for each site)
         if type2==4:#gooddrama
         	addFolder('[COLOR ' + MyColors[0] + ']Drama Movies[/COLOR]','Movies','drama-movies',type2,3,'movies.png','Drama Movies')
         	addFolder('[COLOR ' + MyColors[1] + ']Drama Series[/COLOR]','List','drama-shows',type2,2,'full.png','Drama Series')
@@ -187,6 +211,7 @@ def menu1():#Main Menu
         	addDir('[COLOR tan]Search[/COLOR]','',mainSite + 'Search',type2,400,artPath + 'search-icon.png',fanart,'Search')
         #addDir('Search','List',mainSite + 'new-anime',0,8,artPath + 'full.png',fanart)
         set_view('none',int(getset('viewmode-default')))
+### ############################################################################################################
 def menu2():#series
         if type2==4:#gooddrama
         	addFolder('[COLOR ' + MyColors[1] + ']Index[/COLOR]','List','drama-shows',type2,201,'full.png')
@@ -235,6 +260,7 @@ def menu250():#dubbed-anime
 		#addFolder('New','List',SitePrefixes[type2]+'new-movies'+SiteSufixes[type2],type2,6,'BLANK.png')
 		#addFolder('Recent','List',SitePrefixes[type2]+'recent-movies'+SiteSufixes[type2],type2,6,'BLANK.png')
 	set_view('none',int(getset('viewmode-default')))
+### ############################################################################################################
 def menu252_genre_list():#dubbed-anime#genres
 	if (type2==8):#watchdub
 		#http://www.watchdub.com/?max-results=100&cat-id=11
@@ -327,7 +353,7 @@ def menu252_genre_list():#dubbed-anime#genres
 		#
 		#
 	set_view('none',int(getset('viewmode-default')))
-
+### ############################################################################################################
 def menu256_show_list(url):#dubbed-anime#show-listings
 	viewtyp='tvshows'
 	link=getURL(url)
@@ -352,13 +378,16 @@ def menu256_show_list(url):#dubbed-anime#show-listings
 				# rel="bookmark" title="Permanent Link to Maburaho">Maburaho
 				try: show_title=(re.compile('rel="bookmark" title="Permanent Link to .+?">(.+?)</a></h2>').findall(dat_show)[0]).strip()
 				except: show_title='Unknown'
+				show_title=ParseDescription(show_title)
 				if (debugging==True): print 'show title: '+show_title
 				## site does have Votes, Rating(# out of 5), Rated, stars, genres, themes
 				try: show_img=(re.compile('<img src="(.+?)" width="165" height="200" style="float: left;margin:0px 5px 0px 5px;" />').findall(dat_show)[0]).strip()
 				except: show_img=ICON
 				if (debugging==True): print 'show img: '+show_img
 				try: show_plot=(((dat_show.split('<br />Plot Summary: ')[1])).split('</p>')[0]).strip()
-				except: show_plot='(Not Available)'
+				except:
+					try: show_plot=(((dat_show.split('Plot Summary: ')[1])).split('</p>')[0]).strip()
+					except: show_plot='(Not Available)'
 				if (debugging==True): print 'show plot: '+show_plot
 				#
 				#
@@ -392,9 +421,7 @@ def menu256_show_list(url):#dubbed-anime#show-listings
 				vid_type='Dubbed Anime'#'Unknown'#thetvdb_data[6]
 				Labels={ 'Title':show_title,'Plot':vid_descr,'Year':vid_released,'Status':vid_status,'Rating':vid_rating, 'ShowID':vid_id,'Votes':vid_votes,'Type':vid_type, 'Fanart':vid_fanart, 'Poster':vid_poster, 'Banner':vid_banner, 'Language':vid_language, 'Network':vid_network, 'Genre':vid_genres } 
 				addDirD(show_title,show_title,show_url,type2,257,vid_poster,vid_fanart,True,'',Labels)
-				
-		#
-		#
+		set_view(viewtyp,int(getset('viewmode-shows')))#set_view('none',508)
 	if (type2==7):
 		dat_a=link.split('<div class="genre-flasher"><h4 class="post-title" style="border-radius:0;-moz-border-radius: 0;-webkit-border-radius: 0;border-right: none;border-left: none;margin: 7px auto;">')
 		#if (debugging==True): print dat_a
@@ -495,8 +522,7 @@ def menu256_show_list(url):#dubbed-anime#show-listings
 		#
 	#elif (type2==0):
 	set_view(viewtyp,int(getset('viewmode-shows')))#set_view('none',508)
-
-
+### ############################################################################################################
 def menu253(url):#dubbed-anime#show-listings
 	viewtyp='tvshows'
 	link=getURL(url)
@@ -611,6 +637,7 @@ def menu253_old(url):#dubbed-anime#show-listings #### fails to display some resu
 		addDir(' Next',show,mainSite+url3,type2,253,artPath + 'next-icon.png',fanart)#gogoanime\\next.png
 	#set_view('none',508)
 	set_view(viewtyp,int(getset('viewmode-shows')))
+### ############################################################################################################
 def menu254(url):#dubbed-anime#list episodes
 	test=''
 	#
@@ -643,6 +670,7 @@ def genrelist(url,modeA):#Get list of Available Genres from Site
 		for url2,name,shocount in match:
 			addDirD(name + ' - (' + shocount + ')',name,url2,type2,6,ICON,fanart,True)#testing: change addDirD back to addDir later
 	##set_view('none',50)
+### ############################################################################################################
 def showlistnames(url,modeA):
 	if ('movie' in url): viewtyp='movies'
 	else: viewtyp='tvshows'
@@ -759,14 +787,16 @@ def showlist(url,modeA=0,postBool=False,postData={'search':''}):#mode=6
 			addDirD(name,name,url2,type2,4,show_poster,show_fanart,True,name,Labels)
 	xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
 	set_view(viewtyp,int(getset('viewmode-shows')),True)
+### ############################################################################################################
 def EPISODESlist(url,mediaType='Subbed'):
         #
         if (shoDebugging==True): 
         	try: VaddDir('  [COLOR cornsilk][COLOR purple]Show: [/COLOR]'+show+'[/COLOR]' + '[COLOR grey][/COLOR]', '', 1, ICON, fanart)
         	except: t=''
         #
-        if ('movie' in url): viewtyp='movies'
-        else: viewtyp='tvshows'
+        #if ('movie' in url): viewtyp='movies'
+        #else: viewtyp='tvshows'
+        viewtyp='episodes'
         #if (debugging==True): print 'testing for animeget thetvdb'
         ##
         if (metaArt_DoCheck(show)==True):
@@ -831,11 +861,25 @@ def EPISODESlist(url,mediaType='Subbed'):
 def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 	if ('movie' in url): viewtyp='movies'
 	else: viewtyp='tvshows'
+	viewtyp='episodes'
 	if (shoDebugging==True): 
 		try: VaddDir('  [COLOR cornsilk][COLOR purple]Show: [/COLOR]'+show+'[/COLOR]' + '[COLOR grey][/COLOR]', '', 1, ICON, fanart)
 		except: t=''
 	link=getURL(url)
 	link_=link
+	#
+	#
+	show_title=show
+	if (metaArt_DoCheck(show_title)==True):
+		if (debugging==True): print show_title + ' found in cached metaArt Data.'
+		thetvdb_data=metaArt_getCache(show_title)
+		show_id=thetvdb_data[1]; show_fanart=thetvdb_data[3]; show_poster=thetvdb_data[4]; show_banner=thetvdb_data[5]
+		thetvdb_episodes =thetvdb_com_episodes(show_id)
+		epi_data_found=True
+	else:
+		show_fanart=''; show_poster=''; show_banner=''
+		epi_data_found=False
+	#
 	#
 	##
 	##dat_a=(link.split('<p><b>Filter by Genres:</b>')[1]).split('<div class="navigation">')[0]
@@ -855,9 +899,6 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 	if (type2==6): ## Parsing episode listings
 		#
 		dat_a=link.split('<li><strong>')
-		#<img style="float:left; margin-right:5px;margin-bottom:5px;" src="http://dubbedanimeon.com/wp-content/uploads/31.jpg" width="225" height="350" title="arc-the-lad" />
-		#try: show_img=(re.compile('<img src="(.+?)"').findall(dat_show)[0]).strip()
-		#try: show_img=(re.compile('<img style=".+?" src="(.+?)" width="225" height="350" title="').findall(dat_show)[0]).strip()
 		try: show_img=(re.compile('<img style=".+?" src="(.+?)" width="225" height="350" title="').findall(link_)[0]).strip()
 		except: show_img=ICON
 		#try: show_plot=(((dat_show.split('<span style="')[1]).split('">')[1]).split('<a style="')[0]).strip()
@@ -872,9 +913,25 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 				except: episode_title='Unknown'
 				try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
 				except: episode_dateposted='Unknown'
+				#
+				episode_title_old=episode_title; epi_data_done=False
+				if (epi_data_found==True):
+					(season_number, episode_number) = Episode__get_S_Ep_No(episode_title)
+					if (episode_number is not ''): ### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
+						for thetvdb_episode in thetvdb_episodes:
+							if (thetvdb_episode[1].strip()==(season_number+' x '+episode_number)):
+								episode_title=thetvdb_episode[1].strip()+' - '+thetvdb_episode[3].strip()
+								(episode_dateaired,episode_year,episode_month,episode_day) = Episode__get_date(thetvdb_episode)
+								(episode_thumbnail,id_series,id_episode) = Episode__get_thumb(thetvdb_episode[0].strip(),show_img)
+								episode_fanart=show_img; episode_plot=''; epi_data_done=True
+				if (epi_data_done==False):
+					episode_fanart=fanart; episode_thumbnail=show_img; episode_dateaired=''; id_series=''; id_episode=''; season_number=''; episode_number=''; episode_year=''; episode_month=''; episode_day=''; episode_plot=''
+				#
 				episode_title=ParseDescription(episode_title)
-				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
-				addDirD(episode_title+'   ('+episode_dateposted+')',episode_title,episode_url,type2,5,show_img,fanart,True,episode_title,Labels)
+				#Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
+				Labels={ 'Title': '[B]'+show_title+'[/B][CR] - '+episode_title, 'Dated Posted': episode_dateposted, 'Premiered': episode_dateaired, 'Date Aired': episode_dateaired, 'Date': episode_dateaired, 'Season': season_number, 'Episode': episode_number, 'Year': episode_year, 'Month': episode_month, 'Day': episode_day, 'Plot': episode_plot, 'TVShowTitle': show_title, 'Poster': show_poster, 'FanArt': show_fanart, 'Banner': show_banner }
+				addDirD(episode_title,'[B]'+show_title+'[/B] - '+episode_title,episode_url,type2,501,episode_thumbnail,show_fanart,True,'[B]'+show_title+'[/B] - '+episode_title,Labels)
+				#addDirD(episode_title+'   ('+episode_dateposted+')',episode_title,episode_url,type2,5,show_img,fanart,True,episode_title,Labels)
 				#addDirD(episode_title,episode_title,url2,type2,5,thetvdb_poster,thetvdb_fanart,True,episode_title,Labels)
 				#addDirD(name,name,url2,type2,5,img3,thetvdb_fanart)
 	if (type2==7): ## Parsing episode listings
@@ -889,31 +946,63 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 				#try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
 				#except: episode_dateposted='Unknown'
 				episode_dateposted='Unknown'
+				#
+				episode_title_old=episode_title; epi_data_done=False
+				if (epi_data_found==True):
+					(season_number, episode_number) = Episode__get_S_Ep_No(episode_title)
+					if (episode_number is not ''): ### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
+						for thetvdb_episode in thetvdb_episodes:
+							if (thetvdb_episode[1].strip()==(season_number+' x '+episode_number)):
+								episode_title=thetvdb_episode[1].strip()+' - '+thetvdb_episode[3].strip()
+								(episode_dateaired,episode_year,episode_month,episode_day) = Episode__get_date(thetvdb_episode)
+								(episode_thumbnail,id_series,id_episode) = Episode__get_thumb(thetvdb_episode[0].strip(),show_img)
+								episode_fanart=show_img; episode_plot=''; epi_data_done=True
+				if (epi_data_done==False):
+					episode_fanart=fanart; episode_thumbnail=show_img; episode_dateaired=''; id_series=''; id_episode=''; season_number=''; episode_number=''; episode_year=''; episode_month=''; episode_day=''; episode_plot=''
+				#
 				if ('' in episode_title): episode_title=episode_title.replace('English Dubbed','[COLOR lime](English Dubbed)[/COLOR]')
 				episode_title=ParseDescription(episode_title)
-				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
-				addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
+				#Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
+				Labels={ 'Title': '[B]'+show_title+'[/B][CR] - '+episode_title, 'Dated Posted': episode_dateposted, 'Premiered': episode_dateaired, 'Date Aired': episode_dateaired, 'Date': episode_dateaired, 'Season': season_number, 'Episode': episode_number, 'Year': episode_year, 'Month': episode_month, 'Day': episode_day, 'Plot': episode_plot, 'TVShowTitle': show_title, 'Poster': show_poster, 'FanArt': show_fanart, 'Banner': show_banner }
+				addDirD(episode_title,'[B]'+show_title+'[/B] - '+episode_title,episode_url,type2,501,episode_thumbnail,show_fanart,True,'[B]'+show_title+'[/B] - '+episode_title,Labels)
+				#addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
 	if (type2==8): ## Parsing episode listings
+		link=link.replace('</p>','<br />')
 		dat_a=link.split('<br />')
 		try: show_img=(re.compile('<img class="photo" alt=".+?" style=".+?" src="(.+?)" border="0" alt=""id="BLOGGER_PHOTO_ID_').findall(link_)[0]).strip()
-		except: show_img=ICON
+		except:
+			try: show_img=(re.compile('<img class="photo" alt=".+?" src="(.+?)" width=".+?" height=".+?" /></div>').findall(link_)[0]).strip()
+			except: show_img=ICON
 		for dat_show in dat_a:
 			#<br /><a href="http://www.watchdub.com/2009/10/maburaho-episode-1.html">Maburaho Episode 1</a>
 			if '<a href="' in dat_show: 
-				episode_url=(re.compile('<a href="(.+?)">.+?</a>').findall(dat_show)[0]).strip()
-				try: episode_title=(re.compile('<a href=".+?">(.+?)</a>').findall(dat_show)[0]).strip() #(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
+				episode_url=(re.compile('<a href="(.+?)"').findall(dat_show)[0]).strip()
+				#episode_url=(re.compile('<a href="(.+?)">.+?</a>').findall(dat_show)[0]).strip()
+				#try: episode_title=(re.compile('<a href=".+?">(.+?)</a>').findall(dat_show)[0]).strip() #(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
+				try: episode_title=(re.compile('">(.+?)</a>').findall(dat_show)[0]).strip() #(((dat_show.split('title="')[1]).split('">')[1]).split('<')[0]).strip()
 				except: episode_title='Unknown'
-				#try: episode_dateposted=(re.compile('"date-post">(.+?)</span>').findall(dat_show)[0]).strip()
-				#except: episode_dateposted='Unknown'
+				episode_title=ParseDescription(episode_title)
 				episode_dateposted='Unknown'
+				#
+				episode_title_old=episode_title; epi_data_done=False
+				if (epi_data_found==True):
+					(season_number, episode_number) = Episode__get_S_Ep_No(episode_title)
+					if (episode_number is not ''): ### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
+						for thetvdb_episode in thetvdb_episodes:
+							if (thetvdb_episode[1].strip()==(season_number+' x '+episode_number)):
+								episode_title=thetvdb_episode[1].strip()+' - '+thetvdb_episode[3].strip()
+								(episode_dateaired,episode_year,episode_month,episode_day) = Episode__get_date(thetvdb_episode)
+								(episode_thumbnail,id_series,id_episode) = Episode__get_thumb(thetvdb_episode[0].strip(),show_img)
+								episode_fanart=show_img; episode_plot=''; epi_data_done=True
+				if (epi_data_done==False):
+					episode_fanart=fanart; episode_thumbnail=show_img; episode_dateaired=''; id_series=''; id_episode=''; season_number=''; episode_number=''; episode_year=''; episode_month=''; episode_day=''; episode_plot=''
+				#
 				if ('' in episode_title): episode_title=episode_title.replace('English Dubbed','[COLOR lime](English Dubbed)[/COLOR]')
 				episode_title=ParseDescription(episode_title)
-				Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
-				addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
-		#
-		#
-		#
-		#
+				Labels={ 'Title': '[B]'+show_title+'[/B][CR] - '+episode_title, 'Dated Posted': episode_dateposted, 'Premiered': episode_dateaired, 'Date Aired': episode_dateaired, 'Date': episode_dateaired, 'Season': season_number, 'Episode': episode_number, 'Year': episode_year, 'Month': episode_month, 'Day': episode_day, 'Plot': episode_plot, 'TVShowTitle': show_title, 'Poster': show_poster, 'FanArt': show_fanart, 'Banner': show_banner }#,'Plot':show_desc }
+				addDirD(episode_title,'[B]'+show_title+'[/B] - '+episode_title,episode_url,type2,501,episode_thumbnail,show_fanart,True,'[B]'+show_title+'[/B] - '+episode_title,Labels)
+				#addDirD(episode_title,'[B]'+show_title+'[/B] - '+episode_title,episode_url,type2,501,episode_thumbnail,episode_fanart,True,'[B]'+show_title+'[/B] - '+episode_title,Labels)
+				#addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
 		#
 	#
 	xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
@@ -946,7 +1035,7 @@ def CheckFor_PreviousNext_Episodes(page_dat,type2):
 			#<link rel='next' title='Xamd Lost Memories Episode 15' href='http://dubbedanimeon.com/episode/xamd-lost-memories-episode-15-english-dubbed/'/>
 		###
 	#####
-
+### ############################################################################################################
 def VIDEOsource(url,name):
 				vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
 				linkO=getURL(url)
@@ -959,7 +1048,12 @@ def VIDEOsource(url,name):
 				#url=None	urlbac=None	name=None	name2=None	type2=None	favcmd=None	mode=None	scr=None	imgfan=None	show=None
 				#set_view('none',50)
 def VIDEOsource_501(url,name):
-	###
+	### ###  Testing knew v2 Videolinks setup  ### 
+	#if (type2==7): t=''
+	#else:
+	#	v2vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
+	#	return
+	### ### 
 	vvVIDEOLINKS(url,name,name2,scr,imgfan,show,type2,mode)
 	linkO=getURL(url)
 	###
@@ -998,7 +1092,7 @@ def VIDEOsource_501(url,name):
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	##url=None	urlbac=None	name=None	name2=None	type2=None	favcmd=None	mode=None	scr=None	imgfan=None	show=None
 	##set_view('none',50)
-
+### ############################################################################################################
 def searchwindow(sitName,sitSearchmethod,sitSearchUrl,aMode,aUrl='',aName='',aType2=0):
 	##searchwindow(SiteNames[type2],SiteSearchMethod[type2],SiteSearchUrls[type2],type2,name,url)
 	#notification('Testing:','Search Engine.')
@@ -1016,8 +1110,7 @@ def searchwindow(sitName,sitSearchmethod,sitSearchUrl,aMode,aUrl='',aName='',aTy
 			else:
 				showlist(sitSearchUrl+urllib.quote_plus(kmsg),aMode)
 				#addDirD(name,name,url2,type2,4,img2,fanart)
-
-#########################################
+### ############################################################################################################
 def primewire_links(url,name):
 	priUrl='http://www.primewire.ag'
 	priUrlExt='http://www.primewire.ag/external.php?'
@@ -1114,7 +1207,7 @@ def primewire_links(url,name):
 	if ('movie' in show_type): set_view(viewtyp,int(getset('viewmode-movies')),False)
 	else: set_view(viewtyp,int(getset('viewmode-shows')),False)
 	#
-
+### ############################################################################################################
 def u_get(u=''):
 	u= sys.argv[0]
 	u += "?url="+qp_get(url)
@@ -1128,13 +1221,11 @@ def u_get(u=''):
 	u += "&cat="+qp_get(category)
 	#return sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&nm="+urllib.quote_plus(name2)+"&tp="+str(type2)+"&scr="+urllib.quote_plus(scr)+"&fan="+urllib.quote_plus(imgfan)+"&show="+urllib.quote_plus(name2)+"&cat="+urllib.quote_plus(category)
 	return u
-
 ##print sys.argv[0]
 ##print sys.argv[1]
 ##print sys.argv[2]
-
-
-#########################################
+### ############################################################################################################
+### ############################################################################################################
 def FAVS():
   saved_favs = cache.get('favourites_')
   erNoFavs='XBMC.Notification([B][COLOR orange]Favorites[/COLOR][/B],[B]You have no favorites saved.[/B],5000,"")'
@@ -1145,131 +1236,132 @@ def FAVS():
   if saved_favs:
     favs = sorted(eval(saved_favs), key=lambda fav: fav[0])#favs = eval(saved_favs)
     for fav in favs:
-        try:
-        	addDirD("%s" % fav[0],fav[0],fav[1],fav[4],fav[5],fav[2],fav[3])
-        except:
-        	#addDirD("%s" % fav[0].upper(),fav[0],fav[1],1,6,artPath + ICON0,fanart0)
-        	continue
+    	if (metaArt_DoCheck(fav[0])==True):
+    		if (debugging==True): print fav[0] + ' found in cached metaArt Data.'
+    		thetvdb_data=metaArt_getCache(fav[0])
+    		cio=class_itmOBJ()
+    		cio['Plot']=ParseDescription(thetvdb_data[6])
+    		cio['Status']=thetvdb_data[8]
+    		cio['image_fanart']=thetvdb_data[3] #fav[3]
+    		cio['image_banner']=thetvdb_data[5]
+    		cio['image_thumbnail']=thetvdb_data[4] #fav[2]
+    		cio['id_show']=thetvdb_data[1]
+    		cio['Language']=thetvdb_data[9]
+    		cio['Network']=thetvdb_data[10]
+    		cio['Genres']=thetvdb_data[7]
+    		cio['Rating']=thetvdb_data[11]
+    		cio['Votes']='Unknown'
+    		cio['Date_Released']='Unknown'
+    		cio['Type']='Anime' #'Dubbed Anime'
+    		cio['label_title']=fav[0]
+    		cio['name']=fav[0]
+    		cio['url']=fav[1]
+    		cio['mode']=fav[5]
+    		cio['type2']=fav[4]
+    		cio['name2']=fav[0]
+    		cio['show']=fav[0]
+    		cio['category']=fav[0]
+    		#cio['']=
+    		#cio['']=
+    		#cio['']=
+    		## addDirD(name,name2,url,type2,mode,iconimage,fanimage,doSorting=False,categoryA='Blank',Labels='none')
+    		mm=make_item_show(cio)
+    	else: 
+    		cio=class_itmOBJ()
+    		cio['Plot']=''; cio['Status']=''; cio['image_fanart']=fav[3]; cio['image_banner']=''; cio['image_thumbnail']=fav[2]; cio['id_show']=''; cio['Language']='Unknown'; cio['Network']='Unknown'; cio['Genres']='Unknown'; cio['Rating']='Unknown'; cio['Votes']='Unknown'; cio['Date_Released']='Unknown'; cio['Type']='Anime'; cio['label_title']=fav[0]; cio['name']=fav[0]; cio['url']=fav[1]; cio['mode']=fav[5]; cio['type2']=fav[4]; cio['name2']=fav[0]; cio['show']=fav[0]; cio['category']=fav[0]
+    		mm=make_item_show(cio)
+    		#try:
+    		#	addDirD("%s" % fav[0],fav[0],fav[1],fav[4],fav[5],fav[2],fav[3])
+    		#except:
+    		#	#addDirD("%s" % fav[0].upper(),fav[0],fav[1],1,6,artPath + ICON0,fanart0)
+    		#	continue
   set_view('tvshows',int(getset('viewmode-favs')),False)
-#############################
-if favcmd=='add':
-        if (debugging==True): print ""+url
-        ##s='[B][COLOR yellowgreen]@[/COLOR][/B] '
-        ##e='[COLOR black]@[/COLOR] '
-        if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
-        if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
-        addfavorite(name,url,scr,imgfan,type2,mode)
-elif favcmd=='rem':
-        if (debugging==True): print ""+url
-        if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
-        if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
-        removefavorite(name,url,scr,imgfan,type2,mode)
-elif favcmd=='clr':
-        if (debugging==True): print ""+url
-        emptyFavorites()
-elif favcmd=='showurl':
-        if (debugging==True): print ""+url
-        showurl(name,url,scr,imgfan)
-elif favcmd=='download':
-        if (debugging==True): print ""+url
-        download_file_prep(url,name,name2,show)
-        #download_file(url,name)
-elif favcmd=='metaclear':
-        if (debugging==True): print ""+url
-        metaArt_empty()
-elif favcmd=='visitedclear':
-        if (debugging==True): print ""+url
-        visited_empty()
-#############################
-if (debugging==True): print u_get()
-visited_add(u_get())
-#############################
-if mode==None or url==None or len(url)<1:
-        if (debugging==True): print ""
-        menu0()
-elif mode==1:
-        if (debugging==True): print ""+url
-        menu1()
-elif mode==2:
-        if (debugging==True): print ""+url
-        menu2()
-elif mode==201:
-        if (debugging==True): print ""+url
-        menu201()
-#elif mode==202:
-#        if (debugging==True): print ""+url
-#        CATEGORIESlistab(url)
-elif mode==211:
-        if (debugging==True): print ""+url
-        menu211(url)
-elif mode==250:#dubbed anime
-        if (debugging==True): print ""+url
-        menu250()
-elif mode==251:#dubbed anime
-        if (debugging==True): print ""+url
-        menu251()
-elif mode==252:#dubbed anime
-        if (debugging==True): print ""+url
-        menu252_genre_list()
-elif mode==253:#dubbed anime
-        if (debugging==True): print ""+url
-        menu253(url)
-elif mode==254:#dubbed anime
-        if (debugging==True): print ""+url
-        EPISODESlist(url,'Dubbed')
-elif mode==256:#dubbed anime#DAOn
-        if (debugging==True): print ""+url
-        menu256_show_list(url)
-elif mode==257:#dubbed anime
-        if (debugging==True): print ""+url
-        menu257_episode_list(url,'Dubbed') #EPISODESlist(url,'Dubbed')
-elif mode==3:
-        if (debugging==True): print ""+url
-        menu3()
-elif mode==301:
-        if (debugging==True): print ""+url
-        menu301()
-#elif mode==302:
-#        if (debugging==True): print ""+url
-#        CATEGORIESmoviesab(url)
-elif mode==311:
-        if (debugging==True): print ""+url
-        menu311(url)
-elif mode==4:
-        if (debugging==True): print ""+url
-        EPISODESlist(url)
-elif mode==5:
-        if (debugging==True): print ""+url
-        VIDEOsource(url,name)
-elif mode==501:
-        if (debugging==True): print ""+url
-        VIDEOsource_501(url,name)
-elif mode==6:
-        if (debugging==True): print ""+url
-        showlist(url,mode)
-elif mode==601:
-        if (debugging==True): print ""+url
-        showlistnames(url,mode)
-elif mode==400:
-        if (debugging==True): print ""+url
-        searchwindow(SiteNames[type2],SiteSearchMethod[type2],SiteSearchUrls[type2],mode,type2,name2,url)
-elif mode==888:
-        if (debugging==True): print ""+url
-        FAVS()
-elif mode==999:
-        if (debugging==True): print ""+url
-        downloadfile(url,name)
-elif mode==1900:
-        if (debugging==True): print ""+url
-        primewire_links(url,name)
-elif mode==1901:## Mode for use when wanting to download a file. This can be directed from another plugin.
-        if (debugging==True): print ""+url
-        download_it_now(url,name)
-elif mode==1902:## Mode for use when wanting to download a file. This can be directed from another plugin.
-        if (debugging==True): print ""+url
-        download_it_now(url,name2)
+### ############################################################################################################
+### ############################################################################################################
+def check_cmd(special_command=favcmd,url=url, urlbac=urlbac, name=name, name2=name2, type2=type2, favcmd=favcmd, mode=mode, scr=scr, imgfan=imgfan, show=show, category=category):
+	#notification('Special Command',special_command)
+	if (url is not None) and (url is not '') and (debugging==True): print "url: "+url
+	if (special_command is not None) and (special_command is not '') and (debugging==True): print 'Special Command: '+special_command
+	if favcmd=='add':
+		##s='[B][COLOR yellowgreen]@[/COLOR][/B] '
+		##e='[COLOR black]@[/COLOR] '
+		if (debugging==True): print "name: "+name
+		if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
+		if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
+		addfavorite(name,url,scr,imgfan,type2,mode)
+	elif favcmd=='rem':
+		if ('[/COLOR] ' in name): name = name.split('[/COLOR] ')[1]
+		if ('[/COLOR]' in name): name = name.split('[/COLOR]')[1]
+		removefavorite(name,url,scr,imgfan,type2,mode)
+	elif favcmd=='clr': emptyFavorites()
+	elif favcmd=='showurl': showurl(name,url,scr,imgfan)
+	elif favcmd=='download':
+		download_file_prep(url,name,name2,show)
+		#download_file(url,name)
+	elif favcmd=='metaclear': metaArt_empty()
+	elif favcmd=='visitedclear': visited_empty()
+	elif favcmd=='showtextwindow2': TextBox2().load_file(url,name2)
+	elif favcmd=='showtextwindow':
+		#TextBox_FromUrl().load(url,name2)
+		TextBox2().load_url(url,name2)
+		##xbmc.executebuiltin("XBMC.Container.Refresh")
+	elif favcmd=='showsettingwindow': __settings__.openSettings()
+	elif favcmd=='metachangeshowname': metachange__Show_Name(name2)
+	else:
+		if (debugging==True): print u_get()
+		visited_add(u_get()) ## Marks the current plugin url as having been visited.
+		check_mode(mode) ## Mode to determine what Command(s) or Menu to do.
+### ############################################################################################################
+### ############################################################################################################
+def check_mode(_mode_=mode):
+	if (url is not None) and (url is not '') and (debugging==True): print "url: "+url
+	#if (mode==None) or (url==None) or (len(url)<1): menu0()
+	if (mode==None): menu0_MainMenu()
+	elif mode==1: menu1_BrowseMethod()
+	elif mode==101: menu101_Extras()
+	elif mode==2: menu2()
+	elif mode==201: menu201()
+	#elif mode==202:
+	#        CATEGORIESlistab(url)
+	elif mode==211: menu211(url)
+	elif mode==250: menu250()#dubbed anime
+	elif mode==251: menu251()#dubbed anime
+	elif mode==252: menu252_genre_list()#dubbed anime
+	elif mode==253: menu253(url)#dubbed anime
+	elif mode==254: EPISODESlist(url,'Dubbed')#dubbed anime
+	elif mode==256: menu256_show_list(url)#dubbed anime#DAOn
+	elif mode==257: menu257_episode_list(url,'Dubbed') #EPISODESlist(url,'Dubbed') #dubbed anime
+	elif mode==3: menu3()
+	elif mode==301: menu301()
+	#elif mode==302: CATEGORIESmoviesab(url)
+	elif mode==311: menu311(url)
+	elif mode==4: EPISODESlist(url)
+	elif mode==5: VIDEOsource(url,name)
+	elif mode==501: VIDEOsource_501(url,name)
+	elif mode==6: showlist(url,mode)
+	elif mode==601: showlistnames(url,mode)
+	elif mode==400: searchwindow(SiteNames[type2],SiteSearchMethod[type2],SiteSearchUrls[type2],mode,type2,name2,url)
+	elif mode==888: FAVS()
+	elif mode==999: downloadfile(url,name)
+	elif mode==1800: search_for_airdates()
+	elif mode==1801: search_for_airdates(name)
+	elif mode==1900: primewire_links(url,name)
+	elif mode==1901: download_it_now(url,name) ## Mode for use when wanting to download a file. This can be directed from another plugin.
+	elif mode==1902: download_it_now(url,name2) ## Mode for use when wanting to download a file. This can be directed from another plugin.
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
 
-	
-#notification('Current Site',mainSite)
-page_last_update()
+
+check_cmd(favcmd) ## Special Command Structure to override mode commands.
+#check_mode(mode) ## Mode to determine what Command(s) or Menu to do. ## This has been moved into the end of the check_cmd() function.
+
+page_last_update() ## Marks this as the last page visited after having done nearly everything else.
 if (favcmd==None) or (favcmd==''): xbmcplugin.endOfDirectory(int(sys.argv[1]))
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################

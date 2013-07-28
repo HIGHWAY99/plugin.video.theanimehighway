@@ -9,6 +9,8 @@
    	<setting label="30707" type="action" 	action="RunPlugin(plugin://plugin.video.theanimehighway/theanimehighway.py?mode=887&name=none&nm=none&tp=0&fav=visitedclear&url=none&scr=none&fan=none)"/>
    </category>
    <category label="31100">#Menu
+   	<setting label="E-X-T-R-A-S" type="bool"		id="esite-extras"									default="true"/>
+   	<setting label="E-X-T-R-A-S 2" type="bool"		id="esite-extras2"									default="true"/>
    	<setting label="31101" type="bool"		id="esite-1" 									default="true"/>
    	<setting label="31102" type="bool"		id="esite-2" 									default="true"/>
    	<setting label="31103" type="bool"		id="esite-3" 									default="true"/>
@@ -31,6 +33,7 @@
    	<setting label="31120" type="bool"		id="esite-20"									default="true"/>
    </category>
    <category label="30600">#View Modes
+   	<setting label="View-Mode: Sites" type="number" 	id="viewmode-sites"							default="50"	/>
    	<setting label="30601" type="number" 	id="viewmode-default"							default="50"	/>
    	<setting label="30602" type="number" 	id="viewmode-movies"							default="515"	/>
    	<setting label="30603" type="number" 	id="viewmode-shows"								default="515"	/>

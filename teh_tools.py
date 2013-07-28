@@ -1,6 +1,18 @@
-import urllib,urllib2,re,os,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,sys,htmllib
-import string,StringIO,logging,random,array,time
-import urlresolver
+### ############################################################################################################
+###	#	
+### # Project: 			#		teh_tools - by The Highway 2013.
+### # Author: 			#		The Highway
+### # Version:			#		(ever changing)
+### # Description: 	#		My collection of common tools.
+###	#	
+### ############################################################################################################
+### ############################################################################################################
+__plugin__	=	"The Anime Highway"
+__authors__	=	"The Highway"
+plugin_id		=	"plugin.video.theanimehighway"
+### ############################################################################################################
+### ############################################################################################################
+import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,urlresolver,urllib,urllib2,re,os,sys,htmllib,string,StringIO,logging,random,array,time,requests,datetime
 try: import json
 except ImportError: import simplejson as json
 try: import StorageServer
@@ -10,22 +22,36 @@ cache = StorageServer.StorageServer(plugin_id)
 #import SimpleDownloader as downloader
 from t0mm0.common.net import Net as net
 from t0mm0.common.addon import Addon
-###
-__settings__ 		= xbmcaddon.Addon(id=plugin_id)
-__home__ = __settings__.getAddonInfo('path')
-addonPath=__home__
-artPath=addonPath+'/art/'
-ICON = os.path.join(__home__, 'icon.jpg')
-fanart = os.path.join(__home__, 'fanart.jpg')
-if __settings__.getSetting("enable-debug") == "true":debugging=True
-else: debugging=False
-#if (debugging==True): 
-if __settings__.getSetting("show-debug") == "true": shoDebugging=True
-else: shoDebugging=False
-#if (showDebugging==True): 
-#############################
-
-#########################################
+### ############################################################################################################
+### ############################################################################################################
+### ### Common Imports ### 
+### ######################
+### import shutil, md5, base64, unicodedata, threading, string
+### import resources.lib.common as common
+### import xbmc, xbmcplugin, xbmcgui, xbmcaddon, xbmcvfs, common
+### import os.path, sys, urllib, urllib2, cookielib, string, httplib, socket, random
+### import os, re, math, binascii, datetime, HTMLParser
+### from BeautifulSoup import BeautifulStoneSoup
+### from BeautifulSoup import BeautifulSoup , Tag, NavigableString
+### try: from xml.etree import ElementTree
+### except: from elementtree import ElementTree
+### from xbmcgui import Dialog
+### import copy
+### requests, httplib, urlparse
+### from operator import itemgetter
+### from metahandler import metahandlers
+### from metahandler import metacontainers
+### 
+### 
+### 
+### 
+### 
+### 
+### 
+### 
+### 
+### ############################################################################################################
+### ############################################################################################################
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -42,20 +68,25 @@ def get_params():
                         if (len(splitparams))==2:
                                 param[splitparams[0]]=splitparams[1]
         return param
-
-#########################################
-url=None
-urlbac=None
-name=None
-name2=None
-type2=None
-favcmd=None
-mode=None
-scr=None
-imgfan=None
-show=None
-category=None
-
+### ############################################################################################################
+### ############################################################################################################
+cache						=	StorageServer.StorageServer(plugin_id)
+addon						=	Addon(plugin_id, sys.argv)
+local						=	xbmcaddon.Addon(id=plugin_id)
+__settings__		=	xbmcaddon.Addon(id=plugin_id)
+__home__				=	__settings__.getAddonInfo('path')
+addonPath				=	__settings__.getAddonInfo('path')
+artPath					=	addonPath+'/art/'	#special://home/addons/plugin.video.theanimehighway/art
+if __settings__.getSetting("enable-debug") == "true":debugging=True				#if (debugging==True): 
+else: debugging=False
+if __settings__.getSetting("show-debug") == "true": shoDebugging=True			#if (showDebugging==True): 
+else: shoDebugging=False
+params=get_params()
+ICON = os.path.join(__home__, 'icon.jpg')
+fanart = os.path.join(__home__, 'fanart.jpg')
+### ############################################################################################################
+### ############################################################################################################
+url=None; urlbac=None; name=None; name2=None; type2=None; favcmd=None; mode=None; scr=None; imgfan=None; show=None; category=None
 try: category=urllib.unquote_plus(params["cat"])
 except: pass
 if category==None: category='Base'
@@ -79,7 +110,8 @@ try: type2=int(params["tp"])
 except: pass
 try: mode=int(params["mode"])
 except: pass
-
+### ############################################################################################################
+### ############################################################################################################
 ICON8 = os.path.join(artPath, 'icon_watchdub.png');ICON7 = os.path.join(artPath, 'icon_dubhappy.png');ICON6 = os.path.join(artPath, 'iconDAOn2.png');ICON5 = os.path.join(artPath, 'iconA44couk.png');ICON4 = os.path.join(artPath, 'icongd.png');ICON3 = os.path.join(artPath, 'iconAPlus.png');ICON2 = os.path.join(artPath, 'iconA44.png');ICON1 = os.path.join(artPath, 'iconAG.png');ICON0 = os.path.join(__home__, 'icon.png')
 fanart8 = os.path.join(artPath, 'fanart_watchdub.jpg');fanart7 = os.path.join(artPath, 'fanart_dubhappy.jpg');fanart6 = os.path.join(artPath, 'fanartDAOn2.jpg');fanart5 = os.path.join(artPath, 'fanartA44couk.jpg');fanart4 = os.path.join(artPath, 'fanartgd.jpg');fanart3 = os.path.join(artPath, 'fanartAPlus.jpg');fanart2 = os.path.join(artPath, 'fanartA44.jpg');fanart1 = os.path.join(artPath, 'fanartAG.jpg');fanart0 = os.path.join(__home__, 'fanart.jpg')
 if type2==8:			#site 8
@@ -108,9 +140,8 @@ elif type2==2:		#site 2
 	fanart = os.path.join(artPath, 'fanartA44.jpg');ICON = os.path.join(artPath, 'iconA44.png');mainSite='http://www.anime44.com/'
 else:							#site 1
 	fanart = os.path.join(artPath, 'fanartAG.jpg');ICON = os.path.join(artPath, 'iconAG.png');mainSite='http://www.animeget.com/'
-
-
-#########################################
+### ############################################################################################################
+### ############################################################################################################
 SiteBits=['nosite','animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.uk','dubbedanimeon.com','dubhappy.eu','watchdub.com']
 SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','[COLOR teal]Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]','[COLOR cornflowerblue][COLOR white]dub[/COLOR]happy[/COLOR]','[COLOR cornflowerblue]Watch[/COLOR][COLOR white]Dub[/COLOR]','','']
 SitePrefixes=['nosite','','','','','subanime/','','','','','','','','','','','','']
@@ -121,7 +152,7 @@ Sites=['animeget.com','anime44.com','animeplus.tv','gooddrama.net','anime44.co.u
 MyAlphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 MyColors=['red','blue','darkblue','grey','maroon','teal','cornflowerblue','cornflowerblue','','','','']
 MyBrowser=['User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3']
-#############################
+### ############################################################################################################
 MyVideoLinkSrcMatches=['src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"'			,'src="(.+?)"'		,'src="(.+?)"',		'src="(.+?)"']
 MyVideoLinkSrcMatchesB=['src="(.+?)"',			'<embed.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"',			'<iframe.+?src="(.+?)"'			,'src="(.+?)"'		,'src="(.+?)"',		'src="(.+?)"']
 MyVideoLinkBrackets=['<iframe.+?src="(.+?)"', '<embed.+?src="(.+?)"', '<object.+?data="(.+?)"']
@@ -132,9 +163,8 @@ MySourcesV=		['videoweed.es',	'video44.net',	'novamov.com',	'dailymotion.com',	'
 MyIconsV=		[artPath + 'videoweed.jpg',	artPath + 'video44a.png',	artPath + 'novamov.jpg',	artPath + 'dailymotion.jpg',	artPath + 'videofun.png',	artPath + 'yourupload.jpg',	artPath + 'googlevideo.gif', artPath + 'vidzur.png', artPath + 'upload2.png', artPath + 'putlocker.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png', artPath + 'BLANK.png']#BLANK.png
 MyNamesV=		['VideoWeed',			'Video44',			'NovaMov',			'DailyMotion',			'VideoFun',			'YourUpload',				'Google Video',			'VidZur',			'Upload2',		'PutLocker',		'VideoSlasher',		'VidBull',		'UploadC',	'Veevr',	'RuTube',			'MP4Upload'		,'AUEngine']
 MyColorsV=	['lime',					'red',					'silver',				'green',						'cyan',					'grey',					'blue',					'orange',					'white',					'white',					'white',					'white',					'white',					'white', 			'white', 			'white', 			'white', 			'white', 			'white']
-#############################
-#########################################
-
+### ############################################################################################################
+### ############################################################################################################
 def getURLr(url,dReferer):
 	try:
 		req = urllib2.Request(url,dReferer)
@@ -169,7 +199,7 @@ def notification(header="", message="", sleep=5000 ):
 	#notify(msg=message, title=header, delay=sleep, image=ICON)
 	#notify(msg=message, title='[COLOR green][B]'+header+'[/B][/COLOR]', delay=sleep, image=ICON0)
 
-#########################################
+### ############################################################################################################
 ##Example##VaddDir('[COLOR blue]' + text[0] + '[/COLOR]', '', 0, '', False)
 def addFolder(name,name2,url,type2,mode,iconimage,categoryA='Blank'):
 		###addDir(name,name2,url,type2,mode,iconimage,fanimage)
@@ -182,6 +212,16 @@ def addFolder(name,name2,url,type2,mode,iconimage,categoryA='Blank'):
 #def addFolder(name,name2,url,type2,mode,iconimage):
 #		##addDir(name,name2,url,type2,mode,iconimage,fanimage)
 #		addDir(name,name2,mainSite + url,type2,mode,artPath + iconimage,fanart)
+def addDirF(name,name2,url,favcmd,type2=0,mode=0,iconimage=ICON0,fanimage=fanart0,categoryA='Blank'):
+        if (debugging==True): print 'Category: ',category,categoryA
+        categoryA=category+' ::: '+categoryA
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&nm="+urllib.quote_plus(name2)+"&tp="+str(type2)+"&scr="+urllib.quote_plus(iconimage)+"&fan="+urllib.quote_plus(fanimage)+"&show="+urllib.quote_plus(name2)+"&cat="+categoryA+'&fav='+favcmd
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        liz.setProperty( "Fanart_Image", fanimage )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
 def addDir(name,name2,url,type2,mode,iconimage,fanimage,categoryA='Blank'):
         if (debugging==True): print 'Category: ',category,categoryA
         categoryA=category+' ::: '+categoryA
@@ -315,9 +355,7 @@ def addLink(name,url,iconimage=ICON,fanimage=fanart,shoname='none',downloadable=
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz)
         return ok
 
-
-
-#########################################
+### ############################################################################################################
 def getset(idSetting):#,defaultValue=''):#Addon.getSetting('idNameOfSetting')
 	return __settings__.getSetting(idSetting)#==defaultValue
 
@@ -332,7 +370,7 @@ def getsetbool_(idSetting):#Addon.getSetting('idNameOfSetting') #Method seems to
 	if (tst=='true') or (tst=='True') or (tst=='TRUE'): return True
 	else: return False
 	#return __settings__.getSetting(idSetting) == 'true'
-#########################################
+### ############################################################################################################
 def download_it_now(url,name):## mode=1901 ##
 	name=name.strip()
 	if ('[/COLOR]' in name): name=name.replace('[/COLOR]','')
@@ -474,7 +512,6 @@ def _pbhookb_frodo(numblocks, blocksize, filesize, dlg, start_time):
         dlg.close()
         raise StopDownloading('Stopped Downloading')
 
-
 def filename_filter_colorcodes(name=''):
 	if ('[/color]' 			in name): name=name.replace('[/color]','')
 	if ('[/COLOR]' 			in name): name=name.replace('[/COLOR]','')
@@ -486,6 +523,14 @@ def filename_filter_colorcodes(name=''):
 	if ('[/B]' in name): name=name.replace('[/B]','')
 	if ('[cr]' in name): name=name.replace('[cr]','')
 	if ('[CR]' in name): name=name.replace('[CR]','')
+	if ('[i]' in name): name=name.replace('[i]','')
+	if ('[I]' in name): name=name.replace('[I]','')
+	if ('[/i]' in name): name=name.replace('[/i]','')
+	if ('[/I]' in name): name=name.replace('[/I]','')
+	if ('[uppercase]' in name): name=name.replace('[uppercase]','')
+	if ('[UPPERCASE]' in name): name=name.replace('[UPPERCASE]','')
+	if ('[lowercase]' in name): name=name.replace('[lowercase]','')
+	if ('[LOWERCASE]' in name): name=name.replace('[LOWERCASE]','')
 	#if ('' in name): name=name.replace('','')
 	#if ('' in name): name=name.replace('','')
 	#if ('' in name): name=name.replace('','')
@@ -538,6 +583,7 @@ def download_file_prep(url,name='none',name2='none',show='none',filext='none'):
 #	notification('file download: ' + name, 'Downloading "' + url + '" to "' + filenm + '"')
 #	downloader.download(filenm, params)
 
+### ############################################################################################################
 #def dialogboxyesno(txtMessage="",txtHeader="",txt3="",txt4=""):
 #	dialog = xbmcgui.Dialog()
 #	if dialog.yesno(txtHeader, txtMessage, txt3, txt4):
@@ -569,6 +615,7 @@ def showkeyboard(txtMessage="",txtHeader="",passwordField=False):
 	else:
 		return False # return ''
 
+### ############################################################################################################
 def checkForPartNo(url,partInfo=''):
 	url=urllib.unquote_plus(url)
 	if '_part_' in urllib.unquote_plus(url):
@@ -591,9 +638,7 @@ def checkForPartNo(url,partInfo=''):
 			temp=''
 	return partInfo
 
-
-
-#########################################
+### ############################################################################################################
 def set_view(content='none',view_mode=50,do_sort=False):
 	if (debugging==True): print 'view mode: ',view_mode
 	if content=='none': test=''
@@ -648,7 +693,7 @@ def set_view(content='none',view_mode=50,do_sort=False):
 #	#                        SORT_METHOD_LABEL_IGNORE_THE, SORT_METHOD_VIDEO_SORT_TITLE,
 #	#                        SORT_METHOD_VIDEO_SORT_TITLE_IGNORE_THE
 
-#########################################
+### ############################################################################################################
 ### from theanimehighway.py ###
 #def showurl(name,url,scr=ICON0,imgfan=fanart0,type2=0,mode=0):
 #	copy_to_clipboard(url)
@@ -659,7 +704,7 @@ def showurl(name,url,scr=ICON,imgfan=fanart,type2=0,mode=0):
 	if (debugging==True): print url, name, scr, imgfan
 	kmsg=showkeyboard(url, name)
 
-#########################################
+### ############################################################################################################
 def metaArt_empty():
   saved_fans = cache.get('MetaArt_')
   fans = []
@@ -694,7 +739,7 @@ def removefavorite(name,url,scr=ICON0,imgfan=fanart0,tp2=0,mode=0):#,scr,imgfan
     	favs.remove((name,url,scr,imgfan,tp2,mode))
     	cache.set('favourites_', str(favs))
     	notification('[B][COLOR orange]'+name.upper()+'[/COLOR][/B]','[B] Removed from Favorites[/B]')
-    	if (debugging==True): print name+' Removed from Favorites'
+    	if (debugging==True): print name+' Removed from Favorites.'
     	#set_view('tvshows',int(getset('viewmode-favs')),True)
     	#VaddDir('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]', '', 0, ICON, fanart, False)
     	#LastPage=page_last_update()
@@ -703,6 +748,24 @@ def removefavorite(name,url,scr=ICON0,imgfan=fanart0,tp2=0,mode=0):#,scr,imgfan
     	#VaddDir('[COLOR maroon] Visit with [COLOR tan]Highway[/COLOR] and others @ [COLOR white]#XBMCHUB[/COLOR] on [COLOR white]irc.freenode.net[/COLOR]:6667 [/COLOR]', '', 0, ICON, fanart, False)
     	##xbmc.Container.Refresh
     	#xbmc.sleep(4000)
+    elif ((name) in favs):
+    	favs.remove((name))
+    	cache.set('favourites_', str(favs))
+    	notification('[B][COLOR orange]'+name.upper()+'[/COLOR][/B]','[B] Removed from Favorites[/B]')
+    	if (debugging==True): print name+' Removed from Favorites. (Hopefully)'
+    	xbmc.executebuiltin("XBMC.Container.Refresh")
+    elif favs:
+    	tf=False
+    	for (_name,_url,_scr,_imgfan,_tp2,_mode) in favs:
+    		if (name==_name):
+    			favs.remove((name,_url,_scr,_imgfan,_tp2,_mode))
+    			cache.set('favourites_', str(favs))
+    			notification('[B][COLOR orange]'+name.upper()+'[/COLOR][/B]','[B] Removed from Favorites[/B]')
+    			if (debugging==True): print name+' Removed from Favorites. (Hopefully)'
+    			tf=True
+    			xbmc.executebuiltin("XBMC.Container.Refresh")
+    			return
+    	if (tf==False): notification('[B][COLOR orange]'+name.upper()+'[/COLOR][/B]','[B] not found in your Favorites[/B]')
     else:
     	notification('[B][COLOR orange]'+name.upper()+'[/COLOR][/B]','[B] not found in your Favorites[/B]')
     #xbmc.executebuiltin("XBMC.Notification([B][COLOR orange]"+name.upper()+"[/COLOR][/B],[B] Removed from Favourites[/B],5000,"")")
@@ -720,7 +783,7 @@ def metaArt_add(show_name,show_title_thetvdb,show_id,url_thetvdb,show_fanart,sho
 	cache.set('MetaArt_', str(fans))
 	#notification('[B][COLOR orange]'+show_name.upper()+'[/COLOR][/B]','[B] Added to MetaArt[/B]')
 	##xbmc.executebuiltin("XBMC.Notification([B][COLOR orange]"+name.upper()+"[/COLOR][/B],[B] Added to Favourites[/B],5000,"")")
-#########################################
+### ############################################################################################################
 def getAlphaFolder(alphaTxt='',typeTxt='',slashTxt=''):
 	if type2==5: return 'subanime/'
 	#elif mode==211: return 'alpha-anime/'
@@ -735,9 +798,7 @@ def showlistdir(vLetterA,vLetterB,vImageC):#SitePrefixes#SiteSufixes
 def movielistdir(vLetterA,vLetterB,vImageC):
 	addFolder('[COLOR ' + MyColors[1] + ']' + vLetterB + '[/COLOR]','movies',getAlphaFolder('alpha-','movies','/') + vLetterA + getAlphaEnd('movies') + SiteSufixes[type2],type2,6,'Glossy_Black\\' + vImageC + '.png')
 
-
-
-#########################################
+### ############################################################################################################
 def clean_filename(filename):
     # filename = _1CH.unescape(filename)
     return re.sub('[/:"*?<>|]+', ' ', filename)
@@ -770,9 +831,7 @@ def check_ifUrl_isHTML(pathUrl): ## Doesn't work yet. Needs Fixed.
 	except:
 		return False
 
-
-#########################################
-
+### ############################################################################################################
 def visited_DoCheck(urlToCheck,s='[B][COLOR yellowgreen]@[/COLOR][/B] ',e='[COLOR black]@[/COLOR] '):
 	#visited_empty()
 	#return ''
@@ -837,20 +896,604 @@ def page_last_get(defaultLastPage=sys.argv[0]+'?mode=0'):
 def page_last_update(defaultLastPage=sys.argv[0]+sys.argv[2]):
 	cache.set('lastpage', defaultLastPage)
 
+def format_eta(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    if minutes > 60:
+        hours, minutes = divmod(minutes, 60)
+        return "ETA: %02d:%02d:%02d " % (hours, minutes, seconds)
+    else:
+        return "ETA: %02d:%02d " % (minutes, seconds)
 
-#########################################
+def format_time(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    if minutes > 60:
+        hours, minutes = divmod(minutes, 60)
+        return "%02d:%02d:%02d" % (hours, minutes, seconds)
+    else:
+        return "%02d:%02d" % (minutes, seconds)
+
+### ############################################################################################################
+### ############################################################################################################
+class TextBox_FromFile:
+	# constants
+	WINDOW = 10147
+	CONTROL_LABEL = 1
+	CONTROL_TEXTBOX = 5
+	def __init__(self, *args, **kwargs):
+		xbmc.executebuiltin("ActivateWindow(%d)" % ( self.WINDOW, ))				# activate the text viewer window
+		self.win = xbmcgui.Window(self.WINDOW)															# get window
+		xbmc.sleep(1000)																										# give window time to initialize
+		self.setControls()
+	def setControls(self,txtFilepath=__home__,txtFilename='changelog.txt'):
+		HeaderMsg = "%s - ( v%s )" % (__plugin__,addon.get_version())										# set heading
+		self.win.getControl(self.CONTROL_LABEL).setLabel(HeaderMsg)
+		#root = addon.get_path()																							# set text
+		txt_path = os.path.join(txtFilepath,txtFilename)
+		#txt_path = os.path.join(__home__, 'news.txt')
+		f = open(txt_path)
+		text = f.read()
+		self.win.getControl(self.CONTROL_TEXTBOX).setText(text)
+### ############################################################################################################
+class TextBox_FromUrl: ## Usage Example: TextBox_FromUrl().load('https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/README.md')
+	WINDOW 						=	10147
+	CONTROL_LABEL 		=	1
+	CONTROL_TEXTBOX 	=	5
+	HEADER_MESSAGE		=	"%s - ( v%s )" % (__plugin__,addon.get_version())										# set heading
+	def load(self, URL_PATH, HEADER_MESSAGE2=''):
+		if (HEADER_MESSAGE2==''): HEADER_MESSAGE2=self.HEADER_MESSAGE
+		print 'text window from url: ',URL_PATH #self.URL_PATH
+		try: 			text=getURL(URL_PATH)#(self.URL_PATH)
+		except: 	text=''
+		xbmc.executebuiltin("ActivateWindow(%d)" % ( self.WINDOW, ))				# activate the text viewer window
+		self.win = xbmcgui.Window(self.WINDOW)															# get window
+		xbmc.sleep(500)																											# give window time to initialize
+		self.win.getControl(self.CONTROL_LABEL).setLabel(HEADER_MESSAGE2)
+		self.win.getControl(self.CONTROL_TEXTBOX).setText(text)
+### ############################################################################################################
+class TextBox2: ## Usage Example: TextBox_FromUrl().load('https://raw.github.com/HIGHWAY99/plugin.video.theanimehighway/master/README.md')
+	WINDOW 						=	10147
+	CONTROL_LABEL 		=	1
+	CONTROL_TEXTBOX 	=	5
+	HEADER_MESSAGE		=	"%s - ( v%s )" % (__plugin__,addon.get_version())										# set heading
+	def load_url(self, URL_PATH, HEADER_MESSAGE2=''):
+		if (debugging==True): print 'text window from url: ',URL_PATH #self.URL_PATH
+		try: 			text=getURL(URL_PATH)#(self.URL_PATH)
+		except: 	text=''
+		self.load_window()
+		self.set_header(HEADER_MESSAGE2)
+		self.set_text(text)
+	def load_file(self, FILE_NAME='changelog.txt', HEADER_MESSAGE2='', FILE_PATH=__home__):
+		txt_path = os.path.join(FILE_PATH,FILE_NAME)
+		if (debugging==True): print 'text window from file: ',txt_path
+		f = open(txt_path)
+		text = f.read()
+		self.load_window()
+		self.set_header(HEADER_MESSAGE2)
+		self.set_text(text)
+	def load_window(self, sleeptime=500):
+		xbmc.executebuiltin("ActivateWindow(%d)" % ( self.WINDOW, ))				# activate the text viewer window
+		self.win = xbmcgui.Window(self.WINDOW)															# get window
+		xbmc.sleep(sleeptime)																											# give window time to initialize
+	def set_header(self, HEADER_MESSAGE2=''):
+		if (HEADER_MESSAGE2==''): HEADER_MESSAGE2=self.HEADER_MESSAGE
+		self.win.getControl(self.CONTROL_LABEL).setLabel(HEADER_MESSAGE2)
+	def set_text(self, text=''):
+		self.win.getControl(self.CONTROL_TEXTBOX).setText(text)
+### ############################################################################################################
+### ############################################################################################################
+class class_itmOBJ(object): ## Thx to those of plugin.video.SportsDevil.
+	def __init__(self):
+		self.infos_names = []
+		self.infos_values = []
+	def __getitem__(self, key, type1=1):
+		#return self.getInfo_str(key)
+		if (type1==1): return self.getInfo_str(key)
+		if (type1==2): return self.getInfo_int(key)
+		if (type1==3): return self.getInfo_b(key)
+		else: return self.getInfo(key)
+	def __setitem__(self, key, value):
+		self.setInfo(key, value)
+	def reset(self):
+		self.infos_names = []
+		self.infos_values = []
+	def setInfo(self, key, value):
+		if key in self.infos_names:
+			self.infos_values[self.infos_names.index(key)] = value
+		else:
+			self.infos_names.append(key)
+			self.infos_values.append(value)
+			#if (debugging==True): print 'value: ',value
+			#if (debugging==True): print 'key: '+key
+			#if (debugging==True): print 'value set: ',self.infos_values[self.infos_names.index(key)]
+			##if (debugging==True): notification('value',value)
+	def getInfo(self, key):
+		if (debugging==True): print self.infos_names
+		if (debugging==True): print self.infos_values
+		if self.infos_names.__contains__(key):
+			return self.infos_values[self.infos_names.index(key)]
+		return None
+	def getInfo_str(self, key):
+		if self.infos_names.__contains__(key):
+			return self.infos_values[self.infos_names.index(key)]
+		return ''
+	def getInfo_int(self, key):
+		if self.infos_names.__contains__(key):
+			return self.infos_values[self.infos_names.index(key)]
+		return 0
+	def getInfo_b(self, key):
+		if self.infos_names.__contains__(key):
+			return self.infos_values[self.infos_names.index(key)]
+		return False
+	def merge(self, item):
+		for info_name in item.infos_names:
+			if not self[info_name]:
+				self[info_name] = item[info_name]
+	def __str__(self):
+		txt = ''
+		for info_name in self.infos_names:
+			txt += string.ljust(info_name,15) +':\t' + self[info_name] + '\n'
+		return txt
+### ############################################################################################################
+class class_MyMenu(object):
+	def eod(self): ## 
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	def refresh(self): ## To Refresh the Menu.
+		xbmc.executebuiltin("XBMC.Container.Refresh")
+	def get_u(self,iOBJ): ## To make  the plugin URL.
+		u=sys.argv[0]
+		u+="?url="+urllib.quote_plus(iOBJ['url'])
+		u+="&mode="+str(iOBJ['mode'])
+		u+="&name="+urllib.quote_plus(iOBJ['name'])
+		u+="&nm="+urllib.quote_plus(iOBJ['name2'])
+		u+="&tp="+str(iOBJ['type2'])
+		u+="&scr="+urllib.quote_plus(iOBJ['image_thumbnail'])
+		u+="&fan="+urllib.quote_plus(iOBJ['image_fanart'])
+		u+="&show="+urllib.quote_plus(iOBJ['show'])
+		u+="&cat="+urllib.quote_plus(iOBJ['category'])
+		return u
+	def addDir_MI(self,iOBJ): ## For Folders - Menu Items
+		#if (debugging==True): print iOBJ
+		if (debugging==True): print 'addDir_MI -- label_title: '+iOBJ['label_title']
+		ok=True; u=self.get_u(iOBJ)
+		if (debugging==True): print 'addDir_MI -- u: '+u
+		liz=xbmcgui.ListItem(iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		liz.setInfo( type="Video", infoLabels={ "Title": iOBJ['label_title'] } )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=iOBJ['isFolder'])
+		return ok
+	def addDir_FC(self,iOBJ): ## For Folders - Menu Items with %Fav= for special over-ride commands.
+		ok=True; u=self.get_u(iOBJ)
+		u+='&fav='+iOBJ['favcmd']
+		if (debugging==True): print 'addDir_FC -- u: '+u
+		liz=xbmcgui.ListItem(iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		liz.setInfo( type="Video", infoLabels={ "Title": iOBJ['label_title'] } )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=iOBJ['isFolder'])
+		return ok
+	def addDir_LA(self,iOBJ): ## Label Text
+		ok=True; u=self.get_u(iOBJ)
+		if (debugging==True): print 'addDir_LA -- u: '+u
+		liz=xbmcgui.ListItem(iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		liz.setInfo( type="Video", infoLabels={ "Title": iOBJ['label_title'] } )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=iOBJ['isFolder'])
+		return ok
+	def addDir_CM1(self,iOBJ): ## For ??
+		ok=True; u=self.get_u(iOBJ)
+		if (debugging==True): print 'addDir_CM1 -- u: '+u
+		liz=xbmcgui.ListItem(iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		liz.setInfo( type="Video", infoLabels={ "Title": iOBJ['label_title'] } )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		contextMenuItems = []
+		if __settings__.getSetting("enable-showurl") == "true":
+			contextMenuItems.append(('[B][COLOR orange]Show[/COLOR][/B] ~  [B]URL[/B]',							'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],iOBJ['mode'] , urllib.quote_plus(iOBJ['name']), urllib.quote_plus(iOBJ['name']), 877, 'showurl', urllib.quote_plus(iOBJ['url']), urllib.quote_plus(iOBJ['image_thumbnail']), urllib.quote_plus(iOBJ['image_fanart']))))
+		liz.addContextMenuItems(contextMenuItems, replaceItems=True)
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=iOBJ['isFolder']) ## is_folder=False
+		return ok
+	def addDir_CM2(self,iOBJ,Labels='none'): ## For Folder - Used for show listings.
+		if Labels=='none': Labels={ "Title" : iOBJ['label_title'] }
+		#Labels=self.get_L(iOBJ,Labels)
+		ok=True; u=self.get_u(iOBJ)
+		if (debugging==True): print 'addDir_CM2 -- u: '+u
+		vc_tag=visited_DoCheck(u)
+		if (debugging==True): print vc_tag
+		liz=xbmcgui.ListItem(vc_tag+iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		liz.setInfo( type="Video", infoLabels=Labels )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		contextMenuItems = []
+		sysname = urllib.quote_plus(iOBJ['name'])
+		sysurl = urllib.quote_plus(iOBJ['url'])
+		sysscr = urllib.quote_plus(iOBJ['image_thumbnail'])
+		sysfan = urllib.quote_plus(iOBJ['image_fanart'])
+		if (debugging==True): print getsetbool('enable-showurl')
+		if __settings__.getSetting("enable-showurl") == "true":#doesn't work for some odd reason >> #if getsetbool('enable-showurl') == 'true':#
+			contextMenuItems.append(('[B][COLOR orange]Show[/COLOR][/B] ~  [B]URL[/B]',														'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],mode , sysname, urllib.quote_plus(iOBJ['name2']), type2, 'showurl', sysurl, sysscr, sysfan)))
+		contextMenuItems.append(('[B][COLOR green]ADD[/COLOR][/B] ~  [B][COLOR tan]Favorite[/COLOR][/B]', 			'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s&show=%s)' % (sys.argv[0],mode , sysname, urllib.quote_plus(iOBJ['name2']), type2, 'add', sysurl, sysscr, sysfan,urllib.quote_plus(iOBJ['name2']))))
+		contextMenuItems.append(('[B][COLOR red]REMOVE[/COLOR][/B] ~  [B][COLOR tan]Favorite[/COLOR][/B]', 			'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s&show=%s)' % (sys.argv[0],mode , sysname, urllib.quote_plus(iOBJ['name2']), type2, 'rem', sysurl, sysscr, sysfan,urllib.quote_plus(iOBJ['name2']))))
+		contextMenuItems.append(('Show Information', 			'XBMC.Action(Info)'))
+		contextMenuItems.append(('[B][COLOR orange]Metadata[/COLOR][/B] ~ Show Name',												'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],mode , sysname, urllib.quote_plus(iOBJ['name2']), type2, 'metachangeshowname', sysurl, sysscr, sysfan)))
+		#contextMenuItems.append(('[B][COLOR orange]Test[/COLOR][/B] ~  [B]Test[/B]',"notification(%s,%s)" % (sysname,sysurl)))
+		if (debugging==True): print getset('enable-clearfavorites')
+		if __settings__.getSetting("enable-clearfavorites") == "true":#if getset('enable-clearfavorites')==True:
+			contextMenuItems.append(('[B][COLOR yellow]Clear[/COLOR][/B] ~  [B][COLOR tan]Favorites[/COLOR][/B]', 	'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],mode , sysname, urllib.quote_plus(iOBJ['name2']), type2, 'clr', sysurl, sysscr, sysfan)))
+		liz.addContextMenuItems(contextMenuItems, replaceItems=True)
+		if iOBJ['doSorting']==True: ## doSorting=False by default
+			xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=iOBJ['isFolder']) ## is_folder=True
+		return ok
+	def addLink_(self, iOBJ, downloadable=True): ## For Video Links.
+		ok=True; u=self.get_u(iOBJ)
+		if (debugging==True): print u
+		liz=xbmcgui.ListItem(iOBJ['name'], iconImage="DefaultFolder.png", thumbnailImage=iOBJ['image_thumbnail'])
+		if (' - [COLOR grey]' 	in iOBJ['label_studio']): iOBJ['label_studio']=iOBJ['label_studio'].split(' - [COLOR grey]')[0]
+		if (' [COLOR grey]- ' 	in iOBJ['label_studio']): iOBJ['label_studio']=iOBJ['label_studio'].split(' [COLOR grey]- ')[0]
+		if ('[COLOR grey] - ' 	in iOBJ['label_studio']): iOBJ['label_studio']=iOBJ['label_studio'].split('[COLOR grey] - ')[0]
+		if (' - [COLOR' 				in iOBJ['label_studio']): iOBJ['label_studio']=iOBJ['label_studio'].split(' - [COLOR')[0]
+		if (' [COLOR lime](English Dubbed)[/COLOR]' in iOBJ['label_title']):
+			iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](English Dubbed)[/COLOR]'
+			iOBJ['label_title'] =iOBJ['label_title'].replace(' [COLOR lime](English Dubbed)[/COLOR]','')
+		elif ('English Dubbed' 	in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](English Dubbed)[/COLOR]'
+		elif ('Eng Dubbed' 			in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](English Dubbed)[/COLOR]'
+		elif ('Dubbed' 					in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](Dubbed)[/COLOR]'
+		elif ('English Subbed' 	in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](English Subbed)[/COLOR]'
+		elif ('Eng Subbed' 			in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](English Subbed)[/COLOR]'
+		elif ('Subbed' 					in iOBJ['label_title']): iOBJ['label_studio']=iOBJ['label_studio']+' [COLOR lime](Subbed)[/COLOR]'
+		liz.setInfo( type="Video", infoLabels={ "Title": iOBJ['label_title'], "Studio": iOBJ['label_studio'] } )
+		liz.setProperty( "Fanart_Image", iOBJ['image_fanart'] )
+		if (debugging==True): print getset('enable-showurl')
+		if (getsetbool_('enable-showurl')==True):
+			contextMenuItems.append(('[B][COLOR orange]Show[/COLOR][/B] ~  [B]URL[/B]',							'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],0 , urllib.quote_plus(iOBJ['show']), urllib.quote_plus(iOBJ['show']), 0, 'showurl', urllib.quote_plus(iOBJ['url']), iOBJ['image_thumbnail'], iOBJ['image_fanart'])))
+		if (getsetbool_('enable-downloading') == True) and (downloadable==True):
+			if ('novamov.com' not in iOBJ['url']) and ('videoweed.es' not in iOBJ['url']) and ('dailymotion.com' not in iOBJ['url']):
+				contextMenuItems.append(('[B][COLOR purple]Download[/COLOR][/B] ~  [B]File[/B]',				'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],0 , urllib.quote_plus(iOBJ['show']), urllib.quote_plus(iOBJ['show']), 0, 'download', urllib.quote_plus(iOBJ['url']), iOBJ['image_thumbnail'], iOBJ['image_fanart'])))
+		liz.addContextMenuItems(contextMenuItems, replaceItems=True)
+		if iOBJ['doSorting']==True:
+			xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz) ## is_folder=True
+		return ok
+
+### ############################################################################################################
+### ############################################################################################################
+def getparambool_(idSetting):
+	try: o=params[idSetting]
+	except: o=None
+	if (o==True) or (o=='True') or (o=='true') or (o=='TRUE'): return True
+	else: return False
+
+def getparamstr_(idSetting):
+	try: o=params[idSetting]
+	except: o=None
+	if (o==None): return ''
+	else: return o
+
+def getparamint_(idSetting):
+	try: o=params[idSetting]
+	except: o=None
+	if (o==None): return 0
+	else: return o
+### ############################################################################################################
+
+def make_item_fill_it( _name='', _isFolder=False, _mode=0, _type2=0, _category='Unknown', _image_thumbnail=ICON0, _image_fanart=fanart0, _url='', _name2='', _label_title='' ):
+	if (_name2==''): _name2=_name
+	if (_label_title==''): _label_title=_name
+	cio=class_itmOBJ()
+	if (_name==''): return cio
+	cio['url']=_url
+	cio['category']=getparamstr_('cat')+' ::: '+_category
+	cio['type2']=_type2
+	cio['mode']=_mode
+	cio['name']=_name
+	cio['name2']=_name2
+	cio['label_title']=_label_title
+	cio['image_thumbnail']=_image_thumbnail
+	cio['image_fanart']=_image_fanart
+	cio['isFolder']=_isFolder
+	return cio
+
+def make_item( _name='', _isFolder=False, _mode=0, _type2=0, _category='Unknown', _image_thumbnail=ICON0, _image_fanart=fanart0, _url='', _name2='', _label_title='' ):
+	cio=make_item_fill_it( _name, _isFolder, _mode, _type2, _category, _image_thumbnail, _image_fanart, _url, _name2, _label_title )
+	MyMenu.addDir_MI(cio)
+	return cio
+
+def make_item_cmd( _favcmd='', _name='', _isFolder=False, _mode=0, _type2=0, _category='Unknown', _image_thumbnail=ICON0, _image_fanart=fanart0, _url='', _name2='', _label_title='' ):
+	cio=make_item_fill_it( _name, _isFolder, _mode, _type2, _category, _image_thumbnail, _image_fanart, _url, _name2, _label_title )
+	cio['favcmd']=_favcmd
+	MyMenu.addDir_FC(cio)
+	return cio
+
+def make_item_show( cio ): # _name='', _isFolder=False, _mode=0, _type2=0, _category='Unknown', _image_thumbnail=ICON0, _image_fanart=fanart0, _url='', _name2='', _label_title='' ):
+	#cio=make_item_fill_it( _name, _isFolder, _mode, _type2, _category, _image_thumbnail, _image_fanart, _url, _name2, _label_title )
+	#cio['Plot']=_
+	#cio['Rating']=_
+	#cio['Date_Added']=_
+	#cio['Date_Released']=_
+	#cio['Genres']=_
+	#cio['Themes']=_
+	#cio['_image_banner']=_
+	#cio['Date_Aired']=_
+	#cio['']=_
+	#cio['']=_
+	#cio['']=_
+	#cio['']=_
+	#cio['']=_
+	cio['isFolder']=True
+	Labels={ 'Title':cio['label_title'],'Plot':cio['Plot'],'Year':cio['Year'],'Status':cio['Status'],'Rating':cio['Rating'], 'ShowID':cio['id_show'],'Votes':cio['Votes'],'Type':cio['Type'], 'Fanart':cio['image_fanart'], 'Poster':cio['image_thumbnail'], 'Banner':cio['image_banner'], 'Language':cio['Language'], 'Network':cio['Network'], 'Genre':cio['Genres'] } 
+	#
+	#
+	#
+	MyMenu.addDir_CM2(cio,Labels)
+	return cio
+
+
+### ############################################################################################################
+### ############################################################################################################
+
+def get_xbmc_os():
+	try: xbmc_os = os.environ.get('OS')
+	except: xbmc_os = "unknown"
+	return xbmc_os
+def get_xbmc_version():
+	rev_re = re.compile('r(\d+)')
+	try: xbmc_version = xbmc.getInfoLabel('System.BuildVersion')
+	except: xbmc_version = 'Unknown'
+	return xbmc_version
+def get_xbmc_revision():
+	rev_re = re.compile('r(\d+)')
+	try: xbmc_version = xbmc.getInfoLabel('System.BuildVersion')
+	except: xbmc_version = 'Unknown'
+	try:
+		xbmc_rev = int(rev_re.search(xbmc_version).group(1))
+		print "addoncompat.py: XBMC Revision: %s" % xbmc_rev
+	except:
+		print "addoncompat.py: XBMC Revision not available - Version String: %s" % xbmc_version
+		xbmc_rev = 0
+	return xbmc_rev
+
+def _SaveFile(path, data):
+	file = open(path,'w')
+	file.write(data)
+	file.close()
+def _OpenFile(path):
+	if os.path.isfile(path): ## File found.
+		file = open(path, 'r')
+		contents=file.read()
+		file.close()
+		return contents
+	else: return '' ## File not found.
+def _CreateDirectory(dir_path):
+	dir_path = dir_path.strip()
+	if not os.path.exists(dir_path): os.makedirs(dir_path)
+def _get_dir(mypath, dirname): #...creates sub-directories if they are not found.
+	subpath = os.path.join(mypath, dirname)
+	if not os.path.exists(subpath): os.makedirs(subpath)
+	return subpath
+#def _cleanfilename(name):
+#	valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+#	return ''.join(c for c in name if c in valid_chars)
+
+def _time2ms(time):
+	hour,minute,seconds = time.split(';')[0].split(':')
+	frame = int((float(time.split(';')[1])/24)*1000)
+	milliseconds = (((int(hour)*60*60)+(int(minute)*60)+int(seconds))*1000)+frame
+	return milliseconds
+def _convert_time(milliseconds):
+	seconds = int(float(milliseconds)/1000)
+	milliseconds -= (seconds*1000)
+	hours = seconds / 3600
+	seconds -= 3600*hours
+	minutes = seconds / 60
+	seconds -= 60*minutes
+	return "%02d:%02d:%02d,%3d" % (hours, minutes, seconds, milliseconds)
+
+def check_url_v(_url):
+	rs=0
+	try:
+		r = requests.head(_url)
+		#if (debugging==True): print str(r.status_code)
+		rs=r.status_code
+	except: t=''
+	if (rs==404) or (rs=='') or (rs==None): return False
+	elif (rs==200) or (rs==302): return True
+	else: return False
+### >>> url = 'http://hup.hu'
+### >>> r = requests.head(url)
+### >>> r.status_code
+### 200    # requests.codes.OK
+### >>> url = 'http://www.google.com'
+### >>> r = requests.head(url)
+### >>> r.status_code
+### 302    # requests.codes.FOUND
+### >>> url = 'http://simile.mit.edu/crowbar/nothing_here.html'
+### >>> r = requests.head(url)
+### >>> r.status_code
+### 404    # requests.codes.NOT_FOUND
+
+def thetvdb_com_episodes(show_id):
+	if (debugging==True): print 'thetvdb.com show ID: '+show_id
+	link=getURL('http://www.thetvdb.com/?tab=seasonall&id='+show_id)
+	itable=(link.split('<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">')[1]).split('</table>')[0]
+	iresults=re.compile('<tr><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)-(.+?)-(.+?)</td><td class=".+?"><img src="(.+?)" width=.+? height=.+?>.+?</td></tr>').findall(itable)
+	### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
+	return iresults
+	#
+	#
+	#
+
+def Episode__get_S_Ep_No(episode_title):
+	season_number=''; episode_number=''
+	if (' Season ' in episode_title): season_number=(re.compile(' Season (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' season ' in episode_title): season_number=(re.compile(' season (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' s ' in episode_title): season_number=(re.compile(' s (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' S ' in episode_title): season_number=(re.compile(' S (\d+) ').findall(episode_title+' ')[0]).strip()
+	else: season_number='1'
+	if (' Episode ' in episode_title): episode_number=(re.compile(' Episode (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' episode ' in episode_title): episode_number=(re.compile(' episode (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' ep ' in episode_title): episode_number=(re.compile(' ep (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' Ep ' in episode_title): episode_number=(re.compile(' Ep (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' EP ' in episode_title): episode_number=(re.compile(' EP (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' e ' in episode_title): episode_number=(re.compile(' e (\d+) ').findall(episode_title+' ')[0]).strip()
+	elif (' E ' in episode_title): episode_number=(re.compile(' E (\d+) ').findall(episode_title+' ')[0]).strip()
+	else: episode_number=''
+	return (season_number,episode_number)
+
+def Episode__get_thumb(the_url,show_img):
+	if ('/?tab=episode&' in the_url) and ('&seriesid=' in the_url) and ('&id=' in the_url):
+		id_series=(re.compile('&seriesid=(\d+)&').findall(the_url+'&')[0]).strip()
+		id_episode=(re.compile('&id=(\d+)&').findall(the_url+'&')[0]).strip()
+		episode_thumbnail='http://www.thetvdb.com/banners/episodes/'+id_series+'/'+id_episode+'.jpg'
+	else: 
+		episode_thumbnail=show_img; id_series=''; id_episode=''
+	return (episode_thumbnail,id_series,id_episode)
+
+def Episode__get_date(thetvdb_episode):
+	return (thetvdb_episode[4].strip()+'-'+thetvdb_episode[5].strip()+'-'+thetvdb_episode[6].strip(),thetvdb_episode[4].strip(),thetvdb_episode[5].strip(),thetvdb_episode[6].strip())
+
+def thetvdb_com__show_search(show_name,show_id='none'):
+	default_return= None
+	#if (show_id=='none'):
+	if (debugging==True): print 'thetvdb.com show name: '+show_name
+	url_search='http://thetvdb.com/index.php?fieldlocation=2&language=7&genre=&year=&network=&zap2it_id=&tvcom_id=&imdb_id=&order=translation&addedBy=&searching=Search&tab=advancedsearch&seriesname='+urllib.quote_plus(show_name)
+	#else:
+	#	if (debugging==True): print 'thetvdb.com show id: '+show_id
+	#	url_search='http://thetvdb.com/index.php?fieldlocation=2&language=7&genre=&year=&network=&zap2it_id=&tvcom_id=&imdb_id=&order=translation&addedBy=&searching=Search&tab=advancedsearch&seriesname='+urllib.quote_plus(show_name)
+	if (debugging==True): print 'thetvdb.com search: '+url_search
+	link=getURL(url_search)
+	if (link=='none') or (link==''): return default_return
+	elif 'No Series found.' in link: return default_return
+	else:
+		try:
+			match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>').findall(link)
+			return match
+		except:
+			try:
+				match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?"></td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>').findall(link)
+				return match
+			except: return default_return
+
+def thetvdb_com__show_select(show_name,show_id='none',getFirst=False):
+	default_return= None
+	rMatches=thetvdb_com__show_search(show_name) ### match_showurl,match_name,match_genres,match_status,match_language,match_network,match_rating
+	if (rMatches==None): 
+		if (debugging==True): print 'thetvdb_com__show_select() >> thetvdb_com__show_search() >> [no resullts found.]'
+		if (shoDebugging==True): notification('Searching Shows for MetaData',show_name+': No Shows were found.')
+		return default_return
+	if (getFirst==True):
+		if (option_list==[]):
+			if (shoDebugging==True): notification('Searching Shows for MetaData',show_name+': No Results were found.')
+			return default_return
+		else: return rMatches[0]
+	else:
+		dialogSelect = xbmcgui.Dialog()
+		option_list = []
+		for rMatch in rMatches:
+			option_list.append(rMatch[1])
+		if (option_list==[]):
+			if (shoDebugging==True): notification('Searching Shows for MetaData',show_name+': No Results were found.')
+			return default_return
+		index=dialogSelect.select('Choose', option_list)
+		if (debugging==True): print 'choice selected: '+str(index)+'.)  '+option_list[index]
+		if (shoDebugging==True): notification('choice selected: ',str(index)+'.)  '+option_list[index])
+		return rMatches[index]
+
+def metachange__Show_Name(show_name,show_id='none',getFirst=False):
+	rSelected=thetvdb_com__show_select(show_name,show_id,getFirst)
+	if (rSelected==None): return
+	
+def episode__AirDates(show_name,show_id='none',getFirst=False):
+	if (show_id=='none'):
+		rSelected=thetvdb_com__show_select(show_name,show_id,getFirst)
+		if (rSelected==None): 
+			if (debugging==True): print 'AirDates >> rSelect==None'
+			return
+		if ('&id=' in rSelected[0]): 
+			show_id=(re.compile('&id=(\d+)&').findall(rSelected[0]+'&')[0]).strip()
+			show_name=(rSelected[1]).strip()
+		elif (';id=' in rSelected[0]): 
+			show_id=(re.compile(';id=(\d+)&').findall(rSelected[0]+'&')[0]).strip()
+			show_name=(rSelected[1]).strip()
+		else: 
+			if (debugging==True): print 'AirDates >> no "&id=" found'
+			if (debugging==True): print rSelected[0]
+			return
+	rEpisodes=thetvdb_com_episodes(show_id) ## 'http://www.thetvdb.com/?tab=seasonall&id='+show_id ##
+	if (rEpisodes==[]): 
+		if (debugging==True): print 'AirDates >> rEpisodes is empty'
+		return
+	dialogSelect = xbmcgui.Dialog(); option_list = []
+	for rMatch in rEpisodes:
+		dateColor='tan'
+		if (int(rMatch[4].strip()) > int(datetime.date.today().strftime("%Y"))) or (int(rMatch[4].strip())==int(datetime.date.today().strftime("%Y"))):
+			if (int(rMatch[5].strip()) > int(datetime.date.today().strftime("%m"))): dateColor='cornflowerblue'
+			elif (int(rMatch[5].strip()) > int(datetime.date.today().strftime("%m"))) or (int(rMatch[5].strip())==int(datetime.date.today().strftime("%m"))):
+				if (int(rMatch[6].strip())==int(datetime.date.today().strftime("%d"))) and (int(rMatch[5].strip())==int(datetime.date.today().strftime("%m"))) and (int(rMatch[4].strip())==int(datetime.date.today().strftime("%Y"))): dateColor='orange'
+				elif (int(rMatch[6].strip())==int(datetime.date.today().strftime("%d"))) or (int(rMatch[6].strip()) > int(datetime.date.today().strftime("%d"))): dateColor='cornflowerblue'
+		#datetime.date.today().strftime("%B %d, %Y")
+		option_list.append('[COLOR red][B]'+rMatch[1]+'[/B][/COLOR]  [COLOR purple]([COLOR '+dateColor+']'+rMatch[4]+'[/COLOR]-[COLOR '+dateColor+']'+rMatch[5]+'[/COLOR]-[COLOR '+dateColor+']'+rMatch[6]+'[/COLOR])[/COLOR]  [COLOR green][I]'+rMatch[3]+'[/I][/COLOR]')
+	if (option_list==[]): 
+		if (debugging==True): print 'AirDates >> option_list is empty'
+		return ##if (shoDebugging==True): notification('Searching Shows for MetaData',show_name+': No Results were found.')
+	index=dialogSelect.select('Episodes:  '+show_name, option_list)
+	#
+	#
+
+def search_for_airdates(r=''):
+	if (r==None) or (r==''): r=showkeyboard('','Search for Show:')
+	if (r==False) or (r==None) or (r==''): return
+	rr=episode__AirDates(r)
+
+def askSelection(option_list=[],txtHeader=''):
+	if (option_list==[]): 
+		if (debugging==True): print 'askSelection() >> option_list is empty'
+		return None
+	dialogSelect = xbmcgui.Dialog();
+	index=dialogSelect.select(txtHeader, option_list)
+	#if (index== -1): 
+	#	return None
+	#if (index==False) or (index==None) or (index=='') or (index== -1): 
+	#	if (debugging==True): print 'askSelection() >> problem retreiving selected item'
+	#	if (debugging==True): print index
+	#	if (debugging==True): print str(index)
+	#	return None
+	#else: return index
+	return index
 
 
 
-#########################################
+### ############################################################################################################
+### ############################################################################################################
 
 
 
-#########################################
+### ############################################################################################################
+### ############################################################################################################
 
 
 
-#########################################
+### ############################################################################################################
+### ############################################################################################################
+
+
+
+### ############################################################################################################
+### ############################################################################################################
+
+
+
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################
+
+
+
+### ############################################################################################################
+
+
+
+### ############################################################################################################
+
+
+
+### ############################################################################################################
 
 
 
@@ -859,5 +1502,11 @@ def page_last_update(defaultLastPage=sys.argv[0]+sys.argv[2]):
 
 
 
+### ############################################################################################################
+### ############################################################################################################
+
+MyMenu=class_MyMenu()
 #notification('Current Site',mainSite)
-#########################################
+### ############################################################################################################
+### ############################################################################################################
+### ############################################################################################################

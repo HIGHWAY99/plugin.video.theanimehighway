@@ -15,9 +15,10 @@ Video Source FYI/Rundown:
 				>>	NovaMov								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: No
 				>>	TrollVid							>>	Playable: Some	>>	ScreenShot: ???	>>	Downloadable: ???
 				>>	Putlocker							>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
-				>>	RuTube.ru							>>	(Not yet)
+				>>	RuTube.ru							>>	Playable: ???		>>	Screenshot:	Yes	>>	Downloadable:	???
 				>>	Upload2								>>	Playable: ???		>>	Screenshot:	???	>>	Downloadable:	???
 				>>	UploadC								>>	Playable: Maybe	>>	Screenshot: No	>>	Downloadable: ???
+				>>	VBox7									>>	Playable: ???		>>	Screenshot:	???	>>	Downloadable:	???
 				>>	Veevr									>>	Playable: No		>>	Screenshot: Yes	>>	Downloadable: ???
 				>>	Veoh									>>	Playable: Yes		>>	Screenshot: Yes	>>	Downloadable: ???
 				>>	VerilScriptz					>>	Playable: Maybe	>>	Screenshot: ???	>>	Downloadable: ???
@@ -35,6 +36,36 @@ Video Source FYI/Rundown:
 				>>	
 
 ========= ChangeLog: =========
+
+ver 0.0.7 - The Anime Highway
+Example:
+if os.path.exists(xbmc.translatePath("special://home/addons/") + 'plugin.video.solarmovie.so'):
+	contextmenuitems.append(('Find AirDates', 'XBMC.Container.Update(%s?mode=%s&title=%s)' % ('plugin://plugin.video.solarmovie.so/','SearchForAirDates',title)))
+if os.path.exists(xbmc.translatePath("special://home/addons/") + 'plugin.video.theanimehighway'):
+	contextmenuitems.append(('Find AirDates', 'XBMC.Container.Update(%s?mode=%s&name=%s)' % ('plugin://plugin.video.theanimehighway/','1801',title)))
+	22.) Added External Feature: Find AirDates.  This can be linked to from other addons too. You can set it to bring up a keyboard for title entry or send a &title=snowname.
+	21.) With the current problem I came apon with "class_itmOBJ()", I'm considering putting off finishing the changing of so much over to using it just yet.
+	20.) Setup a SubMenu linked from the MainMenu for Extras2 stuff when Extras2 is turned off in the Settngs window. This should help to save some space on the MainMenu.
+	20.) Attempted to work my class_itmOBJ() into the innerworkings of videolinks.py for a videolinks2.py, but the class objects seems to act as one object rather than being able to set varibles as a new copy of the object. if you got an idea on how to deal with that please let me know. I had it setup to test with my 501-mode method episode listings linking to it to do a more urlresolver method style select list, but i had to end up using more of a simple array to fix it to work at all. So, I'm sending videolinks2.py back to the drawing board for now. I may in the future work on a vidoelinks3.py to do more of a select dialog method for video urls after the episode list. I haven't decided yet.  On videolinks2.py, it basically wanted to set all entries as with the same information.
+	19.) Added Cool feature to let you type in a Show name, select from a return list of results, and then display the episode listings. (All information from thetvdb.com) With this you can quickly and easily look up what AirDate the site has for upcoming and current episodes.
+	18.) set_view >> episodes >> fixed. This allowed for showing episode data better in mediaInfo views instead of trying to show them in a tvshow type.
+	17.) Started Adding ability to fetch episode metadata from thetvdb.com.
+	16.) Attempting to setup Video sources for vbox7.com. got thumbnail image parsed as well as the video link found with a bit of extra effort and url range-testinging, but video seems to fail to play for more than a second. vbox7.com sources r so damn slow to buffer and laggy as hell.. and frame skipping.
+	15.) class_MyMenu().addDir_CM2 >> fixed.
+	14.) make_item_show() >> function created.
+	13.) FAV() >> added cached data where available.
+	12.) Testing adding class_itmOBJ() method into FAV function (listings favorites). 
+	11.) check_cmd() and check_mode() setup to better do away with possibility of errors.
+	10.) "Site Selection Menu" now using the new "class_itmOBJ" and "class_MyMenu" classes. New functions: make_item_fill_it, make_item, make_item_cmd are now working. more subfunctions in "class_MyMenu" still need finished up.
+	09.) Doing more work on class(s) to hopefully make for better passing of information and menu functions.
+	08.) Combined TextBox_FromUrl and TextBox_FromFile to make a single new TextBox2 class to handle both.
+	07.) Settings >> Added ability to set view mode for Main Sites Selection Menu page.
+	06.) Settings >> Added ability to hide EXTRAS and EXTRAS2 groups of stuff on menus.
+	05.) News feature via news.txt @ Github now working.
+	04.) TextBox class for displaying a text window with text from a given url.
+	03.) TextBox class for text from a preset local file.
+	02.) Added addDirF() function for using making links for my favcmd method.
+	01.) Added italics to code filtering.
 
 ver 0.0.6 - The Anime Highway
 	30.) About time for another public release.
