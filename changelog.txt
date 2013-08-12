@@ -37,6 +37,33 @@ Video Source FYI/Rundown:
 
 ========= ChangeLog: =========
 
+ver 0.0.8 - The Anime Highway
+	15.) Hosters -- While doing work on plugin.video.codelyokoevolution, I added several more Video Hosters to my collection of supportable Hosters.  I'm glad to say that its seems to be up to 30 / 31 Hoster Sites that it does checks for now. Though at least a couple hoster sites are non existant now.
+	14.) Hosters >> AuEngine.com -- Screensohts display, Videos Play.  I'm glad to have this one finally working, I've put it off for way too long.
+	13.) Hosters >> Videonest.net -- Screenshots display, Videos Play.  I may have to add in more parsing for the PermID later as I find more variations of urls.
+	12.) Hosters >> VideoBam.com -- Screenshot images don't seem to work with xbmc. The videos do play, though.
+	11.) Little fix in teh_tools.py for thetvdb episode data fecting.  This fixes it so that the show_poster/image will show if there isn't a screenshot...again.  Took me many hours to figure out the right Regular_expression stuff.
+	10.) Little fix in teh_tools.py for thetvdb episode data fecting.  This allows for making sure to catch results that dont have a screenshot.
+	09.) Hosters >> Youtube.com -- Screenshots work (HD/SD).  Playing doesn't atm in my plugin. I setup my plugin to forward the link to plugin.video.youtube, but something seems to fail.
+	### 02:13:43 T:3664  NOTICE: checking rather url has been visited: plugin://plugin.video.theanimehighway/?url=cH_iCOh_uGQ&mode=1990&name=%5BCOLOR+red%5DYouTube%5B%2FCOLOR%5D+-+%5BCOLOR+grey%5DUse%3A+Youtube+Plugin%5B%2FCOLOR%5D&nm=YouTube&tp=8&scr=http%3A%2F%2Fi1.ytimg.com%2Fvi%2FcH_iCOh_uGQ%2Fhqdefault.jpg&fan=fanart.jpg&show=YouTube&cat=+%3A%3A%3A+watchdub.com+%3A%3A%3A+WatchAnimeMovie.com+%3A%3A%3A++%3A%3A%3A+%5BCOLOR+red%5DYouTube%5B%2FCOLOR%5D+-+%5BCOLOR+grey%5DUse%3A+Youtube+Plugin%5B%2FCOLOR%5D 
+	### 02:13:43 T:3664  NOTICE: url: cH_iCOh_uGQ 
+	### 02:13:43 T:5780  NOTICE: Thread XBPython start, auto delete: false 
+	### 02:13:43 T:5780  NOTICE: -->Python Interpreter Initialized<-- 
+	### 02:13:43 T:2576  NOTICE: Thread BackgroundLoader start, auto delete: false 
+	### 02:13:43 T:5780  NOTICE: Previous line repeats 1 times. 
+	### 02:13:43 T:5780  NOTICE: Loading cookies from :'[[path]]\\AppData\\Roaming\\XBMC\\userdata\\addon_data\\plugin.video.youtube\\yt-cookiejar.txt' 
+	### 02:13:43 T:5780  NOTICE: YouTube-4.4.6 
+	### 02:13:44 T:5780  NOTICE: CommonFunctions-2.5.1 
+	### 02:13:44 T:5780  NOTICE: links: 'dict' 02:13:44 T:5780 WARNING: Attempt to use invalid handle -1
+	08.) Hoster, "stagevu.com", is now listing and playing images.  Screen shot is parsed right, but doesnt seem to display within XBMC, possibly cause of the awful large size of it for a thumbnail.
+	07.) WooHoo! Woot! Woot! I sure love when I do something better in my plugin than Links sites or even the Hoster sites do :) -- Videoweed.es has screenshots somewhat busted up, though their /mobile/ area can bring up the screenshot from the file_id.  In the other pages, themselves, they have <link rel="image_src" href="http://k.".DOMAIN_URL."/thumbs_weed/ff7bbc3432b8fe81cc36ba564d099ca60f.flv.jpg" / >.  The secret is u knock off the first 2 letters "ff" on that file name and remove the replace the '.flv.jpg' with '-1.jpg' and then before the filename put 'http://thumbs.videoweed.es/thumbs/'.
+	06.) Mp4Upload videos are now playing.
+	05.) Added some compatibility for Mp4Upload.com. Graphics Fetched, Downloadable Link found, but still doesn't play quite yet.
+	04.) Veoh Fix for compatibility with more Urls.  Also '(English)' tag for those that mark '[eng]', 'english', or '(eng)' in it.
+	03.) Next up today was a Full Movie List for DubHappy.eu.  Again, no metadata or images for these -LONG- lists, maybe later once I do alphabetical downsizing. Also The images for the movies aren't so easily caught it would seem, and looking on the movie pages, a lot of the images were bad links and had urls hosted by another site anyways... so you'll have to do without images for now.
+	02.) While I was at it I used the new List-Function, for the simpleton (Hahaha) links, to do a Alphabetical Full-Anime-Series List for DubHappy.eu. Because this list is so awfully long, I've taken out the check to see rather online image urls were good or not, so some might not show up if they aren't... also, No plot or meta data for this listing page for the same reason.
+	01.) After quite some time off I've back to look for a dubbed anime to watch and noticed that it was a bit troublesome to find a newly added anime on watchdub section of my plugin, and so...  Added "Recent Anime" to "WatchDub.com" 's Browsable Methods.
+
 ver 0.0.7 - The Anime Highway
 Example:
 if os.path.exists(xbmc.translatePath("special://home/addons/") + 'plugin.video.solarmovie.so'):

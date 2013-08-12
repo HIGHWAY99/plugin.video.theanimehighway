@@ -12,7 +12,12 @@ __authors__	=	"The Highway"
 plugin_id		=	"plugin.video.theanimehighway"
 ### ############################################################################################################
 ### ############################################################################################################
-import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,urlresolver,urllib,urllib2,re,os,sys,htmllib,string,StringIO,logging,random,array,time,requests,datetime
+import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs
+try: import urlresolver
+except: t=''
+import urllib,urllib2,re,os,sys,htmllib,string,StringIO,logging,random,array,time,datetime
+try: import requests ### <import addon="script.module.requests" version="1.1.0"/> ### 
+except: t=''				 ### See https://github.com/kennethreitz/requests ### 
 try: import json
 except ImportError: import simplejson as json
 try: import StorageServer
@@ -206,8 +211,10 @@ def addFolder(name,name2,url,type2,mode,iconimage,categoryA='Blank'):
 		if ('http://' in iconimage) or (artPath in iconimage): t=''
 		else: iconimage = artPath + iconimage
 		mainSite='http://'+SiteBits[type2]+'/'
-		addDir(name,name2,mainSite + url,type2,mode,iconimage,fanart,categoryA)
-		#addDirD(name,name2,mainSite + url,type2,mode,artPath + iconimage,fanart,'wow')
+		if ('http://' not in url): url=mainSite+url
+		addDir(name,name2,url,type2,mode,iconimage,fanart,categoryA)
+		#addDir(name,name2,mainSite + url,type2,mode,iconimage,fanart,categoryA)
+		##addDirD(name,name2,mainSite + url,type2,mode,artPath + iconimage,fanart,'wow')
 ### from videolinks.py ###
 #def addFolder(name,name2,url,type2,mode,iconimage):
 #		##addDir(name,name2,url,type2,mode,iconimage,fanimage)
@@ -246,6 +253,11 @@ def addDirD(name,name2,url,type2,mode,iconimage,fanimage,doSorting=False,categor
         #
         ok=True
         liz=xbmcgui.ListItem(vc_tag+name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        ###
+        #Labels['overlay']='7'
+        #Labels['overlay']=7
+        #Labels[u'overlay']=7
+        ###
         liz.setInfo( type="Video", infoLabels= Labels ) #"Title": "'" + name + "'", "Plot" : plot, "Genres" : genres } )
         liz.setProperty( "Fanart_Image", fanimage )
         sysname = urllib.quote_plus(name)
@@ -615,22 +627,29 @@ def showkeyboard(txtMessage="",txtHeader="",passwordField=False):
 	else:
 		return False # return ''
 
+def dialogbox_number(Header="",n='',type=0):
+	#Types:		#0 : ShowAndGetNumber		#1 : ShowAndGetDate		#2 : ShowAndGetTime		#3 : ShowAndGetIPAddress	dialog = xbmcgui.Dialog()
+	dlg=xbmcgui.Dialog()
+	if (n==''): r=dlg.numeric(1,Header)
+	else: 			r=dlg.numeric(1,Header,n)
+	return r
+
 ### ############################################################################################################
 def checkForPartNo(url,partInfo=''):
 	url=urllib.unquote_plus(url)
-	if '_part_' in urllib.unquote_plus(url):
+	if   ('_part_' in url):
 		try:
 			matchaptn=re.compile('_part_(.+?).').findall(url)
 			partInfo=' - Part # ' + matchaptn[0]
 		except:
 			partInfo=' - Part # ' + 'Unknown'
-	elif '-part-' in urllib.unquote_plus(url):
+	elif ('-part-' in url):
 		try:
 			matchaptn=re.compile('-part-(.+?).').findall(url)
 			partInfo=' - Part # ' + matchaptn[0]
 		except:
 			partInfo=' - Part # ' + 'Unknown'
-	elif 'part' in urllib.unquote_plus(url):
+	elif ('part' in url):
 		try:
 			matchaptn=re.compile('part(.+?).').findall(url)
 			partInfo=' - Part # ' + matchaptn[0]
@@ -638,11 +657,30 @@ def checkForPartNo(url,partInfo=''):
 			temp=''
 	return partInfo
 
+def checkForPartNo2(url,partInfo=''):
+	url=urllib.unquote_plus(url)
+	methods=['_part_(\d+).','_part_(.+?).','-part-(\d+).','-part-(.+?).','part (\d+).','part (\D+).','part (\d+)"','part (\D+)"',"part (\d+)'","part (\D+)'",'part (\d+) of \d+"','part (\D+)" of \D+','part(\d+).','part (\d+) ','part (\D+) ']
+	### ,'part(\D+).'
+	for method in methods:
+		try: 		matchaptn=re.compile(method, re.IGNORECASE | re.DOTALL).findall(url)[0]
+		except: matchaptn=''
+		if (matchaptn is not ''): 
+			if (debugging==True): print 'found method:  '+method
+			partInfo=' - Part # ' + matchaptn
+			return partInfo
+	return ''
+
+
+
 ### ############################################################################################################
+def aSortMeth(sM,h=int(sys.argv[1])):
+	xbmcplugin.addSortMethod(handle=h, sortMethod=sM)
+
 def set_view(content='none',view_mode=50,do_sort=False):
 	if (debugging==True): print 'view mode: ',view_mode
+	h=int(sys.argv[1])
 	if content=='none': test=''
-	else: xbmcplugin.setContent(int(sys.argv[1]), content)
+	else: xbmcplugin.setContent(h, content)
 	#types:									# set_view()
 	# 50		CommonRootView
 	# 51		FullWidthList
@@ -652,39 +690,37 @@ def set_view(content='none',view_mode=50,do_sort=False):
 	# 505		WideIconView
 	# 
 	# 
-	# 
-	# 
-	# 
 	# set content type so library shows more views and info
 	xbmc.executebuiltin("Container.SetViewMode(%s)" % view_mode)
 	# set sort methods - probably we don't need all of them
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_NONE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_UNSORTED)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_TITLE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_TITLE_IGNORE_THE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_TITLE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_SORT_TITLE_IGNORE_THE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_LABEL)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_DATE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_YEAR)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_PROGRAM_COUNT)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RUNTIME)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_GENRE)
+	#aSortMeth(xbmcplugin.SORT_METHOD_NONE)
+	aSortMeth(xbmcplugin.SORT_METHOD_UNSORTED)
+	aSortMeth(xbmcplugin.SORT_METHOD_TITLE)
+	aSortMeth(xbmcplugin.SORT_METHOD_TITLE_IGNORE_THE)
+	aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_TITLE)
+	aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_SORT_TITLE_IGNORE_THE)
+	aSortMeth(xbmcplugin.SORT_METHOD_LABEL)
+	aSortMeth(xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+	aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_RATING)
+	aSortMeth(xbmcplugin.SORT_METHOD_DATE)
+	aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_YEAR)
+	#aSortMeth(xbmcplugin.SORT_METHOD_PROGRAM_COUNT)
+	aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_RUNTIME)
+	aSortMeth(xbmcplugin.SORT_METHOD_GENRE)
 	#
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_FILE)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RUNTIME)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_STUDIO)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_STUDIO_IGNORE_THE)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_PLAYLIST_ORDER)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_EPISODE)
-	xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_DURATION)
-	#xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_BITRATE)
+	aSortMeth(xbmcplugin.SORT_METHOD_FILE)
+	#aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_RUNTIME)
+	#aSortMeth(xbmcplugin.SORT_METHOD_VIDEO_RATING)
+	#aSortMeth(xbmcplugin.SORT_METHOD_STUDIO)
+	#aSortMeth(xbmcplugin.SORT_METHOD_STUDIO_IGNORE_THE)
+	#aSortMeth(xbmcplugin.SORT_METHOD_PLAYLIST_ORDER)
+	aSortMeth(xbmcplugin.SORT_METHOD_EPISODE)
+	aSortMeth(xbmcplugin.SORT_METHOD_DURATION)
+	#aSortMeth(xbmcplugin.SORT_METHOD_BITRATE)
 	#
 	if (do_sort == True):
-		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE)#xbmcplugin.SORT_METHOD_LABEL
+		#aSortMeth(h, xbmcplugin.SORT_METHOD_TITLE)#xbmcplugin.SORT_METHOD_LABEL
+		xbmcplugin.addSortMethod(h, xbmcplugin.SORT_METHOD_TITLE)#xbmcplugin.SORT_METHOD_LABEL
 	#
 	####xbmcplugin.addSortMethod(handle=int(sys.argv[1]), sortMethod=xbmcplugin.SORT_METHOD_TRACKNUM)
 #	#SORT_METHOD_NONE, SORT_METHOD_UNSORTED, SORT_METHOD_VIDEO_TITLE,
@@ -1312,8 +1348,10 @@ def thetvdb_com_episodes(show_id):
 	if (debugging==True): print 'thetvdb.com show ID: '+show_id
 	link=getURL('http://www.thetvdb.com/?tab=seasonall&id='+show_id)
 	itable=(link.split('<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">')[1]).split('</table>')[0]
-	iresults=re.compile('<tr><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)-(.+?)-(.+?)</td><td class=".+?"><img src="(.+?)" width=.+? height=.+?>.+?</td></tr>').findall(itable)
+	iresults=re.compile('<tr><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)-(.+?)-(.+?)</td><td class=".+?">(<img src=".+?" width=10 height=10>)* &nbsp;</td></tr>', re.IGNORECASE | re.DOTALL).findall(itable)
+	#iresults=re.compile('<tr><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)-(.+?)-(.+?)</td><td class=".+?"><img src="(.+?)" width=.+? height=.+?>.+?</td></tr>', re.IGNORECASE | re.DOTALL).findall(itable)
 	### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
+	print iresults
 	return iresults
 	#
 	#
@@ -1362,11 +1400,11 @@ def thetvdb_com__show_search(show_name,show_id='none'):
 	elif 'No Series found.' in link: return default_return
 	else:
 		try:
-			match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>').findall(link)
+			match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>', re.IGNORECASE | re.DOTALL).findall(link)
 			return match
 		except:
 			try:
-				match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?"></td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>').findall(link)
+				match=re.compile('<tr><td class=".+?">.+?</td><td class=".+?"><a href="(.+?)">(.+?)</a></td><td class=".+?">(.+?)</a></td><td class=".+?">(.+?)</td><td class=".+?">(.+?)</td><td class=".+?"></td><td class=".+?">(.+?)</td><td class=".+?">.+?</td></tr>', re.IGNORECASE | re.DOTALL).findall(link)
 				return match
 			except: return default_return
 
@@ -1456,6 +1494,54 @@ def askSelection(option_list=[],txtHeader=''):
 	#	return None
 	#else: return index
 	return index
+
+def tfalse(r,d=False): ## Get True / False
+	if   (r.lower()=='true' ): return True
+	elif (r.lower()=='false'): return False
+	else: return d
+
+def cFL(t,c='white'): ### For Coloring Text ###
+	return '[COLOR '+c+']'+t+'[/COLOR]'
+def iFL(t): ### For Italic Text ###
+	return '[I]'+t+'[/I]'
+def bFL(t): ### For Bold Text ###
+	return '[B]'+t+'[/B]'
+def _FL(t,c,e=''): ### For Custom Text Tags ###
+	if (e==''): d=''
+	else: d=' '+e
+	return '['+c.upper()+d+']'+t+'[/'+c.upper()+']'
+
+def WhereAmI(t): ### for Writing Location Data to log file ###
+	if (debugging==True): print 'Where am I:  '+t
+def deb(s,t): ### for Writing Debug Data to log file ###
+	if (debugging==True): print s+':  '+t
+
+def nolines(t):
+	it=t.splitlines()
+	t=''
+	for L in it:
+		t=t+L
+	t=((t.replace("\r","")).replace("\n",""))
+	return t
+
+def checkImgUrl(img):
+	img=xbmc.translatePath(img)#; deb('Local Image',img)
+	if (check_ifUrl_isHTML(img)==True): return img
+	else: return ''
+def checkImgLocal(img):
+	img=xbmc.translatePath(img)#; deb('Local Image',img)
+	if (os.path.isfile(img)): return img
+	else: return ''
+
+
+
+
+
+
+
+
+
+
 
 
 
