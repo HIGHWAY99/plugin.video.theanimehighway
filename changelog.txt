@@ -37,6 +37,9 @@ Video Source FYI/Rundown:
 
 ========= ChangeLog: =========
 
+ver 0.0.9 - The Anime Highway
+	01.) Fix to menu257_episode_list() for site WatchDub.
+
 ver 0.0.8 - The Anime Highway
 	15.) Hosters -- While doing work on plugin.video.codelyokoevolution, I added several more Video Hosters to my collection of supportable Hosters.  I'm glad to say that its seems to be up to 30 / 31 Hoster Sites that it does checks for now. Though at least a couple hoster sites are non existant now.
 	14.) Hosters >> AuEngine.com -- Screensohts display, Videos Play.  I'm glad to have this one finally working, I've put it off for way too long.

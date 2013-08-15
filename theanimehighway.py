@@ -2,7 +2,7 @@
 ###	#	
 ### # Project: 			#		The Anime Highway - by The Highway 2013.
 ### # Author: 			#		The Highway
-### # Version:			#		v0.0.8
+### # Version:			#		v0.0.9
 ### # Description: 	#		Default .py file for the project.
 ###	#	
 ### ############################################################################################################
@@ -1106,7 +1106,7 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 				episode_title=ParseDescription(episode_title)
 				episode_dateposted='Unknown'
 				#
-				episode_title_old=episode_title; epi_data_done=False
+				episode_title_old=episode_title; epi_data_done=False; thetvdb_isImg=''
 				if (epi_data_found==True):
 					(season_number, episode_number) = Episode__get_S_Ep_No(episode_title)
 					if (episode_number is not ''): ### <tr><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">1 x 2</a></td><td class="even"><a href="/?tab=episode&seriesid=72454&seasonid=4166&id=86048&amp;lid=7">The Kidnapping of a Company President's Daughter Case</a></td><td class="even">1996-01-15</td><td class="even"><img src="/images/checkmark.png" width=10 height=10> &nbsp;</td></tr>
@@ -1118,12 +1118,14 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 								(episode_thumbnail,id_series,id_episode) = Episode__get_thumb(thetvdb_episode[0].strip(),show_img)
 								episode_fanart=show_img; episode_plot=''; epi_data_done=True
 								thetvdb_isImg=thetvdb_episode[7]
+								print '7:  '+thetvdb_isImg
 				if (epi_data_done==False):
 					episode_fanart=fanart; episode_thumbnail=show_img; episode_dateaired=''; id_series=''; id_episode=''; season_number=''; episode_number=''; episode_year=''; episode_month=''; episode_day=''; episode_plot=''
 				#
-				print '7:  '+thetvdb_isImg
+				#print '7:  '+thetvdb_isImg
 				#if (thetvdb_isImg=='<img src="/images/checkmark.png" width=10 height=10>'): episode_thumbnail=ICON
-				if (thetvdb_isImg==''): episode_thumbnail=show_img
+				if   (not thetvdb_isImg): episode_thumbnail=show_img
+				elif (thetvdb_isImg==''): episode_thumbnail=show_img
 				#else: episode_thumbnail=show_img
 				#if (thetvdb_episode[7]):
 				#	print thetvdb_episode[7]
