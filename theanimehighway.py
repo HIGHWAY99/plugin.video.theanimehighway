@@ -2,7 +2,7 @@
 ###	#	
 ### # Project: 			#		The Anime Highway - by The Highway 2013.
 ### # Author: 			#		The Highway
-### # Version:			#		v0.0.9
+### # Version:			#		v0.1.0
 ### # Description: 	#		Default .py file for the project.
 ###	#	
 ### ############################################################################################################

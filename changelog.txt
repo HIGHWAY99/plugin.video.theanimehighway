@@ -37,6 +37,9 @@ Video Source FYI/Rundown:
 
 ========= ChangeLog: =========
 
+ver 0.1.0 - The Anime Highway
+	01.) Noticed some errors for show(s), having video-not-found issues, dealing with stuff in videolinks.py and teh_tools.py, so i tossed in a little quick fix.
+
 ver 0.0.9 - The Anime Highway
 	01.) Fix to menu257_episode_list() for site WatchDub.
 

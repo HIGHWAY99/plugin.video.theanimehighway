@@ -30,16 +30,16 @@ cache						=	StorageServer.StorageServer(plugin_id)
 addon						=	Addon(plugin_id, sys.argv)
 local						=	xbmcaddon.Addon(id=plugin_id)
 __settings__		=	xbmcaddon.Addon(id=plugin_id)
-__home__				=	__settings__.getAddonInfo('path')
-addonPath				=	__settings__.getAddonInfo('path')
-artPath					=	addonPath+'/art/'	#special://home/addons/plugin.video.theanimehighway/art
+__home__				=	xbmc.translatePath(__settings__.getAddonInfo('path'))
+addonPath				=	xbmc.translatePath(__settings__.getAddonInfo('path'))
+artPath					=	xbmc.translatePath(addonPath+'/art/')	#special://home/addons/plugin.video.theanimehighway/art
 if __settings__.getSetting("enable-debug") == "true":debugging=True				#if (debugging==True): 
 else: debugging=False
 if __settings__.getSetting("show-debug") == "true": shoDebugging=True			#if (showDebugging==True): 
 else: shoDebugging=False
 params=get_params()
-ICON = os.path.join(__home__, 'icon.jpg')
-fanart = os.path.join(__home__, 'fanart.jpg')
+ICON = xbmc.translatePath(os.path.join(__home__, 'icon.jpg'))
+fanart = xbmc.translatePath(os.path.join(__home__, 'fanart.jpg'))
 ### ############################################################################################################
 ### ############################################################################################################
 SiteNames=['nosite','[COLOR blue][COLOR white]Anime[/COLOR]Get[/COLOR]','[COLOR red][COLOR white]Anime[/COLOR]44[/COLOR]','[COLOR darkblue][COLOR white]Anime[/COLOR]Plus[/COLOR]','[COLOR grey]Good[COLOR white]Drama[/COLOR][/COLOR]','[COLOR maroon][COLOR white]Anime[/COLOR]Zone[/COLOR]','[COLOR teal]Dubbed[COLOR white]Anime[/COLOR]On [/COLOR]','[COLOR cornflowerblue][COLOR white]dub[/COLOR]happy[/COLOR]','[COLOR cornflowerblue]Watch[/COLOR][COLOR white]Dub[/COLOR]','','']
@@ -1488,7 +1488,8 @@ def vvVIDEOLINKS_doChecks_putlocker(tt,url,mainurl,name,name2='none',scr=ICON,im
 	if MySourcesV[tt] in url:#putlocker
 		if ('http://www.putlocker.com/file/' in url): url=url.replace('http://www.putlocker.com/file/','http://www.putlocker.com/embed/')
 		linkaa=getURL(url)
-		if 'File Does not Exist, or Has Been Removed' in linkaa: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: File was Deleted.[/COLOR]', '', 1, MyIconsV[tt], imgfan)
+		#if 'File Does not Exist, or Has Been Removed' in linkaa: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: File was Deleted.[/COLOR]', '', 1, MyIconsV[tt], imgfan)
+		if 'File Does not Exist, or Has Been Removed' in linkaa: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: File was Deleted.[/COLOR]', '', 1, MyIconsV[tt], fanart)
 		elif 'This file is temporary disabled (but not deleted).' in linkaa: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: temporary disabled (but not deleted).[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 		elif 'Try again a bit later.' in linkaa: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: Try again a bit later.[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 		else:

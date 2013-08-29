@@ -304,10 +304,14 @@ def VaddDir(name, url, mode, iconimage, fanimage, is_folder=False,categoryA=''):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        liz.setProperty( "Fanart_Image", fanimage )
+        try: liz.setProperty( "Fanart_Image", fanimage )
+        except: t=''
+        #	try: liz.setProperty( "Fanart_Image", str(fanimage) )
+        #	except: t=''
         contextMenuItems = []
         if __settings__.getSetting("enable-showurl") == "true":
-        	contextMenuItems.append(('[B][COLOR orange]Show[/COLOR][/B] ~  [B]URL[/B]',							'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],mode , urllib.quote_plus(name), urllib.quote_plus(name), 877, 'showurl', urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanimage))))
+        	try: contextMenuItems.append(('[B][COLOR orange]Show[/COLOR][/B] ~  [B]URL[/B]',							'XBMC.RunPlugin(%s?mode=%s&name=%s&nm=%s&tp=%s&fav=%s&url=%s&scr=%s&fan=%s)' % (sys.argv[0],mode , urllib.quote_plus(name), urllib.quote_plus(name), 877, 'showurl', urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanimage))))
+        	except: t=''
         liz.addContextMenuItems(contextMenuItems, replaceItems=True)#True#liz.addContextMenuItems(contextMenuItems)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=is_folder)
         return ok

@@ -3,6 +3,11 @@
 <<<<<<< 
 =======
 [COLOR grey][Date: 2013.08.14][/COLOR][COLOR black][Post: 2][/COLOR]
+[COLOR cornflowerblue][B]Release:[/B][/COLOR]  v0.1.0
+
+>>>>>>> v0.1.0
+
+[COLOR grey][Date: 2013.08.14][/COLOR][COLOR black][Post: 2][/COLOR]
 [COLOR cornflowerblue][B]Release:[/B][/COLOR]  v0.0.9
 
 [COLOR grey][Date: 2013.08.14][/COLOR][COLOR black][Post: 1][/COLOR]
