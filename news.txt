@@ -2,7 +2,12 @@
 
 <<<<<<< 
 =======
-[COLOR grey][Date: 2013.08.14][/COLOR][COLOR black][Post: 2][/COLOR]
+[COLOR grey][Date: 2013.09.20][/COLOR][COLOR black][Post: 1][/COLOR]
+[COLOR cornflowerblue][B]Release:[/B][/COLOR]  v0.1.2
+
+>>>>>>> v0.1.2
+
+[COLOR grey][Date: 2013.08.14][/COLOR][COLOR black][Post: 3][/COLOR]
 [COLOR cornflowerblue][B]Release:[/B][/COLOR]  v0.1.0
 
 >>>>>>> v0.1.0

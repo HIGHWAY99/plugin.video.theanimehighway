@@ -2,7 +2,7 @@
 ###	#	
 ### # Project: 			#		The Anime Highway - by The Highway 2013.
 ### # Author: 			#		The Highway
-### # Version:			#		v0.1.0
+### # Version:			#		v0.1.2
 ### # Description: 	#		Default .py file for the project.
 ###	#	
 ### ############################################################################################################
@@ -193,7 +193,7 @@ def menu1_BrowseMethod():#Main Menu (for each site)
         elif (type2==7):#dubhappy
         	addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List','?SearchByGenre=True',type2,211,'Glossy_Black\\genres.png','Genre')
         	addFolder('[COLOR ' + MyColors[1] + ']Anime List[/COLOR]','List','/anime-list/',type2,258	,'full.png','Anime List')
-        	addFolder('[COLOR ' + MyColors[1] + ']Anime Movies[/COLOR]','List','/anime-movies/',type2,358	,'movies.png','Anime Movies')
+        	addFolder('[COLOR ' + MyColors[1] + ']AnimeStatic.[org|com] - Anime Movies[/COLOR]','List','/anime-movies/',type2,358	,'movies.png','Anime Movies')
         	#
         elif (type2==8):#watchdub
         	addFolder('[COLOR ' + MyColors[1] + ']Genre[/COLOR]','List','multiple-anime-genres-search/',type2,252,'Glossy_Black\\genres.png','Genre')
@@ -374,9 +374,11 @@ def menu358_list__Name_and_Url__(url): ### For Simply -Name & Url- Lists
 	link=getURL(url)
 	if (type2==7): ### Full Movie List - Alphabetical
 		dat_shows=(link.split('<h4 class="post-title"><a href="http://www.dubhappy.eu/anime-movies/" title="Anime Movies">Anime Movies</a></h4><div class="post-head">')[1]).split('<div id="sidebar1">')[0]
-		dat_show=re.compile('<li><a href="http://www.dubhappy.eu/(.+?)/">(.+?)</a></li>', re.MULTILINE | re.IGNORECASE | re.DOTALL).findall('__'+dat_shows+'__')
+		#dat_show=re.compile('<li><a href="http://www.dubhappy.eu/(.+?)/">(.+?)</a></li>', re.MULTILINE | re.IGNORECASE | re.DOTALL).findall('__'+dat_shows+'__')
+		dat_show=re.compile('<li><a href="(http://.+?)">(.+?)</a></li>', re.MULTILINE | re.IGNORECASE | re.DOTALL).findall('__'+dat_shows+'__')
 		for item_folder, item_name in dat_show:
-			show_url=item_page='http://www.dubhappy.eu/'+item_folder+'/'; show_title=ParseDescription(item_name)
+			#show_url=item_page='http://www.dubhappy.eu/'+item_folder+'/'; show_title=ParseDescription(item_name)
+			show_url=item_page=''+item_folder+''; show_title=ParseDescription(item_name)
 			show_img=ICON
 			#
 			#
@@ -402,7 +404,7 @@ def menu258_list__WatchDub_com__Series_RecentAnime(url): ### For Simply -Name & 
 	viewtyp='tvshows'
 	link=getURL(url)
 	if (type2==7): ### Full Anime List - Alphabetical
-		dat_shows=(link.split('<h4 class="post-title"><a href="http://www.dubhappy.eu/anime-list/" title="Anime List">Anime List</a></h4><div class="post-head">')[1]).split('<div id="sidebar1">')[0]
+		dat_shows=(link.split('<h4 class="post-title"><a href="http://www.dubhappy.eu/anime-list/" title="Dubbed Anime List">Dubbed Anime List</a></h4><div class="post-head">')[1]).split('<div id="sidebar1">')[0]
 		dat_show=re.compile('<li><a href="http://www.dubhappy.eu/anime/(.+?)/">(.+?)</a></li>', re.MULTILINE | re.IGNORECASE | re.DOTALL).findall('__'+dat_shows+'__')
 		for item_folder, item_name in dat_show:
 			show_url=item_page='http://www.dubhappy.eu/anime/'+item_folder+'/'; show_title=ParseDescription(item_name)
@@ -1085,7 +1087,7 @@ def menu257_episode_list(url,mediaType='Subbed'): ## Episode Listings
 				if ('' in episode_title): episode_title=episode_title.replace('English Dubbed','[COLOR lime](English Dubbed)[/COLOR]')
 				episode_title=ParseDescription(episode_title)
 				#Labels={ 'Title': episode_title, 'Dated Posted': episode_dateposted }#,'Plot':show_desc }
-				Labels={ 'Title': '[B]'+show_title+'[/B][CR] - '+episode_title, 'Dated Posted': episode_dateposted, 'Premiered': episode_dateaired, 'Date Aired': episode_dateaired, 'Date': episode_dateaired, 'Season': season_number, 'Episode': episode_number, 'Year': episode_year, 'Month': episode_month, 'Day': episode_day, 'Plot': episode_plot, 'TVShowTitle': show_title, 'Poster': show_poster, 'FanArt': show_fanart, 'Banner': show_banner }
+				Labels={ 'Title': '[B]'+show_title+'[/B][CR] - '+episode_title, 'Date Posted': episode_dateposted, 'Premiered': episode_dateaired, 'Date Aired': episode_dateaired, 'Date': episode_dateaired, 'Season': season_number, 'Episode': episode_number, 'Year': episode_year, 'Month': episode_month, 'Day': episode_day, 'Plot': episode_plot, 'TVShowTitle': show_title, 'Poster': show_poster, 'FanArt': show_fanart, 'Banner': show_banner }
 				addDirD(episode_title,'[B]'+show_title+'[/B] - '+episode_title,episode_url,type2,501,episode_thumbnail,show_fanart,True,'[B]'+show_title+'[/B] - '+episode_title,Labels)
 				#addDirD(episode_title,episode_title,episode_url,type2,501,show_img,fanart,True,episode_title,Labels)
 	if (type2==8): ## Parsing episode listings

@@ -721,13 +721,10 @@ def vvVIDEOLINKS_doChecks_uploadc(tt,url,mainurl,name,name2='none',scr='none',im
 		if 'This file was Deleted' in linka:
 			VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error: File was Deleted.[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 		else:
-			matcha=re.compile("addVariable\('file','(.+?)'\)").findall(linka)[0]
-			#if (debugging==True): print 'match: ',matcha
-			try:
-				#addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' [COLOR grey][/COLOR]',matcha,scr,imgfan,show)
-				addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' [COLOR grey][/COLOR]',matcha,MyIconsV[tt],imgfan,show)
-			except:
-				VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', matcha, 1, MyIconsV[tt], imgfan)
+			try: matcha=re.compile("addVariable\s*\(\s*'file'\s*,\s*'(.+?)'\s*\)").findall(linka)[0]
+			except: t=''
+			try: addLink('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' [COLOR grey][/COLOR]',matcha,MyIconsV[tt],imgfan,show)
+			except: VaddDir('[COLOR ' + MyColorsV[tt] + ']' + MyNamesV[tt] + '[/COLOR]' + ' - [COLOR grey]Error[/COLOR]', '', 1, MyIconsV[tt], imgfan)
 
 
 def vvVIDEOLINKS_doChecks_verilscriptz(tt,url,mainurl,name,name2='none',scr=ICON,imgfan=fanart,show='none',type2=0,mode=0):
