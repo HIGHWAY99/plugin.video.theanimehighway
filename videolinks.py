@@ -226,37 +226,68 @@ def vvVIDEOLINKS(mainurl,name,name2='none',scr='none',imgfan='none',show='none',
 	#vvVIDEOLINKS_doChecks_others(ListOfUrls,0,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
 
 def vvVIDEOLINKS_doChecks(url,mainurl,name,name2='none',scr='none',imgfan='none',show='none',type2=0,mode=0):
-	vvVIDEOLINKS_doChecks_videofun(4,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_dailymotion(3,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_videoweed(0,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_video44(1,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_novamov(2,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_yourupload(5,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_googlevideo(6,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_vidzur(7,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_upload2(8,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_vidbull(11,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_uploadc(12,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_putlocker(9,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_videoslasher(10,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_veevr(13,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_rutube(14,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_trollvid(15,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	#vvVIDEOLINKS_doChecks_verilscriptz(16,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_vidup(17,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_veoh(18,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_megavideo(19,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_vbox7(20,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_mp4upload(21,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_zshare(22,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_stagevu(23,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_youtube(24,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_videobam(25,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_videonest(26,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_auengine(27,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_vimeo(28,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_videologtv(29,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
-	vvVIDEOLINKS_doChecks_4shared(30,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	try: vvVIDEOLINKS_doChecks_videofun(4,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_dailymotion(3,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_videoweed(0,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_video44(1,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_novamov(2,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_yourupload(5,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_googlevideo(6,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_vidzur(7,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_upload2(8,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_vidbull(11,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_uploadc(12,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_putlocker(9,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_videoslasher(10,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_veevr(13,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_rutube(14,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_trollvid(15,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	#try: vvVIDEOLINKS_doChecks_verilscriptz(16,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	#except: pass
+	try: vvVIDEOLINKS_doChecks_vidup(17,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_veoh(18,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_megavideo(19,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_vbox7(20,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_mp4upload(21,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_zshare(22,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_stagevu(23,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_youtube(24,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_videobam(25,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_videonest(26,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_auengine(27,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_vimeo(28,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_videologtv(29,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
+	try: vvVIDEOLINKS_doChecks_4shared(30,url,mainurl,name,name2,scr,imgfan,show,type2,mode)
+	except: pass
 	#
 
 ### ############################################################################################################
@@ -690,9 +721,6 @@ def vvVIDEOLINKS_doChecks_veevr(tt,url,mainurl,name,name2='none',scr='none',imgf
 		### 
 		### http://veevr.com/embed/kdGk7L9__
 		### http://doppler.ch3.hwcdn.net/mh003c3/y2x5c2k3/ads/videos/download/a2d287cfe9694988b54cd046b5d00ff8.smil/media_b826368_w880573809.abst/Seg1-Frag1
-		### _gaq.push(['_setAccount', 'UA-16111683-1']);
-		### _gaq.push(['_setDomainName', 'veevr.com']);
-		### _gaq.push(['_trackPageview']);
 		### #player-logo {
 		###             float:right; margin-right:0; height:19px; width:100px; background:url(http://hwcdn.net/j3v8m4w2/cds/www/images/templates/logo-small.png) no-repeat;
 		###         }

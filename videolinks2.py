@@ -750,9 +750,6 @@ def v2vvVIDEOLINKS_doChecks_veevr(tt,url,mainurl,name,name2='none',scr='none',im
 		### 
 		### http://veevr.com/embed/kdGk7L9__
 		### http://doppler.ch3.hwcdn.net/mh003c3/y2x5c2k3/ads/videos/download/a2d287cfe9694988b54cd046b5d00ff8.smil/media_b826368_w880573809.abst/Seg1-Frag1
-		### _gaq.push(['_setAccount', 'UA-16111683-1']);
-		### _gaq.push(['_setDomainName', 'veevr.com']);
-		### _gaq.push(['_trackPageview']);
 		### #player-logo {
 		###             float:right; margin-right:0; height:19px; width:100px; background:url(http://hwcdn.net/j3v8m4w2/cds/www/images/templates/logo-small.png) no-repeat;
 		###         }
